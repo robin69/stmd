@@ -1,5 +1,12 @@
 <?php
 
+/**
+*
+*	Classe qui assure la recherche dans l'annuaire
+*	par mot clefs en Fulltext.
+*
+*
+********/
 class Search_engine extends CI_Controller{
 
 	public $test;

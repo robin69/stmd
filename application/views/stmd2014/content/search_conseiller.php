@@ -41,7 +41,7 @@
 	  </div><!-- CONTAINER -->
 	  
 	  <div class="clear"></div>
-		  <form action="" method="post" id="search_cas_form">
+		  <form action="<?php echo base_url("annuaire/votre_recherche_conseiller_a_la_securite"); ?>" method="post" id="search_cas_form">
 			  <div class="counsel">
 			    
 			    <div id="region_selector">

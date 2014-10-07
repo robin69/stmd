@@ -28,27 +28,38 @@ $(document).ready(function()
 		 send_cas_request();
 		 console.log("Une checkbox a changée");
 	 });
+	 
+	 $("#send_search_cas").click(function(){
+	 	alert("coucou");
+		 $("#search_cas_form").submit();
+		 return false; 
+	 });
 });
+
+function send_form(form_id)
+{
+	$("#" + form_id ).submit();
+}
 
 function send_cas_request()
 {
 	
 	//On instancie les tableaux pour la recherche de CAS
 	 var search 	= 	[];
-	 var zones 		= 	[];
-	 var classes	= 	[];
+	 var zone 		= 	[];
+	 var classe		= 	[];
 	 var mdtransp	=	[];
 	 	
 	//On récupère les valeurs des zones
 	$("input[name='zone[]']:checked").each(function(){
-		zones.push($(this).val());
+		zone.push($(this).val());
 	});
-	console.log(zones);
+	console.log(zone);
 	//On récupère les valeurs des classes
 	$("input[name='classe[]']:checked").each(function(){
-		classes.push($(this).val());
+		classe.push($(this).val());
 	});
-	console.log(classes);
+	console.log(classe);
 	//On récupère les valeurs des modes de transport
 	$("input[name='mdtransp[]']:checked").each(function(){
 		mdtransp.push($(this).val());
@@ -62,8 +73,8 @@ function send_cas_request()
 	$.ajax({
 		url: "/annuaire/search_cas_ajax/"+ now.valueOf().toString(),
 		data: {
-			zones:		zones,
-			classes:	classes,
+			zone:		zone,
+			classe:		classe,
 			mdtransp:	mdtransp,
 		},
 		type: "POST",
@@ -79,12 +90,12 @@ function send_cas_request()
 			}
 			if(nbr_fiches ==1)
 			{
-				$("#search_result_nbr").html("Voir le résultat trouvé.");
+				$("#search_result_nbr").html("<a href='#' onclick='send_form(\"search_cas_form\"); return false;' title='' >Voir le résultat trouvé.</a>");
 			}
 			
 			if(nbr_fiches >=2)
 			{
-				$("#search_result_nbr").html("Voir les "+ nbr_fiches +" résultats trouvés.");
+				$("#search_result_nbr").html("<a href='#' onclick='send_form(\"search_cas_form\"); return false;' title='' >Voir les "+ nbr_fiches +" résultats trouvés.</a>");
 			}
 			
 			

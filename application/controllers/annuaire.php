@@ -349,19 +349,7 @@ class Annuaire extends CI_Controller {
 		//On récupère la demande
 		
 		$ajax_req = $this->input->post();
-		/*
-		$sql = "SELECT COUNT(*) as nbr_fiches
-			FROM 
-                fiche,
-            	fiche_has_type as fht,
-                fiche_has_zone as fhz,
-                fiche_has_classe as fhc,
-                fiche_has_mdtransp as fhm
-			WHERE publication_status = 'published'
-            AND fiche.id_fiche = fht.fiche_id
-            AND fht.type_slug = 'conseiller_securite'
-		";
-*/
+		
 		//On instancie le tableau des tables, pour alimenter dynamiquement les noms des tables
 		$from= array("fiche","fiche_has_type as fht");
 		
@@ -416,6 +404,72 @@ class Annuaire extends CI_Controller {
 		$this->layout->view("ajax_json_view", $data);
 	}
 	
+	public function show_results_cas()
+	{
+	
+		//On récupère le POST de recherche
+		$req = $this->input->post();
+
+		
+		
+		//On instancie le tableau des tables, pour alimenter dynamiquement les noms des tables
+		$from= array("fiche","fiche_has_type as fht");
+		
+		if(isset($req["classe"]) AND count($req["classe"])>=1)
+		{
+			$classes_in_string = implode("','",$req["classe"]);
+			array_push($from,"fiche_has_classe as fhc") ;
+			$sql_classes = " AND fiche.id_fiche = fhc.fiche_id
+            AND fhc.classe IN ('".$classes_in_string."') ";
+		}else{
+			$sql_classes = " ";
+		}
+		
+		if(isset($req["zone"]) AND count($req["zone"])>=1)
+		{
+
+			$zones_in_string = implode("','",$req["zone"]);
+			array_push($from,"fiche_has_zone as fhz") ;
+			$sql_zones = " AND fiche.id_fiche = fhz.fiche_id
+            AND fhz.zone_id IN ('".$zones_in_string."') ";
+		}else{
+			$sql_zones = " ";
+		}
+		
+		if(isset($req["mdtransp"]) AND count($req["mdtransp"])>=1)
+		{
+			$mdtransp_in_string = implode("','",$req["mdtransp"]);
+			array_push($from,"fiche_has_mdtransp as fhm") ;
+			$sql_mdtransp = "  AND fiche.id_fiche = fhm.fiche_id
+            AND fhm.mdtransp IN ('".$mdtransp_in_string."') ";
+		}else{
+			$sql_mdtransp =" ";
+		}
+		
+		$sql = "SELECT * ";
+		$sql .= " FROM ".implode(",", $from)." ";
+		$sql .= " 
+				WHERE publication_status = 'published'
+            	AND fiche.id_fiche = fht.fiche_id
+				AND fht.type_slug = 'conseiller_securite'
+		";
+		$sql .= $sql_zones;
+		$sql .= $sql_classes;
+		$sql .= $sql_mdtransp;
+		
+		
+		$query = $this->db->query($sql);
+/* 		echo $this->db->last_query(); */
+		$this->data["fiches"] = $query->result_array();
+		$this->data["total_fiches"]	=	count($this->data["fiches"]);
+		$this->data["domaine"]	=	"conseiller_securite";
+		$this->data["menu_sidebar"]	=	"cas";
+				
+		$this->_layout("ann_results");
+		
+		
+	}
+	
 	
 	
 	
@@ -428,6 +482,7 @@ class Annuaire extends CI_Controller {
 									break;
 			case 'choisir_griffe' :	$this->data["body_id"]	=	"home";
 									break;
+			case 'results_conseillers' :
 			case 'ann_results' :	$this->data["body_id"]	=	"search_result";
 									break;
 

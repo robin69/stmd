@@ -1,6 +1,6 @@
 <div class="main">
 <?php
-if(count($alaune)>=1) :
+if(isset($alaune) AND count($alaune)>=1) :
 ?>
 <div class="alaune">
 	<h2>à la une</h2>
@@ -8,7 +8,7 @@ if(count($alaune)>=1) :
 			<div class="ca-wrapper">
 			<?php
 			
-			
+				
 				foreach($alaune as $fiche):
 					$description = trim($description = strip_tags($fiche["description"]));
 					$desc_limit = $this->config->item("nbr_carr_max_excerpt");
