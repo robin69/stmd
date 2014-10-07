@@ -48,8 +48,8 @@ if (defined('ENVIRONMENT'))
 		//Il s'afit de l'environnement local, sur l'ordinateur
 		case 'development': 
 			error_reporting(E_ALL);//E_ALL & ~E_NOTICE
-			$system_path 			= '/Users/Rumeau/Sites/SVN/stmd/system/';
-			$application_folder 	= '/Users/Rumeau/Sites/SVN/stmd/application';
+			$system_path 			= '/Users/Rumeau/Sites/GIT/stmd/system/';
+			$application_folder 	= '/Users/Rumeau/Sites/GIT/stmd/application';
 		break;
 	
 		//Il s'agit de l'environnement de test, donc sur en-production.net
