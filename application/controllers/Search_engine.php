@@ -1,0 +1,126 @@
+<?php
+
+class Search_engine extends CI_Controller{
+
+	public $test;
+
+	public 	$theme = "stmd2014";
+	public $guid = "";
+	public $contenu = "";
+
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->layout->set_theme($this->theme);
+		
+	}
+	
+		
+	
+	public function index()
+	{
+		//On récupère la chaine de recherche
+		$string = urlencode($this->input->get("string"));
+		
+		//On récupère l'offset s'il y en a un
+		redirect("/recherche/".$string."/");
+				
+	}
+	
+	public function search($string, $offset=0)
+	{
+	
+		
+		$string = urldecode($string);
+		
+			
+		//On instancie la classe fiche
+		$f= new Fiche;
+		//On compte les résultats
+		$config["total_rows"] = $this->data["total_fiches"] = $f->search_fiche($string,$offset,TRUE,TRUE);
+		$config["per_page"] = $this->config->item('elem_per_page');
+/* 		echo $config["total_rows"]; */
+		/*
+if($config["total_rows"] == 0)
+		{
+			redirect('/?search_error=1', 'refresh');
+		}
+*/
+		//$config['enable_query_strings'] = TRUE;
+		$config["base_url"] 	= site_url("recherche/".$string."/");
+		
+		//On construit la requête
+		
+		$this->data["fiches"] = $f->search_fiche($string,$offset);
+		
+		//On alimente la liste des catégories dans $this->data
+		$this->data["breadcrumb"] = array(
+			"SolutionsTMD"	=> "",
+			"Recherche " => "",
+			$string	=>	""
+		);
+
+
+		//Configuration de la pagination
+		$config['full_tag_open'] = '<ul>';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = '<<';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = '>>';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['next_link'] = '&gt;';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_link'] = '&lt;';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li><a href="" class="selected" >';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+
+		$this->pagination->initialize($config);
+		$this->_layout("ann_results");
+		
+/* 		die("Count : ".$config["total_rows"]); */
+	
+		
+		/* $result = $query->result(); */
+
+	}
+	
+	
+		
+	
+	
+	
+	private function _layout($layout)
+	{
+		$this->data["domaine"] = "";
+		$this->data["alaune"] = NULL;
+		$this->data["menu_sidebar"] = NULL; //Lorsqu'on fait une recherche, le menu de la sidebar est à NULL pour qu'il ne soit pas affiché et laisse la place aux autres éléments.
+		
+		switch($layout)
+		{
+			case 'ann_liste_cat' :	$this->data["body_id"]	=	"annuaire-transp";
+									break;
+			case 'choisir_griffe' :	$this->data["body_id"]	=	"home";
+									break;
+			case 'ann_results' :	$this->data["body_id"]	=	"search_result";
+									break;
+
+			default :				$this->data["body_id"]	=	"home";
+									break;
+		}
+		$this->layout->view("_html_head", 	$this->data);
+		$this->layout->view("_menu", 	$this->data);
+		$this->layout->view("_breadcrumb", $this->data);
+		$this->layout->view($layout, 	$this->data);
+		$this->layout->view("_html_foot", 	$this->data);
+		
+	}
+	
+}

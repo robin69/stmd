@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/styles.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Lato:400,300italic,300' rel='stylesheet' type='text/css'>
+<title>stmd</title>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.slides.min.js"></script>
+</head>
+<body id="conseiller">
+<header class="header">
+  <div class="header_top">
+    <div class="logo"><a href="login.html#"><img src="images/logo.png" alt=" " /></a></div>
+    <div class="slogan">
+      <p> Le carnet d’adresses des expéditeurs et des transporteurs<br />
+        de marchandises dangereuses </p>
+    </div>
+    <div class="social"> <a href="login.html#" class="gplus"></a> <a href="login.html#" class="twitter"></a> <a href="login.html#" class="facebook"></a> <a href="login.html#" class="linkedin"></a> <a href="login.html#" class="vimeo"></a> <a href="login.html#" class="copy"></a> <a href="login.html#" class="favoris"></a> </div>
+  </div>
+  <nav class="main-navigation">
+    <div class="nav_container">
+      <div class="search">
+        <input type="text" placeholder="Tapez votre recherche ici" />
+        <button></button>
+      </div>
+      <div class="menu">
+        <ul>
+          <li><a href="login.html#"> Transporteurs MD<br />
+            <span>Annuaire des prestataires</span> </a></li>
+          <li><a href="login.html#" > Expéditeurs MD<br />
+            <span>Annuaire des prestataires</span> </a></li>
+          <li><a href="login.html#"> Sécurité<br />
+            <span>Conseillers à la sécurité</span> </a></li>
+        </ul>
+      </div>
+      <div class="newsletter"> <a href="login.html#"> Newsletter<br />
+        <span>S’inscrire</span> </a> </div>
+      <div class="options"> <a class="annonceur" href="login.html#"> Espace<br />
+        annonceurs </a> <a class="inscri_annuaire" href="login.html#"> Inscription<br />
+        annuaire </a> <a class="information" href="login.html#"> Demande<br />
+        d’informations </a> <a class="contact" href="login.html#"> Nous<br />
+        contacter </a> </div>
+    </div>
+  </nav>
+</header>
+
+
+<div class="main">
+  
+  <div class="login">
+  <div class="login_left">
+  <label>Identifiant</label> 
+  <label>Mot de passe</label>
+  </div>
+  <div class="login_right">
+  <input type="text"/>
+  <input type="password"/>
+  <div class="clear"></div>
+  <a class="forgot-password" href="login.html#">Mot de passe oublier</a><button class="valider" >Valider</button>
+  </div>
+  </div>
+
+  
+</div>
+<div class="clear"></div>
+<footer class="footer">
+  <div class="footer_container">
+    <ul class="footer_nav_top">
+      <li><a href="login.html#">Trouver un conseiller à la sécurité</a></li>
+      <li><a href="login.html#">Prestataires pour transporteurs MD</a></li>
+      <li><a href="login.html#">Prestataires pour expéditeurs MD</a></li>
+      <li><a href="login.html#">Inscrire votre entreprise</a></li>
+      <li><a href="login.html#">S’inscrire à la newsletter</a></li>
+      <li><a class="nosep" href="login.html#">GMJ Phoenix</a></li>
+    </ul>
+    <ul class="footer_nav_bot">
+      <li><a href="login.html#">Contacts</a></li>
+      <li><a href="login.html#">Mentions légales</a></li>
+      <li><a href="login.html#">© 2014 Solutions TMD</a></li>
+      <li><a href="login.html#">Studio http</a></li>
+    </ul>
+  </div>
+</footer>
+<script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: false
+      });
+
+      /*
+        To have multiple slideshows on the same page
+        they just need to have separate IDs
+      */
+      $('#slides2').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: false,
+        start: 3,
+        play: {
+          auto: true
+        }
+      });
+
+      $('#slides3').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: false
+      });
+    });
+  </script>
+</body>
+</html>
