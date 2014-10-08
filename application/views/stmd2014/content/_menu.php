@@ -17,7 +17,6 @@
     	<div class="nav_container">
 			<div class="search">
 				<form id="search_form" method="get" action="<?php echo base_url("recherche"); ?>/" >
-					<label for="search_field"></label>
 					<input type="search" name="string" id="string" placeholder="Votre recherche" />
 					<button></button>
 				</form>
@@ -58,7 +57,7 @@
 			</div>
 			
 			<div class="options"> 
-				<a class="annonceur" href="<?php echo base_url('espace_inscrits'); ?>"> Espace<br />annonceurs </a> 
+				<a class="annonceur" href="<?php echo base_url('login'); ?>"> Espace<br />annonceurs </a> 
 		        <a class="inscri_annuaire" href="<?php echo base_url('pourquoi-s-inscrire'); ?>"> Inscription<br />annuaire </a> 
 		        <a class="information" href="<?php echo base_url('contact/demande-infos'); ?>"> Demande<br />d’informations </a> 
 		        <a class="contact" href="<?php echo base_url('contact'); ?>"> Nous<br /> contacter </a>

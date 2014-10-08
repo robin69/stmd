@@ -19,6 +19,12 @@
 	</footer>
 	
 	
+	
+	<?php
+	
+	?>
+	
+	
 	<?php 
 	
 	/*
@@ -67,6 +73,7 @@
 	<!-- NE SERT QUE SUR LES PAGES DE RÉSULTATS montrant les inscrits à la une. Il faut optimiser ça au 
 	chargement des autres pages -->
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.min.js"></script>
   	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.slides.min.js"></script>
