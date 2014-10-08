@@ -165,7 +165,7 @@ a.connexion:hover{
 	border-right: 2px solid #FFF;
 	height: 96px;
 }
-.search input[type=text] {
+.search input[type=search] {
 	width: 178px;
 	height: 38px;
 	background-color: #FFF;
@@ -968,11 +968,11 @@ a.conseiller_md span{
 .validate{
 	margin:50px auto;
 }
-.home_serach{
+.home_search{
 	width:822px;
 	margin:30px auto 0;
 }
-.home_serach input[type=text]{
+.home_search input[type=search]{
 	width:730px;
 	height:38px;
 	padding-left:10px;
@@ -981,7 +981,7 @@ a.conseiller_md span{
 	font-style:italic;
 	color:#b1b2b2;
 }
-.home_serach button{
+.home_search button{
 	background: url("../img/search-icon.png") no-repeat scroll center center #a1c037;
     cursor: pointer;
     float: left;

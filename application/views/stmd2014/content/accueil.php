@@ -22,10 +22,10 @@
 Numéro 1 Français pour le transport de marchandises dangereuses
 </p>
 </center>
-<div class="home_serach">
+<div class="home_search">
 	<form id="search_form" method="get" action="<?php echo base_url("recherche"); ?>/" >
 		<label for="search_field"></label>
-		<input type="text" name="string" id="string" placeholder="Tapez votre recherche. Ex: éditions"/><button id="search"></button>
+		<input type="search" name="string" id="string" placeholder="Tapez votre recherche. Ex: éditions"/><button id="search"></button>
 	</form>
 </div>
 <div class="container">

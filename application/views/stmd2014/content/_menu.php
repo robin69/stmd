@@ -18,7 +18,7 @@
 			<div class="search">
 				<form id="search_form" method="get" action="<?php echo base_url("recherche"); ?>/" >
 					<label for="search_field"></label>
-					<input type="text" name="string" id="string" placeholder="Votre recherche" />
+					<input type="search" name="string" id="string" placeholder="Votre recherche" />
 					<button></button>
 				</form>
 			</div>
