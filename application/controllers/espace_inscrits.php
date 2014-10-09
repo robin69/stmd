@@ -2,7 +2,7 @@
 
 class Espace_inscrits extends CI_Controller {
 
-	var $theme = "front";
+	var $theme = "stmd2014";
 
 
 	public function __construct()
@@ -15,6 +15,8 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function index()
 	{
+	
+		$this->_layout("esp_insc_accueil");
 		$this->layout->view("espace_inscrits");
 	}
 }
