@@ -88,6 +88,7 @@ class Login extends CI_Controller {
 	
 	private function _layout($layout)
 	{
+		$this->data["no_google_map"] = TRUE;
 		$this->data["body_id"] = "landing_page";
 		$this->data["domaine"] = NULL;
 		$this->layout->view("_html_head", 	$this->data);

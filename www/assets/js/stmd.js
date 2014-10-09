@@ -9,7 +9,14 @@
 $(document).ready(function()
 {
 
+	//On détecte la présence de la class
+	if($(".scroll-down-to").length)
+	{
+		$("html, body").animate({
+			scrollTop:	$(".ui-state-error").offset().top
+		}, 750,  "easeInOutExpo");
 
+	}
 
 	 $("*[id^='infos_']").hide(); // Tous les volets d'information sont fermés par défaut à l'ouverture de la page.
 	 
