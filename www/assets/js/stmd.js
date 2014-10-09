@@ -30,7 +30,6 @@ $(document).ready(function()
 	 });
 	 
 	 $("#send_search_cas").click(function(){
-	 	alert("coucou");
 		 $("#search_cas_form").submit();
 		 return false; 
 	 });
@@ -38,6 +37,7 @@ $(document).ready(function()
 
 function send_form(form_id)
 {
+	console.log(form_id);
 	$("#" + form_id ).submit();
 }
 

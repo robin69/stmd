@@ -6,12 +6,25 @@
   		<h3>Connectez-vous à votre compte</h3>
   		<p>vous disposez déjà d'un compte, entrez votre identifiant et votre mot de passe pour accéder à votre espace personnel.</p>
   	</header>
-  	<form action="" method="post" name="sign_in" id="sign_in"> 
+  	<?php
+  		$sign_in_attr	=	array(
+  			"mehtod"	=>	"post",
+  			"name"		=>	"sign_in",
+  			"id"		=>	"sign_in"
+  		);
+  		echo form_open("login/connexion",$sign_in_attr);
+  	?>
+<!--   	<form method="post" name="sign_in" id="sign_in" action="<?php echo base_url("login/connexion"); ?>" >  -->
 	  	<label for="email_signin">Email</label><input type="email" name="email" id="email_signin"/> <br />
 	  	<label for="userpass">Mot de passe</label><input type="password" name="userpass" id="userpass"/> <br />
+	  	<p class="cgu_agreement"><input type="checkbox" name="cookie_set" id="cookie_set" /> <label for="cookie_set">Garder ma session ouverte sur cet ordinateur.</label>
 	  	<div class="clear"></div>
-	  	<button class="valider" >Valider</button>
-  	</form>
+	  	<button class="valider" type="submit">Valider</button>
+<!--   	</form> -->
+
+	<?php
+		echo form_close();	
+	?>
   	<footer>
   		<p><a class="forgot-password" href="login.html#">Mot de passe oublier</a></p>
   	</footer>
@@ -21,7 +34,7 @@
   		<h3>Créez votre compte</h3>
   		<p>Vous ne disposez pas encore d'un compte et vous souhaitez pouvoir inscrire votre activité dans l'annuaire, créez votre compte en saisissant et validant les informations ci-dessous puis suivez les indications qui vous seront envoyées par email.</p>
   	</header>
-  	<form action="" method="post" name="sign_up" id="sign_up"> 
+  	<form action="<?php echo base_url(); ?>" method="post" name="sign_up" id="sign_up"> 
 	  	<label for="nom">Nom</label><input type="text" name="nom" id="nom"/> <br />
 	  	<label for="prenom">Prénom</label><input type="text" name="prenom" id="prenom"/> <br />
 	  	<label for="email">Email</label><input type="email" name="email" id="email"/> <br />
@@ -32,7 +45,7 @@
 	  	<div class="clear"></div>
 	  	<p class="cgu_agreement"><input type="checkbox" name="accept_cgu_first" id="accept_cgu_first" /> <label for="accept_cgu_first">J'ai lu et j'accepte les <a href="">conditions d'utilisation</a> de l'annuaire SolutionTMD.</label>
 	  	</p>
-	  	<button class="valider" >Valider</button>
+	  	<button class="valider" type="submit" >Valider</button>
   	</form>
   </div>
   <div class="clear"></div>

@@ -205,7 +205,7 @@ class User_manager extends CI_Model{
 		
 		$query = $this->db->get($this->tbl_user);
 		$result = $query->row();
-		/* echo $this->db->last_query(); */
+/* 		echo $this->db->last_query(); */
 
 		
 		if(isset($result->id_user) && $result->id_user !="")
@@ -216,10 +216,84 @@ class User_manager extends CI_Model{
 			$this->db->update($this->tbl_user);
 			
 			return $result->id_user;
+		}else{
+			throw new Exception("Utilisateur inconnu.");
+			
 		}
 				
 		return FALSE;
 	}
+	
+	public function create_user_session($id_user)
+	{
+		//On met toutes les informations en Session
+		$infos = $this->get($id_user);
+		$this->hydrate($infos);
+
+		 
+		//$this->session->all_userdata();
+		$informations_stored = array(
+			"id_user"	=> $this->id_user(),
+			"nom"		=> $this->nom(),
+			"prenom"	=> $this->prenom(),
+			"admin"		=> $this->admin(),
+		);
+
+		$this->session->set_userdata($informations_stored);
+	}
+	
+	public function create_user_cookie($email,$pass)
+	{
+		$array = array(
+			"email"=>$email, 
+			"userpass"=>$pass
+		);
+	
+		$cookie_string_value = serialize($array);
+		$cookie_value = $this->encrypt->encode($cookie_string_value);
+		$cookie = array(
+			"name"		=> 	"auth",
+			"value"		=>	$cookie_value,
+			"expire"	=>	"315569260"
+		);
+		
+		$this->input->set_cookie($cookie);
+		
+	}
+	
+	/*******************************************
+	*
+	*	Fonction d'authentification automaitque
+	*	On va lire le cookie et si celui-ci est valide
+	*	on authentifie automatiquement l'utilisateur
+	*	(création d'une session)
+	*
+	*********************************************/
+	public function auto_auth()
+	{
+		//On regarde s'il y a un cookie
+		$cookie = $this->input->cookie("stmd_auth", TRUE);	
+		if($cookie)
+		{
+			$cookie = $this->encrypt->decode($cookie);			//Il est crypté. On décode le cookie
+			$cookie = unserialize($cookie);						//L'information est sérialisée, on désérialise
+			//On lance l'authentification
+			$id_user = $this->auth($cookie["email"],md5($cookie["userpass"]));
+			
+			if($id_user!= FALSE )
+			{
+				$this->create_user_session($id_user);
+				return TRUE;
+			}
+			
+		}
+		
+		return FALSE;
+		
+		
+	}
+	
+	
 	
 	public function disconnect_user()
 	{

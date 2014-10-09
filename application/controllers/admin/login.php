@@ -55,7 +55,7 @@ class Login extends CI_Controller
 			
 
 				
-				$this->_create_user_session($id_user);
+				$u->create_user_session($id_user);
 
 				switch($this->input->post("form_admin"))
 				{
@@ -86,28 +86,6 @@ class Login extends CI_Controller
 		}
 	}
 	
-		
-	private function _create_user_session($id_user)
-	{
-		//On met toutes les informations en Session
-		$u = new User;
-		$infos = $u->get($id_user);
-		$u->hydrate($infos);
-
-		 
-		//$this->session->all_userdata();
-		$informations_stored = array(
-			"id_user"	=> $u->id_user(),
-			"nom"		=> $u->nom(),
-			"prenom"	=> $u->prenom(),
-			"admin"		=> $u->admin(),
-		);
-
-		$this->session->set_userdata($informations_stored);
-		
-		
-		
-	}
 	
 	private function _layout($layout)
 	{
