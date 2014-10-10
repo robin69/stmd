@@ -63,22 +63,57 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function index()
 	{
-	
-		$this->_layout("esp_insc_accueil");
-
+		$this->_layout("/esp_inscrit/accueil");
 	}
+	
+	public function user_profil()
+	{
+		$this->_layout("/esp_inscrit/form_user");
+	}
+	
+	public function user_forfait()
+	{
+		$this->_layout("/esp_inscrit/form_user_forfait");
+	}
+	
+	public function fiche_contact_form()
+	{
+		$this->_layout("/esp_inscrit/form_fiche_contact");
+	}
+	
+	public function fiche_societe_form()
+	{
+		$this->_layout("/esp_inscrit/form_fiche_societe");
+	}
+	
+	public function fiche_descriptions()
+	{
+		$this->_layout("/esp_inscrit/form_fiche_descriptions");
+	}
+	
+	public function fiche_classements()
+	{
+		$this->_layout("/esp_inscrit/form_fiche_classements");
+	}
+	
+	public function fiche_res_sociaux()
+	{
+		$this->_layout("/esp_inscrit/form_fiche_res_sociaux");
+	}
+	
+	
 	
 	
 	
 	private function _layout($layout)
 	{
 		$this->data["no_google_map"] = TRUE;
-		$this->data["body_id"] = "landing_page";
+		$this->data["body_id"] = "esp_insc";
 		$this->data["domaine"] = NULL;
 		$this->layout->view("_html_head", 	$this->data);
 		$this->layout->view("_menu", 	$this->data);
 		$this->layout->view("_breadcrumb", $this->data);
-		
+		/* $this->layout->view("/esp_inscrit/_menu.php", $this->data); */
 		$this->layout->view($layout, $this->data);
 		$this->layout->view("_html_foot");
 		
