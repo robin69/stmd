@@ -120,7 +120,8 @@ $autoload['model'] = array(
 	"user_manager",
 	"user", 
 	"contenu_model",
-	"guid_model"
+	"guid_model",
+	"mails"
 	);
 
 

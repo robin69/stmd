@@ -80,11 +80,30 @@
 	<!-- the jScrollPane script -->
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.mousewheel.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.contentcarousel.js"></script>
-	<!-- GOOGLE MAP API v3 -->	    
-	<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript">
-		var map = new Array();
-    </script>
+		    
+	<?php
+		if(!$no_google_map){
+			?>
+			<!-- GOOGLE MAP API v3 -->
+			<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false"></script>
+			<script type="text/javascript">
+				var map = new Array();
+		    </script>
+			<?php
+		}
+	?>
+	
+	<!--
+<script>
+		  			$(document).ready(function() {
+			  			$("html, body").animate({
+			  				scrollTop:	$(".ui-state-error").offset().top
+			  			}, 750,  "easeInOutExpo");
+		  			});
+	  			
+	  		</script>	
+-->
+	
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/stmd.js"></script>
 	<script type="text/javascript">
 		$('#ca-container').contentcarousel();

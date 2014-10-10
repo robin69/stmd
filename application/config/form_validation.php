@@ -181,6 +181,44 @@ $config = array(
 												"rules"	=>	"required|trim"
 											)						
 										),//END OF CAT FORM
+					"front_sign_up_form"=>array(
+											array(
+												"field"	=>	"nom",
+												"label"	=>	"Nom",
+												"rules"	=>	"required|trim"
+											),
+											array(
+												"field"	=>	"prenom",
+												"label"	=>	"Prénom",
+												"rules"	=>	"required|trim"
+											),
+											array(
+												"field"	=>	"email",
+												"label"	=>	"Email",
+												"rules"	=>	"required|trim|valid_email|is_unique[user.email]"
+											),
+											array(
+												"field"	=>	"tel",
+												"label"	=>	"Tél.",
+												"rules"	=>	"trim"
+											),
+											array(
+												"field"	=>	"userpass",
+												"label"	=>	"Mot de passe",
+												"rules"	=>	"required|trim|matches[passconf]|md5"
+											),
+											array(
+												"field"	=>	"passconf",
+												"label"	=>	"Confirmation de mot de passe",
+												"rules"	=>	"required"
+											),
+											array(
+												"field"	=>	"accept_cgu_first",
+												"label"	=>	"Acceptation des CGU",
+												"rules"	=>	"required"
+											)
+												
+										),//END OF CAT FORM
 					"contenu_form"=>array(
 											array(
 												"field"	=>	"title",

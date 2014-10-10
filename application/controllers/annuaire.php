@@ -9,6 +9,7 @@ class Annuaire extends CI_Controller {
 	public	$tbl_fiche_cat = "fiche_has_category";
 	public	$tbl_fiches = "fiche";
 	public 	$tbl_fiche_eval = "fiche_eval";
+	public 	$data = array("no_google_map"=>FALSE);
 		
 	public function __construct()
 	{
@@ -29,7 +30,7 @@ class Annuaire extends CI_Controller {
 	{
 		$this->data["domaine"]		=	"transporteurs_md";
 		$this->data["cats"]			=	$this->list_cats("transporteurs_md");
-		
+		$this->data["no_google_map"] = TRUE;
 
 		$this->_layout("ann_liste_cat");
 	}
@@ -39,6 +40,7 @@ class Annuaire extends CI_Controller {
 		$this->data["domaine"]	=	"expediteurs_md";
 		$this->data["cats"]		=	$this->list_cats("expediteurs_md");
 		$this->data["menu_sidebar"]	=	"presta";
+		$this->data["no_google_map"] = TRUE;
 
 		$this->_layout("ann_liste_cat");
 	}

@@ -91,7 +91,7 @@ class User extends User_manager{
 	*	en fonction de la demande $date_format
 	*	
 	*	@date_format	bool	Si TRUE retourne la date formatée
-	*							Si FALS retnourne la deate en seconde
+	*							Si FALSE retnourne la deate en seconde
 	***/
 	public function lastcnx($date_format = FALSE)
 	{ 
@@ -200,7 +200,8 @@ class User extends User_manager{
 		$manager = new User_manager;
 		$exception_fields = array(
 			"required_infos",
-			"tbl_user"
+			"tbl_user",
+			"tbl_fiche"
 		);
 		$array_to_save = array();
 			//on prépare le tableau de sauvegarde

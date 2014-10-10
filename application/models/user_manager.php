@@ -176,17 +176,22 @@ class User_manager extends CI_Model{
 	/************************************
 	*
 	*	Permet d'activer un compte utilisateur
-	*
+	*	==>depreciated : maintenant il vaut mieux utiliser les setters de l'objet user
+	*	puis mettre à jour l'objet. Exemple : $this->set_compte_status("active");
+	*	$this->_save();
 	*
 	************************************/
 	public function activate($id_user)
 	{
-		//On met l'objet à jour
+		/*
+//On met l'objet à jour
 		$this->compte_status = "active";
 		//on fait la mise à jour dans la base
 		$this->db->set("compte_status",$this->compte_status);
 		$this->db->where("id_suer",$id_user);
-		
+*/
+		$this->set_compte_status("active");
+		$this->_save();		
 				
 
 	}
