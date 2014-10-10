@@ -2,8 +2,7 @@
 
 class Login extends CI_Controller {
 
-	private $CI;
-	public $theme = "stmd2014";
+ 	public $theme = "stmd2014";
 
 	/**
 	 * Index Page for this controller.
@@ -35,7 +34,6 @@ class Login extends CI_Controller {
 		 }
 		 
 		 
-
 		 
 	 }
 
@@ -80,7 +78,6 @@ class Login extends CI_Controller {
 		$this->_layout("login");
 		
 	}
-	
 	
 	
 	
