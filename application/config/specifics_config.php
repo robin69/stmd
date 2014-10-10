@@ -22,7 +22,7 @@ $config["nbr_fiche_alaune"]			=	'6';
 $config["nbr_carr_max_excerpt"]		=	'253';
 
 /** SITE NAME **/
-$config["site_name"]				=	"SolutionsTMD"
+$config["site_name"]				=	"SolutionsTMD";
 
 
 

@@ -1,4 +1,4 @@
-<div class="main">
+a<div class="main">
 	
   <h1>Accès à votre espace.</h1>
   <div class="sign_in_form">
@@ -48,6 +48,17 @@
 					<strong>Alert:</strong> <?php echo validation_errors(); ?>
 				</p>
 			</div>
+	  		</div>
+	  		<?php
+  		}else if(isset($success) AND $success== TRUE){
+	  		?>
+	  		<div class="ui-widget">
+		  		<div class="ui-state-ok ui-corner-all scroll-down-to" style="padding: 0 .7em;">
+					<p>
+						<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+						<strong>Parfait :</strong> <?php echo $success_message; ?>
+					</p>
+				</div>
 	  		</div>
 	  		<?php
   		}

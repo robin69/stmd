@@ -39,6 +39,36 @@ class Login extends CI_Controller {
 		 
 	 }
 
+	 public function token()
+	 {
+	 	//On récupère les informations contenues dans le token
+	 	$token = $this->input->get("token");
+	 	$mails = new Mails;
+	 	$token_datas = $mails->tokenread($token);
+	 	
+	 	//en fonction de ACTION on fait ce qu'il y a à faire
+	 	switch($token_datas["action"])
+	 	{
+		 	case "account_confirm"	:	
+		 		$u = new User;
+		 		//On récupère les infos de l'utilisateur
+		 		$user_id = $u->auth($token_datas["email"], $token_datas["userpass"]);
+		 		$our_user = new User($user_id);
+		 		
+		 		
+		 		//On met à jour l'utilisateur en activant son compte
+		 		$our_user->set_compte_status("active");
+		 		$our_user->_save();
+		 		
+		 		//On crée la session utilisateur
+		 		$our_user->create_user_session($our_user->id_user());
+		 		
+		 		
+		 		//On redirige vers l'accueil de l'espace inscrit.
+		 		$this->_layout("/esp_inscrit/accueil");
+		 		
+	 	}
+	 }
 	
 	
 	 public function index()

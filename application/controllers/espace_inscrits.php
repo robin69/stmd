@@ -26,12 +26,32 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function sign_up()
 	{
+
+
 		//Si on ne passe pas la vérification
 		if($this->form_validation->run("front_sign_up_form") == FALSE)
 		{
 			
+			//On retourne au formualaire. Les messages d'erreus sont automatiquement affichés
 			$this->_layout("login");
 		}else{
+		
+			//On enregistre l'utilisateur
+			$u = new User;
+			$u->hydrate($this->input->post());	//On alimente l'objet
+			$id_user = $u->_save();
+	
+	
+			//On envois l'email de confirmation
+			$mail 			= new Mails;
+			$mail->to 		= $this->input->post("email");
+			$mail->userpass	= $this->input->post("userpass");
+			$mail->account_activation()	;	
+			
+			//On affiche le message en popin
+			$this->data["success"]	=	TRUE;
+			$this->data["success_message"]	=	"Un email de confirmation viens de vous être envoyé. Suivez les instructions qu'il contient pour activer votre compte et finaliser votre inscription.";				
+				
 			$this->_layout("login");
 		}
 		
