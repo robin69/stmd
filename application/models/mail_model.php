@@ -25,20 +25,67 @@ class Mail_model extends CI_Model
 	
 	
 	
-	public function confirmation_adr_mail()
+	public function account_activation()
 	{
-		$this->subject	=	"Confirmation d'adresse mail - importExport.fr";
+		//On prépare les informations du Token
+		$token_array	=	array(
+			"action"	=>	"mail_confirm",
+			"email"		=>	$this->to
+			);
+			
+		//On encode le token
+		$token = $this->tokenize($token_array);
+		
+		//On prépare le contenu du mail
+		$this->subject	=	"Activation de votre compte - ".$this->config->item("site_name");
 		$this->message 	= 	"Bonjour, <br />
 			<br />
 			
-			Merci de confirmer votre adresse mail en cliquant sur le lien suivant.<br />
-			<a href=''>CONFIRMATION D'ADRESSE</a><br /><br /><br />";
+			Vous venez de vous inscrire dans l'annuaire ".$this->config->item("site_name").". Pour finaliser votre inscription et activer votre compte merci de cliquer sur ce lien :<br />
+			<a href='".base_url("login")."/token/".$token."'>Je confirme mon adresse email.</a><br /><br /><br />";
 		
 		
 		$this->shoot();
 	}
 	
+	/************************************
+	*
+	*	Fonction qui génère un token
+	*
+	*
+	*	Réceptionne un tableau contenant des informations
+	*	sérialize le tableau, l'encode et retourne une chaine
+	*
+	*	$array = array(
+	*		"action"	=>	"Mon_action",
+	*		"info_nom1"	=>	"info_value1",	
+	*		"info_nom2"	=>	"info_value2"
+	*	);
+	*
+	*************************************/
+	public function tokenize($array)
+	{
+		$string = serialize($array);	//On sérialise la chaine au cas où il s'agisse d'un tableau
+		$string = $this->encrypt->encode($string);
+		return $string;
+	}
 	
+	/************************************
+	*
+	*	Fonction qui décrypt un token
+	*
+	*
+	*	Réceptionne une chaine, décode la chaine, 
+	*	puis désérialize la chaine pour récupérer
+	*	un tableau qu'elle peut retourner
+	*
+	*************************************/
+	public function tokenread($string)
+	{
+		$string = $this->encrypt->decode($string);
+		$array = unserialize($string);
+		return $array;
+	}
 	
 
 	private function shoot()

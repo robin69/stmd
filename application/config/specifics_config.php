@@ -9,7 +9,7 @@ $config["mailpath"]					= "/usr/sbin/sendmail";
 $config["mailtype"]					= "html";
 $config['app_mail_address']			= 'team@importexport.fr';
 $config['app_mail_from']			= 'Equipe Importexport.fr';
-$config['app_mail_subject_prefx']	= '[ImportExport] ';
+$config['app_mail_subject_prefx']	= '[SolutionsTMD] ';
 
 
 /**PAGINATION ADMIN**/
@@ -20,6 +20,9 @@ $config["nbr_fiche_alaune"]			=	'6';
 
 /** FICHES **/
 $config["nbr_carr_max_excerpt"]		=	'253';
+
+/** SITE NAME **/
+$config["site_name"]				=	"SolutionsTMD"
 
 
 
