@@ -227,8 +227,8 @@ class Category_manager extends CI_Model
 		
 		$query = $this->db->get($this->tbl_category);
 		$result = $query->result();
-		
-		if(count($result)>=1)
+/* 		echo $this->db->last_query(); */
+		if(count($result)==1)
 		{
 			return $result[0];
 		}
