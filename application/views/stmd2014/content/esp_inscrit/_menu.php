@@ -11,6 +11,34 @@
 	
 	<hr />
 	<h3>Mon compte</h3>
+	<?php 
+		//On tente d'intégrer le profil gravatar
+		$gravatar 	= new Gravatar($this->session->userdata("email"));
+		if(count($gravatar->profile)>=1)
+		{
+			?>
+			
+			<div class="gravatar_profile">
+				<img src="<?php echo $gravatar->profile["thumbnailUrl"]; ?>" class="main_blocks"/>
+				<div class="profile main_blocks">
+					<?php echo $gravatar->profile["displayName"]; ?><br />
+					<?php 
+					if (count($gravatar->profile["urls"])>=1)
+					{
+						$website = $gravatar->profile["urls"][0];
+						?>
+						<a href="<?php echo $website["value"]; ?>" title="<?php echo $website["title"]; ?>"><?php echo $website["title"]; ?></a>
+						<?php
+					}
+					?>
+				</div>
+			</div>
+			
+			<?php
+		}
+		
+	?>
+	
 	<ul>
 		<li><a href="<?php echo base_url("espace_inscrits/"); ?>">Accueil </a></li>
 		<li><a href="<?php echo base_url("espace_inscrits/user_profil"); ?>">Mon profil utilisateur</a></li>

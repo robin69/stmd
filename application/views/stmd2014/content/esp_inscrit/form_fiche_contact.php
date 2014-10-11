@@ -21,6 +21,7 @@
 			<label for="tel_contact">Votre téléphone:</label>
 			<input type="tel" name="tel_contact" id="tel_contact" placeholder="ex. : 06 12 34 45 67" value="" />
 			<p><strong>*</strong>Non-visible sur le site.</p>
+			
 			<div class="clear"></div>
 			<button type="submit" class="prev">Enregistrer</button>
 		</form>
@@ -28,7 +29,7 @@
 	</article>
 	
 		<?php
-			$this->layout->view("/esp_inscrit/_menu.php", $this->data);
+			$this->layout->view("/esp_inscrit/_menu", $this->data);
 		?>
 	
 </div>

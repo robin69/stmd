@@ -9,7 +9,9 @@ class Espace_inscrits extends CI_Controller {
 	{
 		parent::__construct();
 		
+		$params = "";
 		$this->layout->set_theme($this->theme);
+		$this->load->library("gravatar", $params);
 	}
 	
 	public function _remap($method, $params = array())
@@ -119,8 +121,6 @@ class Espace_inscrits extends CI_Controller {
 		$this->data["domaine"] = NULL;
 		$this->layout->view("_html_head", 	$this->data);
 		$this->layout->view("_menu", 	$this->data);
-		$this->layout->view("_breadcrumb", $this->data);
-		/* $this->layout->view("/esp_inscrit/_menu.php", $this->data); */
 		$this->layout->view($layout, $this->data);
 		$this->layout->view("_html_foot");
 		

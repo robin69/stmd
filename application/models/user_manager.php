@@ -241,6 +241,7 @@ class User_manager extends CI_Model{
 			"id_user"	=> $this->id_user(),
 			"nom"		=> $this->nom(),
 			"prenom"	=> $this->prenom(),
+			"email"		=> $this->email(),
 			"admin"		=> $this->admin(),
 		);
 

@@ -118,10 +118,14 @@ class Fiche extends fiche_manager
 	public function zones(){ return $this->zones; }
 	public function date_reglement(){ return $this->date_reglement; }
 	public function payante(){ return $this->payante; }
+	public function temp(){ return $this->temp;}
 	
 	
 	
-	
+	public function set_temp($bool)
+	{
+		$this->temp = $bool;
+	}
 	
 	
 	
@@ -534,6 +538,7 @@ class Fiche extends fiche_manager
 			$manager->update($array_to_save);
 			return $this->id_fiche;
 		}else{
+
 			//Si l'objet n'a pas d'id, on crée une nouvelle fiche
 			$id_fiche = $manager->add($array_to_save);
 			return $id_fiche;

@@ -26,8 +26,7 @@ class Fiche_manager extends CI_Model
 	private $tbl_fiche_zones	= "fiche_has_zone";
 	private $tbl_fiche_eval		= "fiche_eval";
 	protected $required_infos		= array(					//Les champs qui sont obligatoires pour une fiche
-									"raison_sociale",
-									"ville"
+									
 								);
 
 	public function __construct()

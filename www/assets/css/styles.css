@@ -1769,7 +1769,16 @@ a.close{
 	display: inline-block;
 	vertical-align: top;
 }
-
+#esp_insc .gravatar_profile{
+	margin: 15px 0 15px 0;
+/* 	border: solid 1px #ccc; */
+	border-radius: 5px;
+	padding: 2px;
+	box-shadow : 2px 2px 5px #ccc;
+}
+#esp_insc .profile{
+	width: 70%;
+}
 #esp_insc article{
 	position: relative;
 	width: 70%;

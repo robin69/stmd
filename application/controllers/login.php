@@ -27,11 +27,13 @@ class Login extends CI_Controller {
 		 $this->layout->set_theme($this->theme);
 		 
 		 //On tente l'authentification automatique
-		 $u = new User;
+		/*
+ $u = new User;
 		 if($u->auto_auth())
 		 {
 		 	redirect("/espace_inscrits");
 		 }
+*/
 		 
 		 
 		 
@@ -57,6 +59,15 @@ class Login extends CI_Controller {
 		 		//On met à jour l'utilisateur en activant son compte
 		 		$our_user->set_compte_status("active");
 		 		$our_user->_save();
+		 		
+		 		//on crée une fiche vide pour cet utilisateur
+		 		$user_fiche = new Fiche;
+		 		$user_fiche->set_user_id($user_id);
+		 		$user_fiche->set_publication_status("unpublished");
+		 		$user_fiche->set_date_creation();
+		 		$user_fiche->set_payante("0");
+		 		$user_fiche->_save();
+		 		
 		 		
 		 		//On crée la session utilisateur
 		 		$our_user->create_user_session($our_user->id_user());
