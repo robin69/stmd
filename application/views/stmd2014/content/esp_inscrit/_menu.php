@@ -15,7 +15,7 @@
 		<li><a href="<?php echo base_url("espace_inscrits/"); ?>">Accueil </a></li>
 		<li><a href="<?php echo base_url("espace_inscrits/user_profil"); ?>">Mon profil utilisateur</a></li>
 		<li><a href="<?php echo base_url("espace_inscrits/user_forfait"); ?>">Mon forfait</a></li>
-		<li><a href="" class="dcnx">Déconnexion</a></li>
+		<li><a href="<?php echo base_url("espace_inscrits/logout"); ?>" class="dcnx">Déconnexion</a></li>
 	</ul>
 	<hr />
 	<h3>Informations : </h3>

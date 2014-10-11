@@ -60,6 +60,12 @@ class Espace_inscrits extends CI_Controller {
 		
 	}
 	
+	public function logout()
+	{
+		$this->user->disconnect_user();
+		$this->_layout("login");
+	}
+	
 	
 	public function index()
 	{
@@ -107,6 +113,7 @@ class Espace_inscrits extends CI_Controller {
 	
 	private function _layout($layout)
 	{
+
 		$this->data["no_google_map"] = TRUE;
 		$this->data["body_id"] = "esp_insc";
 		$this->data["domaine"] = NULL;
