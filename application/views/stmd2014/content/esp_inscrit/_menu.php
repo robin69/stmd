@@ -11,10 +11,10 @@
 	
 	<hr />
 	<h3>Mon compte</h3>
-	<?php 
+	<?php
 		//On tente d'intégrer le profil gravatar
 		$gravatar 	= new Gravatar($this->session->userdata("email"));
-		if(count($gravatar->profile)>=1)
+		if($gravatar->profile)
 		{
 			?>
 			

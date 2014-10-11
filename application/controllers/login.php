@@ -25,18 +25,29 @@ class Login extends CI_Controller {
 				 
 		 
 		 $this->layout->set_theme($this->theme);
-		 
-		 //On tente l'authentification automatique
-		/*
- $u = new User;
-		 if($u->auto_auth())
+	 }
+	 
+	 public function _remap($method, $params =array())
+	 {
+	 
+	 	/*****************************************************
+	 	*
+	 	*	On ne tente une authentification auto que lorsqu'on 
+	 	*	n'utilise pas un token et lorsqu'on n'est pas déjà
+	 	*	entrain d'essayer de se connecter avec un profil.
+	 	*
+	 	***************************************************/
+		 if($method != "token" AND $method != "connexion")
 		 {
-		 	redirect("/espace_inscrits");
+			 //On tente l'authentification automatique
+			 $u = new User;
+			 if($u->auto_auth())
+			 {
+			 	redirect("/espace_inscrits");
+			 }
+		 }else{
+			 return call_user_func_array(array($this, $method), $params);
 		 }
-*/
-		 
-		 
-		 
 	 }
 
 	 public function token()

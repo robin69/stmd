@@ -74,16 +74,14 @@ class Gravatar {
 	public function get()
 	{
 		$email = md5( strtolower( trim( $this->email ) ) );
-		try {
-			$str = file_get_contents( 'https://www.gravatar.com/'.$email.'.php' );
-		}catch (Exception $e) {
-/* 			"GRAVATAR Error : ".$e; */
-			return FALSE;
+		$str = @file_get_contents( 'https://www.gravatar.com/'.$email.'.php' );
+		if($str)
+		{
+			echo "coucou";
+			$profile = unserialize( $str );
+			$this->profile = $profile["entry"][0];
+		}else{
+			$this->profile = FALSE;
 		}
-
-		$profile = unserialize( $str );
-		$this->profile = $profile["entry"][0];
-	
-		return TRUE;		
 	}
 }
