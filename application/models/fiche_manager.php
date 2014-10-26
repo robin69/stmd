@@ -313,6 +313,30 @@ class Fiche_manager extends CI_Model
 		return $cats;
 		$query->free_result();
 	}
+
+
+    /**
+     * Permet de retrouver la ou les fiches qui appartiennent à un utilisateur donné.
+     *
+     * @param $user_id : ID de l'utilisateur
+     *
+     * @return array : La liste de résultats.
+     */
+    public function get_user_fiche($user_id)
+    {
+        $query = $this->db->get_where($this->tbl_fiche, array("user_id"=>$user_id));
+        $result = $query->result_array();
+
+        //Si il y a une fiche on alimente l'objet
+        if(count($result)>=1)
+        {
+
+            $this->hydrate($result[0]);
+            return true;
+        }
+
+        return false;
+    }
 	
 	public function search_fiche($string,$offset,$published=TRUE,$count=FALSE)
 	{

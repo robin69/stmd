@@ -1,5 +1,7 @@
 <aside class="main_blocks priv_menu">
 	<h3>Ma Fiche</h3>
+	<p>Votre fiche est renseignée à :<progress id="fiche_progress" value="50" min="1" max="100"></progress>50%</p>
+	<hr />
 	<ul>
 		
 		<li><a href="<?php echo base_url("espace_inscrits/fiche_contact_form"); ?>">Le contact de la société</a></li>

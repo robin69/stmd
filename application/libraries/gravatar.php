@@ -77,7 +77,7 @@ class Gravatar {
 		$str = @file_get_contents( 'https://www.gravatar.com/'.$email.'.php' );
 		if($str)
 		{
-			echo "coucou";
+
 			$profile = unserialize( $str );
 			$this->profile = $profile["entry"][0];
 		}else{

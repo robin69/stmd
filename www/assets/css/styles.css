@@ -450,7 +450,6 @@ a.contact:hover {
 .cat{
 	float:left;
 	width:367px;
-	margin-right:;
 	padding:10px;
 	height: 55px;
 }
@@ -902,7 +901,7 @@ a.revenir{
 	text-decoration:none;
 	background-color:#dbdbdb;
 	float:left;
-	text-align:center;a
+	text-align:center;
 	width:198px;
 	height:60px;
 	padding-top:10px;
@@ -1630,7 +1629,7 @@ a.close{
 	padding: 0 40px;
 	text-decoration:none;
 }
-.menu_acordion a::hover {
+.menu_acordion a:hover {
 	text-decoration: none;
 	color:#2c4592
 	
@@ -1702,7 +1701,6 @@ a.close{
 
 	text-align: center;
 	font-size: 1.2em;
-	color: ;
 	margin: 50px 0 25px 0;
 }
 
@@ -1761,7 +1759,6 @@ a.close{
 /************************ ESPACE INSCRIT ****************************/
 #esp_insc .main{ 
 	position: relative;
-	background-color: ;
 	margin-top:25px;
 }
 .main_blocks {
@@ -1783,7 +1780,6 @@ a.close{
 	position: relative;
 	width: 70%;
 	margin-right: 15px;
-	background-color: ;
 }
 
 #esp_insc aside ul{
@@ -1794,7 +1790,6 @@ a.close{
 #esp_insc aside{
 	position: relative;
 	width: 26%;
-	color: ;
 	background-color: #EFF0F2;
 	margin-top: 25px;
 	padding: 8px;
@@ -1834,4 +1829,89 @@ a.close{
 	margin: 15px 0 0 26%;
 }
 
+.required::after{
+	  content: " * ";
+	  color: red;
+	  font-weight: bold;
+}
 
+#esp_insc textarea{
+	border: solid 1px #ccc;
+	padding : 5px;
+}
+
+/************* PROGRESS BAR *********************************/
+progress{
+	width: 85%;
+}
+progress::-moz-progress-bar {
+    background: #09c;
+}
+progress[value]::-moz-progress-bar{
+	background: red;
+}
+progress[value='100']{
+    background: green;
+}
+progress[value^='9']:not([value^='9.']):not([value='9'])::-moz-progress-bar,
+progress[value^='8']:not([value^='8.']):not([value='8'])::-moz-progress-bar,
+progress[value^='7']:not([value^='7.']):not([value='7'])::-moz-progress-bar,
+progress[value^='6']:not([value^='6.']):not([value='6'])::-moz-progress-bar,
+progress[value^='5']:not([value^='5.']):not([value='5'])::-moz-progress-bar
+{
+     background: yellow;
+}
+
+progress[value^='4']:not([value^='4.']):not([value='4'])::-moz-progress-bar,
+progress[value^='3']:not([value^='3.']):not([value='3'])::-moz-progress-bar,
+progress[value^='2']:not([value^='2.']):not([value='2'])::-moz-progress-bar
+{
+     background: orange;
+}
+
+progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
+{
+     background: red;
+}
+
+
+/************************** ESP_INSC : Formulaire de classement / catégories *********/
+.classement_form section{
+	border: solid 1px #ccc;
+	margin: 25px 0 0 0;
+}
+
+.classement_form section ul{
+	width: 100%;
+}
+.classement_form section ul li ul{
+	display: none;
+}
+.classement_form section ul li{
+	display: inline-block;
+	width: 31%;
+	margin-right: 3px;	
+}
+
+.classement_form section input[type=checkbox], .classement_form section label
+{
+	display: inline;
+	text-align: left;
+	line-height: 33px;
+	font-weight: normal;
+	font-size : 1.2em;
+	margin:0;
+	padding: 0 0 0 5px;
+}
+
+
+.classement_form section input[type=checkbox]{
+	width: auto;
+}
+
+.alert-warning{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
+}

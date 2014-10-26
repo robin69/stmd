@@ -1,5 +1,6 @@
 <?php
-
+    //On récupère le nombre maxi de caractère pour l'utiliser come règle de validation
+    $max_allowed_carracters = $this->config->item('nbr_carr_max_excerpt');
 $config = array(
 					"fiche_infos_update"=>	array(
 										array(
@@ -246,6 +247,111 @@ $config = array(
 												"rules"	=>	"trim"
 											)
 											
-										)//END OF CAT FORM
+										),
+					"form_fiche_contact" => array(
+                                            array(
+                                                "field"	=>	"nom_contact",
+                                                "label"	=>	"Nom Contact",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"prenom_contact",
+                                                "label"	=>	"Prénom Contact",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"email_contact",
+                                                "label"	=>	"Email Contact",
+                                                "rules"	=>	"required|trim|valid_email"
+                                            ),
+                                            array(
+                                                "field"	=>	"tel_contact",
+                                                "label"	=>	"Tél. Contact",
+                                                "rules"	=>	"required|trim"
+                                            )
+                    ),
+                    "form_fiche_societe" => array(
+                                            array(
+                                                "field"	=>	"raison_sociale",
+                                                "label"	=>	"Raison sociale",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"adr1",
+                                                "label"	=>	"Adresse 1",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"adr2",
+                                                "label"	=>	"Adresse 2",
+                                                "rules"	=>	"trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"ville",
+                                                "label"	=>	"Ville",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"cp",
+                                                "label"	=>	"CP",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"email_societe",
+                                                "label"	=>	"Email société",
+                                                "rules"	=>	"required|trim|valid_email"
+                                            ),
+                                            array(
+                                                "field"	=>	"tel_societe",
+                                                "label"	=>	"Téléphone société",
+                                                "rules"	=>	"required|trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"fax",
+                                                "label"	=>	"Fax",
+                                                "rules"	=>	"trim"
+                                            ),
+                                            array(
+                                                "field"	=>	"site",
+                                                "label"	=>	"Site internet  ",
+                                                "rules"	=>	"trim"
+                                            )
+                    ),
+                    "form_fiche_description"    => array(
+                                            array(
+                                                "field" =>  "description",
+                                                "label" =>  "description",
+                                                "rules" =>  "trim|max_length[".$max_allowed_carracters."]"
+                                            )
+
+                    ),
+                    "form_fiche_reseaux"    => array(
+                                            array(
+                                                "field" =>  "facebook",
+                                                "label" =>  "Facebook",
+                                                "rules" =>  "trim"
+                                            ),
+                                            array(
+                                                "field" =>  "twitter",
+                                                "label" =>  "Twitter",
+                                                "rules" =>  "trim"
+                                            ),
+                                            array(
+                                                "field" =>  "googleplus",
+                                                "label" =>  "Google +",
+                                                "rules" =>  "trim"
+                                            ),
+                                            array(
+                                                "field" =>  "viadeo",
+                                                "label" =>  "Viadeo",
+                                                "rules" =>  "trim"
+                                            ),
+                                            array(
+                                                "field" =>  "linkedin",
+                                                "label" =>  "LinkedIN",
+                                                "rules" =>  "trim"
+                                            )
+
+                    )//END OF CAT FORM
 			);
 	

@@ -40,7 +40,50 @@ $(document).ready(function()
 		 $("#search_cas_form").submit();
 		 return false; 
 	 });
+	 
+	 //Lorsqu'on clic sur une liste qui la classe has_sub_cats, on affiche la sous-cat
+	/*
+ $(".has_sub_cat").click(function(){
+		 $(this).find("ul:first-child").css("display","block");
+	 });
+*/
+
+	 $("input[type='checkbox']:not(:checked)").click(function(){
+		 $(this).find("ul").css("display","block");
+	 });
+
+
+    /**
+     * Fonction qui permet de counter les caractères d'un textarea et de renvoyer le nombre
+     * de caractères restants.
+     * La page contenant le textarea doit contenir 2 autres champs identifiés avec les ID
+     * suivants :
+     * max_char => le nombre de caractères maximum autorisés
+     * left_char => le nombre de caractères restants.
+     */
+    $("textarea.countchar").keyup(function(){
+        countChar(this);
+    });
 });
+
+
+function countChar(field)
+{
+    var max_char = $("#max_char").html();
+    var text_length = $(field).val().length;
+    left_char = max_char - text_length;
+
+    //On renseignes le nombres de caractères restants
+    if(left_char >= 0){
+        $("#left_char").html(left_char);
+    }else{
+        $("#left_char").html('<span class="alert-warning">' + left_char + '</span>');
+
+    }
+
+
+
+}
 
 function send_form(form_id)
 {
@@ -82,7 +125,7 @@ function send_cas_request()
 		data: {
 			zone:		zone,
 			classe:		classe,
-			mdtransp:	mdtransp,
+			mdtransp:	mdtransp
 		},
 		type: "POST",
 		dataType: "json",

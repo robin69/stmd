@@ -30,7 +30,7 @@ switch($host)
 	default 										:	define('ENVIRONMENT', 'production');
 }
 
-	
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -47,7 +47,7 @@ if (defined('ENVIRONMENT'))
 	{
 		//Il s'afit de l'environnement local, sur l'ordinateur
 		case 'development': 
-			error_reporting(E_ALL);//E_ALL & ~E_NOTICE
+			error_reporting(E_ALL& ~E_NOTICE);//E_ALL & ~E_NOTICE
 			$system_path 			= '/Users/Rumeau/Sites/GIT/stmd/system/';
 			$application_folder 	= '/Users/Rumeau/Sites/GIT/stmd/application';
 		break;
@@ -227,6 +227,5 @@ if (defined('ENVIRONMENT'))
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
-
 /* End of file index.php */
 /* Location: ./index.php */
