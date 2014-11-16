@@ -351,6 +351,40 @@ $config = array(
                                                 "label" =>  "LinkedIN",
                                                 "rules" =>  "trim"
                                             )
+                    ),
+                    "form_fiche_classement" => array(
+                                            array(
+                                                "field" =>  "types",
+                                                "label" =>  "Type d'activité",
+                                                "rules" =>  "required"
+                                            ),
+                                            array(
+                                                "field" =>  "categories",
+                                                "label" =>  "Catégorie",
+                                                "rules" =>  "required"
+                                            )
+                    ),
+                    "form_fiche_profile" => array(
+                        array(
+                            "field" =>  "nom",
+                            "label" =>  "Nom",
+                            "rules" =>  "trim|required"
+                        ),
+                        array(
+                            "field" =>  "prenom",
+                            "label" =>  "Prénom",
+                            "rules" =>  "trim|required"
+                        ),
+                        array(
+                            "field" =>  "email",
+                            "label" =>  "Votre email",
+                            "rules" =>  "required|trim|valid_email"
+                        ),
+                        array(
+                            "field" =>  "tel",
+                            "label" =>  "Votre téléphone",
+                            "rules" =>  "trim"
+                        ),
 
                     )//END OF CAT FORM
 			);

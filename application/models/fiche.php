@@ -179,6 +179,10 @@ class Fiche extends fiche_manager
 	public function set_categories($cats)
 	{
 
+
+        //On dédoublonne le tableau
+        $cats = array_unique($cats);
+
 		$this->categories = array();	//IMPORTANT ! Il faut rééinitialiser le tableau sinon on cumule les entrées...
 		
 		$this->categories = $cats;
@@ -544,7 +548,7 @@ class Fiche extends fiche_manager
 			return $id_fiche;
 		}
 
-		
+
 		
 	}
 	

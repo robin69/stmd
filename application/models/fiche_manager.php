@@ -112,16 +112,19 @@ class Fiche_manager extends CI_Model
 			$array_to_insert = array();
 			foreach($cats as $key=>$value)
 			{
-				$array = array(
-					"fiche_id"		=>	$fiche_array["id_fiche"],
-					"category_id"	=>	$value
-				);
-				
-				array_push($array_to_insert,$array);
+
+                $array = array(
+                "fiche_id"		=>	$fiche_array["id_fiche"],
+                "category_id"	=>	$value
+            );
+
+                array_push($array_to_insert,$array);
+
+
 			}
 
+            //On ajoute les nouvelles valeurs
 			$this->db->insert_batch($this->tbl_fiche_cats, $array_to_insert);
-/* 			echo $this->db->last_query(); */
 		}
 		
 		
@@ -243,6 +246,8 @@ class Fiche_manager extends CI_Model
 	*
 	*	Récupère les informations d'une fiche,
 	*	y compris ses dépendances
+     *
+     * ATTENTION la liste des catégories doit rester une liste d'ID.
 	*
 	*	@$id_fiche	(int)	l'id de la fiche à récupérer
 	*	@return	(array)		le tableau multi-dimensions contenant les infos de la fiche
@@ -255,8 +260,15 @@ class Fiche_manager extends CI_Model
 		$query = $this->db->get_where($this->tbl_fiche, array("id_fiche"=>$id_fiche));
 		$infos = $query->row_array();
 		$query->free_result();
-		
-		$cats = $this->get_fiche_cats($id_fiche);		
+
+        //On récupère les catégories
+        $cats_list = array();
+		$cats = $this->get_fiche_cats($id_fiche);
+        foreach($cats as $key => $cat)
+        {
+            array_push($cats_list, $cat["id_category"]);
+        }
+
 		//On récupère les types de la fiche
 		$query = $this->db->get_where($this->tbl_fiche_types, array("fiche_id"=>$id_fiche));
 		$result_types = $query->result_array();
@@ -278,7 +290,7 @@ class Fiche_manager extends CI_Model
 		$query->free_result();
 		
 		$fiche = $infos;
-		$fiche["categories"] 	= $cats;
+		$fiche["categories"] 	= $cats_list;
 		$fiche["types"]			= $types;
 		$fiche["zones"]			= $zones;
 		
@@ -613,6 +625,7 @@ $fiches_liste = array();
 		$this->_add_cats($fiche_array);
 		$this->_add_types($fiche_array);
 		$this->_add_zones($fiche_array);
+
 
 		
 		return;

@@ -84,6 +84,26 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function user_profil()
 	{
+
+
+        //Si il y a un post, on traite
+        $posts = $this->input->post();
+        if(!empty($posts))
+        {
+            //Si il y a un POST je le traite
+            if($this->_treat_posts($posts,"form_fiche_profile", "user") == TRUE)
+            {
+                $this->data["returned_message"] = "Données enregistrées";
+            }else{
+                $this->data["returned_message"] = "Erreur lors de l'enregistrement";
+            }
+        }
+
+
+        //On récupère les informations de l'utilisateur
+        $this->data["user"] = New User($this->session->userdata("id_user"));
+
+
 		$this->_layout("/esp_inscrit/form_user");
 	}
 	
@@ -100,7 +120,7 @@ class Espace_inscrits extends CI_Controller {
         if(!empty($posts))
         {
             //Si il y a un POST je le traite
-            if($this->treat_posts($posts,"form_fiche_contact") == TRUE)
+            if($this->_treat_posts($posts,"form_fiche_contact") == TRUE)
             {
                 $this->data["returned_message"] = "Données enregistrées";
             }else{
@@ -133,7 +153,7 @@ class Espace_inscrits extends CI_Controller {
         if(!empty($posts))
         {
             //Si il y a un POST je le traite
-            if($this->treat_posts($posts,"form_fiche_societe") == TRUE)
+            if($this->_treat_posts($posts,"form_fiche_societe") == TRUE)
             {
                 $this->data["returned_message"] = "Données enregistrées";
             }else{
@@ -157,7 +177,7 @@ class Espace_inscrits extends CI_Controller {
         if(!empty($posts))
         {
             //Si il y a un POST je le traite
-            if($this->treat_posts($posts,"form_fiche_description") == TRUE)
+            if($this->_treat_posts($posts,"form_fiche_description") == TRUE)
             {
                 $this->data["returned_message"] = "Données enregistrées";
             }else{
@@ -176,15 +196,40 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function fiche_classements()
 	{
+
+        //Si il y a un post, on traite
+        $posts = $this->input->post();
+
+
+        if(!empty($posts))
+        {
+            //Si il y a un POST je le traite
+            if($this->_treat_posts($posts,"form_fiche_classement") == TRUE)
+            {
+                $this->data["returned_message"] = "Données enregistrées";
+            }else{
+                $this->data["returned_message"] = "Erreur lors de l'enregistrement";
+            }
+        }
+
+        //On récupère les listes de types et de catégories.
 		$c = new Category;
 		$t = new Type;
-		//On récupère la liste des types
+
 		$this->data["types"] 			= $t->get_types();
 
-		
-		//On récupère les domaines
-		
-		//
+
+		//On récupères les informations de la fiche à jour
+        $fm = new Fiche;
+        $fm->get_user_fiche($this->session->userdata("id_user")); //On récupère les infos de la fiche
+
+        $f = new Fiche($fm->id_fiche());
+        $this->data["fiche"] = $f;
+
+
+
+
+
 		$this->_layout("/esp_inscrit/form_fiche_classements");
 	}
 	
@@ -195,7 +240,7 @@ class Espace_inscrits extends CI_Controller {
         if(!empty($posts))
         {
             //Si il y a un POST je le traite
-            if($this->treat_posts($posts,"form_fiche_reseaux") == TRUE)
+            if($this->_treat_posts($posts,"form_fiche_reseaux") == TRUE)
             {
                 $this->data["returned_message"] = "Données enregistrées";
             }else{
@@ -223,18 +268,35 @@ class Espace_inscrits extends CI_Controller {
      *
      * @return bool : TRUE/FALSE en fonction du résultat.
      */
-	private function treat_posts($posts, $form)
+	private function _treat_posts($posts, $form, $enregType = "fiche")
     {
         //On lance la vérification.
         if($this->form_validation->run($form) == FALSE)
         {
+
             return false;
         }else{
-            //On enregistre les informations dans la fiche
-            $f = new Fiche();
-            $f->get_user_fiche($this->session->userdata("id_user"));//On récupère la fiche par l'ID_USER
-            $f->hydrate($posts);//On met à jour l'objet avec les datas du post
-            $f->_save(); //On sauvegarde dans la base de donées.
+
+
+            if($enregType == "fiche")
+            {
+                //On enregistre les informations dans la fiche
+                $f = new Fiche();
+
+
+                $f->get_user_fiche($this->session->userdata("id_user"));//On récupère la fiche par l'ID_USER
+                $f->hydrate($posts);//On met à jour l'objet avec les datas du post
+                $f->_save(); //On sauvegarde dans la base de donées.
+            }elseif($enregType == "user"){
+
+                $u = new User($this->session->userdata("id_user"));
+                $u->hydrate($posts);
+                $u->_save();
+
+            }
+
+
+
 
             //On retourne True
             return true;

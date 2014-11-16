@@ -1876,21 +1876,29 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
 
 
 /************************** ESP_INSC : Formulaire de classement / catégories *********/
+.classement_form{
+    position: relative;
+}
+
 .classement_form section{
-	border: solid 1px #ccc;
 	margin: 25px 0 0 0;
 }
 
-.classement_form section ul{
+.classement_form section ul, ul.ss_cat{
 	width: 100%;
 }
-.classement_form section ul li ul{
-	display: none;
-}
-.classement_form section ul li{
+
+.classement_form section ul li, ul.ss_cat li{
 	display: inline-block;
 	width: 31%;
-	margin-right: 3px;	
+	margin: 0 3px 10px 0;
+    vertical-align: top;
+    min-height: 55px;
+}
+
+.classement_form section ul li label, ul.ss_cat li label{
+    padding: 0 0 5px 0px;
+    width: 100%;
 }
 
 .classement_form section input[type=checkbox], .classement_form section label
@@ -1901,12 +1909,29 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
 	font-weight: normal;
 	font-size : 1.2em;
 	margin:0;
-	padding: 0 0 0 5px;
 }
 
 
 .classement_form section input[type=checkbox]{
 	width: auto;
+}
+
+.classement_form ul.ss_cat{
+
+    left: 0;
+    border-left: solid 1px grey;
+    position: relative;
+    width: 90%;
+    margin: -8px 0 0 5px;
+    padding-top:5px;
+
+}
+
+.classement_form ul.ss_cat li {
+    width: 100%;
+    line-height: 12px;
+    min-height: 18px;
+    padding: 0 0 0 15px;
 }
 
 .alert-warning{

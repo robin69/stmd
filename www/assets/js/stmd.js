@@ -6,7 +6,7 @@
 *
 *************/
 
-$(document).ready(function()
+$(function()
 {
 
 	//On détecte la présence de la class
@@ -33,24 +33,46 @@ $(document).ready(function()
 	 
 	 $(".counsel input[type='checkbox']").change(function(){
 		 send_cas_request();
-		 console.log("Une checkbox a changée");
 	 });
 	 
 	 $("#send_search_cas").click(function(){
 		 $("#search_cas_form").submit();
 		 return false; 
 	 });
-	 
-	 //Lorsqu'on clic sur une liste qui la classe has_sub_cats, on affiche la sous-cat
-	/*
- $(".has_sub_cat").click(function(){
-		 $(this).find("ul:first-child").css("display","block");
-	 });
-*/
+
+
+    /******
+     * FORMULAIRE D'INSCRIPTION > Classement catégorie
+     *******/
+
+    // On innialise les variables du formulaire
+    if($("#classement_form").length)
+    {
+        classement_form_init();
+    }
+
+
+    //Lorsqu'une checkbox du formulaire de sélection de classement est cochée, on affiche les sous-catégories
+    $("#classement_form ul li input.has_sscats").change(function(){
+        //Pour la liste de sous menu trouvé
+        $(this).closest("li").find("ul").each(function(a){
+            $(this).slideToggle();
+        });
+    });
+
+    //On n'affiche les blocs de catégories que des types principaux sélectionnés
+    $("input[class='type']").change(function(){
+        //on récupère l'id de la case cocher
+        box_name = "#cat_sel_" + $(this).attr("id");
+        $(box_name).slideToggle();
+    });
+
 
 	 $("input[type='checkbox']:not(:checked)").click(function(){
 		 $(this).find("ul").css("display","block");
 	 });
+
+
 
 
     /**
@@ -293,8 +315,33 @@ function fiche_eval(id_fiche, note)
 }
 
 
+/**************************
+ * Lorsqu'on charge la page contenant
+ * le formulaire de classement dans
+ * des catégories, on affiche les valeurs qui sont
+ * déjà cochées. Exemple, si l'utilisateur a coché
+ * le type Transporteur MD, on affiche les catégories
+ * de ce formulaire.
+ * Idem avec les <ul> des sous-catégories.
+ */
+function classement_form_init()
+{
 
+    //Si un type est coché on affiche les cats correspondantes
+    $("input[class='type']:checked").each(function(){
+        box_name = "#cat_sel_" + $(this).attr("id");
+        $(box_name).slideToggle();
 
+        //Si une cat est cochée et qu'elle contient une sous-cat, on affiche la sous-cat
+        $("input:checked").each(function(){
+            $(this).closest("li").find("ul").each(function(a){
+             console.log(a);
+             $(this).slideToggle();
+             });
+        });
+    });
+
+}
 
 
 
@@ -306,7 +353,7 @@ function fiche_eval(id_fiche, note)
 *
 ***************************/
 $(function(){
-	$("#search_rection a").each(function(){
+	$("#search_section a").each(function(){
 		this.click(function(){
 			console.log("ok");
 		});

@@ -13,7 +13,7 @@
 
                 </p>
             </div>
-            <?
+            <?php
         }
             //Ouverture formulaire
             $form_attr = [

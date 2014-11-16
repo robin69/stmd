@@ -40,6 +40,7 @@
 /* http://dev.solutionstmd.com/annuaire/transporteurs_md/cat-agencedemplois */
 /* http://dev.solutionstmd.com/annuaire/transporteurs-md/cat-agencedemplois */
 /////Règles spécifiques à l'annuare
+$route['admin']                                            =   "admin/dashboard";
 $route['annuaire/votre_recherche_conseiller_a_la_securite'] = "annuaire/show_results_cas";
 $route['annuaire/expediteurs_md/cat-(.*)'] 					= 	"annuaire/show_results_cat/expediteurs_md/$1";
 $route['annuaire/transporteurs_md/cat-(.*)'] 				= 	"annuaire/show_results_cat/transporteurs_md/$1";
