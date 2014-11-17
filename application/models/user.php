@@ -200,10 +200,10 @@ class User extends User_manager{
     {
 
 
+        $stmd_cookie = $this->input->cookie("stmd_auth");
 
 
-
-        if(!empty($this->input->cookie("stmd_auth")))
+        if(!empty($stmd_cookie))
         {
             $this->create_user_cookie($this->email,$this->userpass);
         }
