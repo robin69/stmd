@@ -210,9 +210,8 @@ class User_manager extends CI_Model{
 		
 		$query = $this->db->get($this->tbl_user);
 		$result = $query->row();
-/* 		echo $this->db->last_query(); */
 
-		
+
 		if(isset($result->id_user) && $result->id_user !="")
 		{
 			//On met à jour la date de dernière connexion
@@ -285,7 +284,7 @@ class User_manager extends CI_Model{
 			$cookie = unserialize($cookie);						//L'information est sérialisée, on désérialise
 			//On lance l'authentification
 			$id_user = $this->auth($cookie["email"],md5($cookie["userpass"]));
-			
+
 			if($id_user!= FALSE )
 			{
 				$this->create_user_session($id_user);
