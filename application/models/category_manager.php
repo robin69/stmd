@@ -228,7 +228,7 @@ class Category_manager extends CI_Model
 		$query = $this->db->get($this->tbl_category);
 		$result = $query->result();
 		
-		if(count($result)==1)
+		if(count($result)>=1)
 		{
 			return $result[0];
 		}
@@ -257,15 +257,24 @@ class Category_manager extends CI_Model
 	*	de catégorie dans les sidebar des pages de résultat.
 	*
 	*	@type : valeur du type transporteur_md, expediteurs_md ou conseiller_securite
-	*	@dont_count : (bool) FALSE si on veut se préoccuper des fiches (n'afficher que les catégories qui ont effectivement des fiches actives);
 	*	@return : multidimentionnal array
 	*
 	*************************************/
-	public function get_cat_by_type($type,$dont_count = FALSE)
+	public function get_cat_by_type($type)
 	{
-		//On sélectionne les catégories qui ont effectivement une fiche et on compte le nombre de fiche. On trie le tout par ordre alphabétique.
-		if(!$dont_count){
-			$manual_query2 = "SELECT *, 
+		//Je sélectionne toutes les catégorie ayant pout type $type et ayant pour parent 0, soit tous les domaines pour ce type.
+		/*
+$query = $this->db->join($this->tbl_category_type, "category.id_category = cat_has_type.category_id");
+		$query = $this->db->where("parent_cat","0");
+		$query = $this->db->where("type_slug",$type);
+		$query = $this->db->order_by("category.public_name", "ASC");
+		$query = $this->db->get($this->tbl_category);
+*/
+
+		//On sélectionne les catégories qui ont effectivement une fiche et on compte le nombre de fiche. On trie le tout par ordre alphabétique.		
+		$manual_query2 = "
+			SELECT 
+				*, 
 				(SELECT COUNT(*) 
 					FROM fiche, `fiche_has_category` as fhc, `fiche_has_type` as fht 
 					WHERE fiche.id_fiche = fhc.fiche_id AND fhc.category_id = category.id_category
@@ -277,27 +286,19 @@ class Category_manager extends CI_Model
 				WHERE `parent_cat` = '0' AND `type_slug` = '".$type."' 
 				HAVING (nbr_fiche) > 1
 				ORDER BY `category`.`public_name` ASC;";
-		}else{
-			$manual_query2 = "SELECT * FROM (`category`) 
-				JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id` 
-				WHERE `parent_cat` = '0' AND `type_slug` = '".$type."'
-				ORDER BY `category`.`public_name` ASC;";
-		}
-		
 				
 				
 		$query2 = $this->db->query($manual_query2);
 		$cats = $query2->result_array();
 		
+/* 		echo $manual_query; */
 		
 /* 		echo $this->db->last_query(); */
 		
 		//Pour chaque domaine, je récupère les catégories
 		foreach($cats as $key=>$domaine)
 		{
-			if(!$dont_count)
-			{
-				$manual_query3 = "
+			$manual_query3 = "
 			SELECT 
 				*, 
 				(SELECT COUNT(*) 
@@ -311,21 +312,12 @@ class Category_manager extends CI_Model
 				JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id` 
 				WHERE `parent_cat` = '".$domaine["id_category"]."' AND `type_slug` = '".$type."' 
 				HAVING (nbr_fiche) > 1
-				ORDER BY `category`.`public_name` ASC;";	
-			}else{
-				$manual_query3 = "
-			SELECT * FROM (`category`) 
-				JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id` 
-				WHERE `parent_cat` = '".$domaine["id_category"]."' AND `type_slug` = '".$type."' 
 				ORDER BY `category`.`public_name` ASC;";
-			}
-			
 			$query3 = $this->db->query($manual_query3);
 /* 			$query2 = $this->db->get_where($this->tbl_category,array("parent_cat"=>$domaine["id_category"])); */
 			$cats[$key]["sous_cats"] = $query3->result_array();
-/* 			echo $this->db->last_query(); */
 		}
-		
+		/* echo $this->db->last_query(); */
 		
 		return $cats;
 		

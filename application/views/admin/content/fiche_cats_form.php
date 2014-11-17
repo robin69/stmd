@@ -90,8 +90,7 @@
 											<ul>
 											<?php
 											$category = new Category;
-											$cats = $category->get_cat_child($dom->id_category);
-											
+											$cats = $category->get_child($dom->id_category);
 											foreach($cats as $cat)
 											{
 												$cat_checked = (in_array($cat->id_category,$fiche_cats)) ? " checked='CHECKED' " : "";
