@@ -29,7 +29,7 @@ class Login extends CI_Controller {
 	 
 	 public function _remap($method, $params =array())
 	 {
-	 
+
 	 	/*****************************************************
 	 	*
 	 	*	On ne tente une authentification auto que lorsqu'on 
@@ -41,10 +41,21 @@ class Login extends CI_Controller {
 		 {
 			 //On tente l'authentification automatique
 			 $u = new User;
-			 if($u->auto_auth())
-			 {
-			 	redirect("/espace_inscrits");
-			 }
+             try{
+
+                 $u->auto_auth();
+                 redirect("/espace_inscrits");
+
+             }catch(Exception $e){
+                 if($e->getMessage() == "Utilisateur inconnu."){
+                     delete_cookie("stmd_auth"); // On supprime le cookie s'il y en a un
+                     //on redirige vers la page d'identification
+                     $this->index();
+                 }
+             }
+
+
+
 		 }else{
 			 return call_user_func_array(array($this, $method), $params);
 		 }
@@ -124,7 +135,7 @@ class Login extends CI_Controller {
 			
 			redirect("/espace_inscrits");
 		} catch (Exception $e) {
-			echo "Exception reçue : ".$e->getMessage()."\n";
+			$error = "Exception reçue : ".$e->getMessage()."\n";
 		}
 
 		$this->_layout("login");

@@ -122,6 +122,12 @@ class User extends User_manager{
 /* 		echo $email; */
 		if(valid_email($email))
 		{
+
+            /**
+             * #23# Bug identification auto lors du changement d'email
+             */
+            //$this->_update_cookie();
+
 			$this->email = $email;
 		}
 	}
@@ -130,6 +136,7 @@ class User extends User_manager{
 		//On ne met à jour le mot de pass QUE si celui-ci est renseigné.
 		if($userpass != "")
 		{
+            //$this->_update_cookie();
 			$this->userpass = $userpass;
 		}
 		
@@ -179,6 +186,29 @@ class User extends User_manager{
 		}
 		
 	}
+
+
+    /**
+     * #23# Lorsqu'un utilisateur change son email
+     * ou son pass dans son espace, il faut mettre à jour
+     * le cookie
+     *
+     * @param $field    = nom du champ à modifier dans le cookie
+     * @param $value    =   Valeur du champ à modifier dans le cookie
+     */
+    private function _update_cookie($field)
+    {
+
+
+
+
+
+        if(!empty($this->input->cookie("stmd_auth")))
+        {
+            $this->create_user_cookie($this->email,$this->userpass);
+        }
+
+    }
 	
 	
 	
@@ -224,7 +254,7 @@ class User extends User_manager{
 			$this->compte_status = "non-active";
 			$array_to_save["compte_status"] = "non-active";
 		}
-		
+
 		//Si l'objet à un id, on fait un update.
 		if($this->id_user != "")
 		{
