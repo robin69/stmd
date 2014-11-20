@@ -212,7 +212,7 @@ class Category_manager extends CI_Model
 	{
 		$query = $this->db->get_where($this->tbl_guid, array("id_content"=>$id_category, "content_type"=>$this->content_type));
 		$guid = $query->row_array();
-		
+
 		if(count($guid)>=1)
 		{
 			return $guid["guid"];
@@ -223,12 +223,16 @@ class Category_manager extends CI_Model
 	
 	public function get_child($id_category)
 	{
-		$this->db->where("parent_cat",$id_category); 
-		
+		$this->db->where("parent_cat",$id_category);
 		$query = $this->db->get($this->tbl_category);
 		$result = $query->result();
-		
-		if(count($result)>=1)
+
+
+        /********
+         * Attention : On se sert des 2 modes
+         * d'affichage ! $result[0] et $result
+         */
+		if(count($result)==1)
 		{
 			return $result[0];
 		}

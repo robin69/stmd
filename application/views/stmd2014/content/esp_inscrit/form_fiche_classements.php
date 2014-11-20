@@ -78,7 +78,12 @@
                        $j++;
 
                         //On récupère les sous-catégorie si cette catégorie en a.
-                        $ss_cats = $c->get_child($cat["id_category"]);
+                        $ss_cats = (array)$c->get_child($cat["id_category"]);
+
+
+
+
+
                         if(count($ss_cats)>=1) {
                             $hasSubCats = "has_sscats";
                             $subClassId = "ss_cat_".$j;
@@ -111,7 +116,7 @@
 						if(count($ss_cats)>=1):
 							?>
 							<ul class="ss_cat ss_cat_<?php echo $j; ?>" style="display: none;">
-								<?php foreach($ss_cats as $ss_cat):
+								<?php foreach($ss_cats as $key_sscat => $ss_cat ):
                                     $j++;
 
                                     if(in_array($ss_cat->id_category, $f_cat))
@@ -123,9 +128,11 @@
 
 
 
+
+
                                     ?>
 									<li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $ss_cat->id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $ss_cat->id_category; ?>" <?php echo $checked; ?>>
-                                        <label for="input_<?php echo $j; ?>">  <?php echo $ss_cat->public_name; ?></label></li>
+                                        <label for="input_<?php echo $j; ?>" ><?php echo $ss_cat->public_name; ?></label></li>
 								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?> 
