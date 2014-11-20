@@ -456,6 +456,8 @@ a.contact:hover {
 .container_left{
 	float:left;
 	width:367px;
+    margin:0;
+    padding:0;
 }
 .container_middle{
 	float:left;
@@ -923,13 +925,13 @@ a.transporteur_md{
 	color:#444444;
 	font-size:30px;
 	text-decoration:none;
-	background:url("../img/transporteu_md.png") no-repeat scroll center 26px;
+	background:url("../img/transporteur_md.png") no-repeat scroll center top;
 	padding-top:115px;
 	display:block;
 	margin-top:50px;
 }
 a.transporteur_md:hover{
-	background:url("../img/transporteur_md_hover.png") no-repeat scroll center 26px;
+	background:url("../img/transporteur_md_hover.png") no-repeat scroll center top;
 	color:#a2c037;
 }
 a.transporteur_md:hover span{
@@ -1056,6 +1058,9 @@ a.conseiller_md span{
 .home_carousel_cont{
 	width:1200px;
 	margin:0 auto;
+}
+.home_info{
+    margin-top: 25px;
 }
 #landing_page footer{
 	margin-top:0;
