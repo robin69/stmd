@@ -11,4 +11,4 @@ class Admin_functions {
 			 redirect("admin/login");
 		}
 	}
-	}
+}

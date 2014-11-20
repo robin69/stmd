@@ -24,9 +24,10 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function _remap($method, $params = array())
 	{
-		 //Protection 
- 		 
-		 
+		 //Protection
+        $this->user->fprotect();
+
+
 		 //renvois général avec les paramètres.
 		 if(method_exists($this, $method))
 		 {
@@ -74,7 +75,7 @@ class Espace_inscrits extends CI_Controller {
 	{
 		$this->user->disconnect_user();
 		$this->_layout("login");
-	}
+    }
 	
 	
 	public function index()

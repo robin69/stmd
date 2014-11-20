@@ -37,26 +37,33 @@ class Login extends CI_Controller {
 	 	*	entrain d'essayer de se connecter avec un profil.
 	 	*
 	 	***************************************************/
-		 if($method != "token" AND $method != "connexion")
-		 {
-			 //On tente l'authentification automatique
-			 $u = new User;
-             try{
+		 if($method != "token" AND $method != "connexion"){
 
-                 $u->auto_auth();
-                 redirect("/espace_inscrits");
 
-             }catch(Exception $e){
-                 if($e->getMessage() == "Utilisateur inconnu."){
+             if($this->session->userdata("id_user") != ""){ //si l'utilisateur est déjà identifié on renvois vers l'espace inscrit
+
+                 redirect("/espace_inscrits/");
+
+             } elseif($this->input->cookie("smtp_auth") != ""){ //si l'utilisateur a un cookie, on lance l'anthentifiaction
+
+                 //TODO : rediriger ver l'ancer l'authentification avec les infos du cookie
+                 echo "il y a un cookie !";
+                 $u = new User;
+                 try{
+
+                     $u->auto_auth();
+
+                 } catch(Exception $e){
+
                      delete_cookie("stmd_auth"); // On supprime le cookie s'il y en a un
-                     //on redirige vers la page d'identification
                      $this->index();
+                     exit;
                  }
+             } else{
+                 $this->index();
              }
 
-
-
-		 }else{
+         }else{
 			 return call_user_func_array(array($this, $method), $params);
 		 }
 	 }

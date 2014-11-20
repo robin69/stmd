@@ -162,6 +162,14 @@ class User_manager extends CI_Model{
 			redirect("admin/login");
 		}
 	}
+
+    public function fprotect()
+    {
+        if($this->session->userdata("id_user") =="")
+        {
+            redirect("login/");
+        }
+    }
 	
 	public function is_admin()
 	{
@@ -302,6 +310,7 @@ class User_manager extends CI_Model{
 	
 	public function disconnect_user()
 	{
+
 		$this->session->sess_destroy();
 	}
 	
