@@ -2,12 +2,12 @@
 	<footer class="footer">
 		 <div class="footer_container">
 			 <ul class="footer_nav_top">
-				 <li><a href="<?php echo base_url("rechercher-un-conseiller-a-la-securite"); ?>">Trouver un conseiller à la sécurité</a></li>
-				 <li><a href="<?php echo base_url("annuaire/transporteurs_md"); ?>">Prestataires pour transporteurs MD</a></li>
-				 <li><a href="<?php echo base_url("annuaire/expediteurs_md"); ?>">Prestataires pour expéditeurs MD</a></li>
+				 <li><a href="<?php echo base_url(); ?>rechercher-un-conseiller-a-la-securite-adr/">Trouver un conseiller à la sécurité</a></li>
+				 <li><a href="<?php echo base_url("annuaire"); ?>/transporteurs-md-adr">Prestataires pour transporteurs MD</a></li>
+				 <li><a href="<?php echo base_url("annuaire"); ?>/expediteurs-md-adr-iata-imdg/">Prestataires pour expéditeurs MD</a></li>
 				 <li><a href="<?php echo base_url("pourquoi-s-inscrire"); ?>">Inscrire votre entreprise</a></li>
 				 <li><a href="<?php echo base_url("newsletter/inscription"); ?>">S’inscrire à la newsletter</a></li>
-				 <li><a class="nosep" href="http://www.gmjphoenix.com">GMJ Phoenix</a></li>
+				 <li><a class="nosep" href="http://www.gmjphoenix.com" target="_blank">GMJ Phoenix</a></li>
 			 </ul>
 			 <ul class="footer_nav_bot">
 				 <li><a href="<?php echo base_url('contact'); ?>">Contacts</a></li>

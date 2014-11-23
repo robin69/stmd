@@ -119,7 +119,7 @@ $autoload['model'] = array(
 	"fiche",
 	"user_manager",
 	"user", 
-	"contenu_model",
+	"content",
 	"guid_model",
 	"mails",
     "token"

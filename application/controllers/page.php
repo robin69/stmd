@@ -7,7 +7,7 @@ class Page extends CI_Controller{
 
 	var $guid = "";
 	var $contenu = "";
-	var $theme = "front";
+	var $theme = "stmd2014";
 
 	public function __construct()
 	{
@@ -17,11 +17,16 @@ class Page extends CI_Controller{
 		
 		//On récupère la chaine demandée par l'url
 		$this->guid = $this->uri->uri_string();
-		
-		//J'utilise le model pour voir si le contenu existe
-		$this->contenu = $this->Contenus_model->get_contenu($this->guid);
+
+        //On regarde dans la base si le contenu existe
+        $cnt = new Content();
+		$this->contenu = $cnt->get_contenu_by_guid($this->guid);
+
+        //Is le contenu n'existe pas dans la base
 		if($this->contenu === FALSE){
-			$this->error404();
+          //On va voir s'il y a une page statique
+            $this->_layout($this->guid);
+
 		}else{
 			
 			
@@ -38,23 +43,34 @@ class Page extends CI_Controller{
 	
 	public function index()
 	{
-	
-		//SI on est sur un controller connys, on n'arrive pas sur cette page.
-		
+
 		//Si on est sur un controller incconu, on arrive ici. `
 		//on récupère l'URL
-		echo "on cherche : ".$this->guid;
+		//echo "on cherche : ".$this->guid;
 		
 		
 	}
 	
 	public function error404()
 	{
-		$this->layout->view("404");
+		$this->_layout->view("404");
 	}
 	
 	public function page()
 	{
 		echo "coucou";
 	}
+
+
+    private function _layout($layout)
+    {
+
+        /* 		$this->data["view_has_slider"] = TRUE; */
+        $this->layout->view("_html_head", 	$this->data);
+        $this->layout->view("_menu", 	$this->data);
+        $this->layout->view("_breadcrumb", $this->data);
+        $this->layout->view($layout, 	$this->data);
+        $this->layout->view("_html_foot", 	$this->data);
+
+    }
 }

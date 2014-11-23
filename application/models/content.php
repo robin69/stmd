@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Contenu_model extends CI_Model{
+class Content extends CI_Model{
 
 
 	private $table = "contenu";			//Table
@@ -187,6 +187,35 @@ class Contenu_model extends CI_Model{
 		
 		$this->db->delete($this->table, array("id_contenu" => $id));
 	}
+
+    public function get_contenu_by_guid($guid)
+    {
+
+        //On va regarder si le GUID existe
+        $query = $this->db->get_where("guid", array("guid"=>$guid));
+        $result = $query->result();
+        if($result)
+        {
+
+            return $result;
+        }else{
+            return false;
+        }
+
+        //On récupère les informations du contenu
+        $query = $this->db->get_where("contenu", array("guid"=>$guid), 1);
+        //Si il y en a on va
+        if($query->num_rows()>0)
+        {
+            //récupère les infos
+            $row = $query->row();
+            return $row;
+        }else{
+            return false;
+        }
+
+
+    }
 	
 
 	
