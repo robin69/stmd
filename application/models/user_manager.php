@@ -230,10 +230,10 @@ class User_manager extends CI_Model{
 			return $result->id_user;
 		}else{
 			throw new Exception("Utilisateur inconnu.");
-			
+            return FALSE;
 		}
 				
-		return FALSE;
+
 	}
 	
 	public function create_user_session($id_user)
