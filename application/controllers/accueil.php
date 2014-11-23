@@ -34,6 +34,24 @@ class Accueil extends CI_Controller {
 	 {
 		$this->_layout('accueil');
 	}
+
+
+
+    public function get_gmjnews()
+    {
+        try{
+            $this->load->library('rssparser');
+            $this->rssparser->set_feed_url("http://www.gmjphoenix.com/reglementation-matieres-dangereuses/feed/");
+            $this->data["rss"] = $this->rssparser->set_feed_url('http://www.gmjphoenix.com/reglementation-matieres-dangereuses/feed/')->set_cache_life(30)->getFeed(6);
+        }catch(Exception $e){
+            $this->data["rss"] = FALSE;
+        }
+
+
+
+        //var_dump($this->data["rss"]);
+
+    }
 	
 	
 	
@@ -41,6 +59,7 @@ class Accueil extends CI_Controller {
 	
 	private function _layout($layout)
 	{
+        $this->get_gmjnews();
 		$this->data["no_google_map"] = TRUE;
 		$this->data["body_id"] = "landing_page";
 		$this->layout->view("_html_head", 	$this->data);

@@ -486,7 +486,7 @@ a.contact:hover {
 	display:block;
 }
 .cat{
-    color: #b1b2b2;
+    color: #707171;
     font-size: 15px;
     line-height: 30px;
     margin-bottom: 35px;
@@ -1051,7 +1051,7 @@ a.conseiller_md span{
 	width:325px;
 }
 .home_carousel{
-	height:210px;
+	/*height:210px;*/
 	background-color:#f4f7e7;
 	margin-top:100px;
 }

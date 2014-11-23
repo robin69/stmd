@@ -19,7 +19,7 @@ Vous êtes transporteur MD ou assimilé et vous recherchez un prestataire ou un 
 ?>
 			<div class="cat">
 				<h3><a href="<?php echo base_url("annuaire/".$domaine); ?>/cat-<?php echo $cat["slug"]; ?>"><span><?php echo $cat["public_name"]; ?> (<?php echo $cat["nbr_fiches"]; ?>)</span></a></h3>
-				Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
+				<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
 		
 			</div>
 
