@@ -36,20 +36,21 @@ class Mails extends CI_Model
 			);
 			
 		//On encode le token
-		$token = $this->tokenize($token_array);
-		
+        $token = new Token;
+        $token->tokenize($token_array);
+
 		//On prépare le contenu du mail
 		$this->subject	=	"Activation de votre compte - ".$this->config->item("site_name");
 		$this->message 	= 	"Bonjour, <br />
 			<br />
 			
 			Vous venez de vous inscrire dans l'annuaire ".$this->config->item("site_name").". Pour finaliser votre inscription et activer votre compte merci de cliquer sur ce lien :<br />
-			<a href='".base_url("login")."/token/?token=".$token."'>Je confirme mon adresse email.</a><br /><br /><br />";
+			<a href='".base_url("login")."/token/?token=".$token->string."'>Je confirme mon adresse email.</a><br /><br /><br />";
 		
 		
 		$this->shoot();
 	}
-	
+
 
 	/**
 	*

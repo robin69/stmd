@@ -65,10 +65,15 @@
          *************************************/
         public function tokenize($array)
         {
-            $string = serialize($array);				//On sérialise la chaine au cas où il s'agisse d'un tableau
-            $string = $this->encrypt->encode($string);	//On décrypte le token
-            $string = urlencode($string);
-            return $string;
+            if(!is_array($array))
+            {
+                throw new Exception("Erreur Token : L'élément fourni n'est pas un tableau");
+            }else{
+                $string = serialize($array);				//On sérialise la chaine au cas où il s'agisse d'un tableau
+                $string = $this->encrypt->encode($string);	//On décrypte le token
+                $this->string = urlencode($string);
+            }
+
         }
 
         /************************************
@@ -150,6 +155,18 @@
 
 
             return $return;
+
+        }
+
+
+        public function __toString()
+        {
+            if($this->string)
+            {
+                return $this->string;
+            }else {
+                return "Il n'y a pas de Tojen";
+            }
 
         }
 
