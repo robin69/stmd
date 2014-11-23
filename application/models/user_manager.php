@@ -286,12 +286,28 @@ class User_manager extends CI_Model{
 	{
 		//On regarde s'il y a un cookie
 		$cookie = $this->input->cookie("stmd_auth", TRUE);	
-		if($cookie)
-		{
-			$cookie = $this->encrypt->decode($cookie);			//Il est crypté. On décode le cookie
-			$cookie = unserialize($cookie);						//L'information est sérialisée, on désérialise
-			//On lance l'authentification
-			$id_user = $this->auth($cookie["email"],md5($cookie["userpass"]));
+		if($cookie){
+            $cookie = $this->encrypt->decode($cookie);            //Il est crypté. On décode le cookie
+            $cookie = unserialize($cookie);                        //L'information est sérialisée, on désérialise
+            //On lance l'authentification
+            try{
+                $id_user = $this->auth($cookie["email"] , md5($cookie["userpass"]));
+            } catch(Exception $e){
+                //Si l'utilisateur n'est pas connu
+                if($e->getMessage() == "Utilisateur inconnu.")
+                {
+                    delete_cookie("stmd_auth"); // On supprime le cookie s'il y en a un
+                    redirect("login");
+
+                }else{
+                    die("Erreur inconnu: ". $e->getCode() . "<br />" .
+                        " File : " . $this->getFile() .
+                        " Line : " . $this->getLine()
+                    );
+                }
+
+            }
+
 
 			if($id_user!= FALSE )
 			{
@@ -329,6 +345,10 @@ class User_manager extends CI_Model{
 		
 		return $result;
 	}
+
+
+
+
 	
 
 

@@ -36,7 +36,7 @@ class Login extends CI_Controller
 		if($this->form_validation->run("login") == FALSE)
 		{
 			//La librairie de vérification de formulaire auto-loadée
-			echo validation_errors();
+			//echo validation_errors();
 			$this->_layout("login");
 			
 			
@@ -47,7 +47,23 @@ class Login extends CI_Controller
 			$u = new User;
 			
 			//On vérifie login et pass
-			$id_user = $this->user->auth($this->input->post("email"),$this->input->post("userpass"),$this->input->post("form_admin"));
+
+            try{
+                $id_user = $this->user->auth($this->input->post("email"),$this->input->post("userpass"),$this->input->post("form_admin"));
+            }catch (Exception $e){
+                if($e->getMessage() == "Utilisateur inconnu.")
+                {
+                    delete_cookie("stmd_auth"); // On supprime le cookie s'il y en a un
+                    redirect("admin/login");
+
+                }else{
+                    die("Erreur inconnu: ". $e->getCode() . "<br />" .
+                        " File : " . $this->getFile() .
+                        " Line : " . $this->getLine()
+                    );
+                }
+            }
+
 /* 			echo $this->db->last_query(); */
 
 			if($id_user !== FALSE)
