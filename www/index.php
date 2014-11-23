@@ -54,7 +54,7 @@ if (defined('ENVIRONMENT'))
 	
 		//Il s'agit de l'environnement de test, donc sur en-production.net
 		case 'testing':		
-			error_reporting(E_ALL);
+			error_reporting(E_ALL & ~E_NOTICE);
 			$system_path 			= '/home/www/stmd/system/';
 			$application_folder 	= '/home/www/stmd/application';//application
 		break;
