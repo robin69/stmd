@@ -37,23 +37,57 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+
+
+
+
 /* http://dev.solutionstmd.com/annuaire/transporteurs_md/cat-agencedemplois */
 /* http://dev.solutionstmd.com/annuaire/transporteurs-md/cat-agencedemplois */
 /////Règles spécifiques à l'annuare
-$route['admin']                                            =   "admin/dashboard";
-$route['annuaire/votre_recherche_conseiller_a_la_securite'] = "annuaire/show_results_cas";
-$route['annuaire/expediteurs_md/cat-(.*)'] 					= 	"annuaire/show_results_cat/expediteurs_md/$1";
-$route['annuaire/transporteurs_md/cat-(.*)'] 				= 	"annuaire/show_results_cat/transporteurs_md/$1";
-$route['annuaire/transporteurs_md']							=	"annuaire/cat_prestas_tmd";
-$route['annuaire/expediteurs_md']							=	"annuaire/cat_prestas_emd";
-$route['rechercher-un-conseiller-a-la-securite']			=	"annuaire/search_cas_form";
-$route['recherche/(.*)/(.*)']								=	"search_engine/search/$1/$2";
-$route['recherche/(.*)']									=	"search_engine/search/$1";
 
-$route['recherche']											=	"search_engine";
 
-$route['default_controller'] 								= "accueil";
-$route['404_override'] 										= 'page';
+    /**
+     * #8# Réécriture d'URL
+     */
+    $route['admin']     =   "admin/dashboard";
+
+    /****
+     * TRANSPORTEURS MD
+     */
+    $route['annuaire/transporteurs-md-adr/cat-(.*)'] 				= 	"annuaire/show_results_cat/transporteurs_md/$1";
+    //$route['annuaire/transporteurs_md/cat-(.*)'] 				    = 	"annuaire/show_results_cat/transporteurs_md/$1";
+    $route['annuaire/transporteurs-md-adr']							=	"annuaire/cat_prestas_tmd";
+    //$route['annuaire/transporteurs_md']							=	"annuaire/cat_prestas_tmd";
+
+    /****
+     * EXPEDITEURS MD
+     */
+    $route['annuaire/expediteurs-md-adr-iata-imdg/cat-(.*)'] 		= 	"annuaire/show_results_cat/expediteurs_md/$1";
+    //$route['annuaire/expediteurs_md/cat-(.*)'] 					    = 	"annuaire/show_results_cat/expediteurs_md/$1";
+    $route['annuaire/expediteurs-md-adr-iata-imdg']            =	"annuaire/cat_prestas_emd";
+    //$route['annuaire/expediteurs_md']							=	"annuaire/cat_prestas_emd";
+
+    /******
+     * CONSEILLER A LA SECURITE
+     */
+    $route['rechercher-un-conseiller-a-la-securite-adr']			=	"annuaire/search_cas_form";
+    //$route['rechercher-un-conseiller-a-la-securite']			=	"annuaire/search_cas_form";
+    $route['annuaire/votre_recherche_conseiller_a_la_securite'] = "annuaire/show_results_cas";
+
+
+    /***********
+     * MOTEUR DE RECHERCHE
+     */
+    $route['recherche/(.*)/(.*)']								=	"search_engine/search/$1/$2";
+    $route['recherche/(.*)']									=	"search_engine/search/$1";
+    $route['recherche']											=	"search_engine";
+
+
+    /**************
+     * PAGES
+     */
+    $route['default_controller'] 								= "accueil";
+    $route['404_override'] 										= 'page';
 
 
 

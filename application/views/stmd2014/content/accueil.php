@@ -33,7 +33,7 @@
                 <center>
 
 
-                    <a href="<?php echo base_url("annuaire"); ?>/transporteurs_md/" class="transporteur_md">Vous êtes transporteurs de MD ?
+                    <a href="<?php echo base_url("annuaire"); ?>/transporteurs-md-adr" class="transporteur_md">Vous êtes transporteurs de MD ?
                         <span>Trouvez le prestataire qu’il vous faut.</span></a>
 
                 </center>
@@ -42,7 +42,7 @@
             <div class="container_middle">
                 <center>
 
-                    <a href="<?php echo base_url("annuaire"); ?>/expediteurs_md/" class="expediteur_md">Vous êtes expéditeurs de MD?
+                    <a href="<?php echo base_url("annuaire"); ?>/expediteurs-md-adr-iata-imdg/" class="expediteur_md">Vous êtes expéditeurs de MD?
                         <span>Trouvez des prestataires pour vous aider à gérer, stocker et transporter vos marchandises dangereuses.</span></a>
 
                 </center>
@@ -51,7 +51,7 @@
             <div class="container_right">
                 <center>
 
-                    <a href="<?php echo base_url(); ?>rechercher-un-conseiller-a-la-securite/" class="conseiller_md">Vous recherchez un conseiller à la sécurité?
+                    <a href="<?php echo base_url(); ?>rechercher-un-conseiller-a-la-securite-adr/" class="conseiller_md">Vous recherchez un conseiller à la sécurité?
                         <span>Trouvez un conseiller ADR externe proche de chez vous.</span></a>
 
                 </center>

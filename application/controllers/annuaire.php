@@ -28,7 +28,12 @@ class Annuaire extends CI_Controller {
 
 	public function cat_prestas_tmd()
 	{
+
+        $g = new Guid_model();
+
 		$this->data["domaine"]		=	"transporteurs_md";
+        $this->data["type_guid"]    =   $g->get_guid("types","transporteurs_md");   //On récupère le guid du type
+        $this->data["description"]  =   "Vous êtes transporteurs de marchandises dangereuses par route (ADR), les rubriques présentées ci-dessous vous aideront à trouver le prestataire qui correspond à votre problématique. Nous demeurons à votre disposition pour répondre à vos demandes.";
 		$this->data["cats"]			=	$this->list_cats("transporteurs_md");
 		$this->data["no_google_map"] = TRUE;
 
@@ -37,8 +42,13 @@ class Annuaire extends CI_Controller {
 	
 	public function cat_prestas_emd()
 	{
+        $g = new Guid_model();
+
 		$this->data["domaine"]	=	"expediteurs_md";
-		$this->data["cats"]		=	$this->list_cats("expediteurs_md");
+        $this->data["type_guid"]    =   $g->get_guid("types","expediteurs_md");   //On récupère le guid du type
+        $this->data["description"]  =   "Vous êtes expéditeurs de marchandises dangereuses (ADR, IATA, IMDG) et vous recherchez un prestataire pouvant vous aider à gérer et expédier vos produits classés à risques.
+Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qui correspond à votre problématique. Nous demeu- rons à votre disposition pour répondre à vos demandes.";
+        $this->data["cats"]		=	$this->list_cats("expediteurs_md");
 		$this->data["menu_sidebar"]	=	"presta";
 		$this->data["no_google_map"] = TRUE;
 
@@ -47,8 +57,12 @@ class Annuaire extends CI_Controller {
 	
 	public function search_cas_form()
 	{
-		
+        $g = new Guid_model();
+
 		$this->data["domaine"]	=	"conseiller_securite";
+        $this->data["type_guid"]    =   $g->get_guid("types","conseiller_securite");   //On récupère le guid du type
+        $this->data["description"]  =   "En France, l’intervention d’un conseiller à la sécurité pour le transport de marchandises dangereuses est une obliga- tion légale (voir conditions fixées par l’arrêté TMD). Pour trouver un conseiller à la sécurité ADR proche de chez vous, vous devez sélectionner la région, la ou les classes de danger concernées correspondant à la matière dangereuse transportée ET au mode de transport qui sera utilisé : transport de marchandises par route (ADR), transport de mar- chandises dangereuses par chemin de fer (RID), transport de marchandises dangereuses par voies navigables (ADN).";
+        $this->data["cats"]		=	$this->list_cats("expediteurs_md");
 		$this->data["menu_sidebar"]	=	"cas";
 		
 		$this->_layout("search_conseiller");

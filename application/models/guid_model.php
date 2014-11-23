@@ -37,10 +37,9 @@ class Guid_model extends CI_Model
 			$this->type = $type;
 			$this->id_content = $id_content;
 			
-			$query = $this->db->get_where("guid",array("type"=>$this->type, "id_content"=>$id_content));
+			$query = $this->db->get_where("guid",array("content_type"=>$this->type, "id_content"=>$id_content));
 			$result = $query->row();
-			
-			
+
 			if(count($result)>=1)
 			{
 				return $result->guid;
@@ -104,7 +103,7 @@ class Guid_model extends CI_Model
 	*/
 	public function delete_guid($content_type,$id)
 	{
-		$this->db->delete("guid", array("id_content"=>$id, "type"=>$content_type));
+		$this->db->delete("guid", array("id_content"=>$id, "content_type"=>$content_type));
 	}
 	
 	

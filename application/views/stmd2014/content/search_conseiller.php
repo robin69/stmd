@@ -2,7 +2,7 @@
 	<div class="main search_cas">
 	  <center>
 	    <h1>Sélectionnez, validez et trouvez !</h1>
-	    <p class="top_description"> En France, l’intervention d’un conseiller à la sécurité pour le transport de marchandises dangereuses est une obligation légale. Si vous vous aprêtez à faire transporter des matières dangereuses, vous devez sélectionner un conseiller à la sécurité qui exerce pour la classe correspondant à la matière dangereuse transportée ET au mode de transport qui sera utilisé : transport de marchandises par route (ADR), transport de marchandises dangereuses par chemin de fer (RID), transport de marchandises dangereuses par voies navigables (ADN). </p>
+	    <p class="top_description"><?php echo $description; ?></p>
 	  </center>
 	  <div class="container">
 	    <div class="container_left">

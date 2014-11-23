@@ -45,9 +45,9 @@
 					}
 				?>
 		        <ul>
-					<li <?php echo $ann_tmd_activ_class; ?>><a href="<?php echo base_url("annuaire/transporteurs_md"); ?>"> Transporteurs MD<br /> <span>Annuaire des prestataires</span> </a></li>
-					<li <?php echo $ann_emd_activ_class; ?>><a href="<?php echo base_url("annuaire/expediteurs_md"); ?>" > Expéditeurs MD<br /><span>Annuaire des prestataires</span> </a></li>
-					<li <?php echo $ann_cas_activ_class; ?>><a href="<?php echo base_url("rechercher-un-conseiller-a-la-securite"); ?>"> Sécurité<br /><span>Conseillers à la sécurité</span> </a></li>
+					<li <?php echo $ann_tmd_activ_class; ?>><a href="<?php echo base_url("annuaire/transporteurs-md-adr"); ?>"> Transporteurs MD<br /> <span>Annuaire des prestataires</span> </a></li>
+					<li <?php echo $ann_emd_activ_class; ?>><a href="<?php echo base_url("annuaire/expediteurs-md-adr-iata-imdg"); ?>" > Expéditeurs MD<br /><span>Annuaire des prestataires</span> </a></li>
+					<li <?php echo $ann_cas_activ_class; ?>><a href="<?php echo base_url("rechercher-un-conseiller-a-la-securite-adr"); ?>"> Sécurité<br /><span>Conseillers à la sécurité</span> </a></li>
 		        </ul>
 			</div>
       
