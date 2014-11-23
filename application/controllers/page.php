@@ -65,6 +65,9 @@ class Page extends CI_Controller{
 
     private function _layout($layout)
     {
+        $this->data["body_id"]	=	"home";
+        $this->data["domaine"]  =   "";
+        $this->data["no_google_map"]  =   "";
 
         /* 		$this->data["view_has_slider"] = TRUE; */
         $this->layout->view("_html_head", 	$this->data);

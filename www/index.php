@@ -47,7 +47,7 @@ if (defined('ENVIRONMENT'))
 	{
 		//Il s'afit de l'environnement local, sur l'ordinateur
 		case 'development': 
-			error_reporting(E_ALL& ~E_NOTICE);//E_ALL & ~E_NOTICE
+			error_reporting(E_ALL);//E_ALL & ~E_NOTICE
 			$system_path 			= '/Users/Rumeau/Sites/GIT/stmd/system/';
 			$application_folder 	= '/Users/Rumeau/Sites/GIT/stmd/application';
 		break;
