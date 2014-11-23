@@ -83,61 +83,61 @@ a<div class="main">
 
           //Nom Contact
           echo $lab_nom = form_label("Nom :", "nom");
-          $fi_nom = [
+          $fi_nom = array(
               "type"  => "text",
               "name"  =>  "nom",
               "id"    =>  "nom",
               "value" =>  ($nom) ? $nom : set_value('nom'),
               "placeholder"   =>"Ex: Garcia"
-          ];
+          );
           echo form_input($fi_nom)."<p>".form_error('nom')."</p>";
 
           echo $lab_prenom = form_label("Prénom :", "prenom");
-          $fi_prenom = [
+          $fi_prenom = array(
               "type"  => "text",
               "name"  =>  "prenom",
               "id"    =>  "prenom",
               "value" =>  ($prenom) ? $prenom : set_value('prenom'),
               "placeholder"   =>"Ex: José"
-          ];
+          );
           echo form_input($fi_prenom)."<p>".form_error('prenom')."</p>";
 
           echo $lab_email = form_label("Email :", "email");
-          $fi_email = [
+          $fi_email = array(
               "type"  => "email",
               "name"  =>  "email",
               "id"    =>  "email",
               "value" =>  ($email) ? $email : set_value('email'),
               "placeholder"   =>"Ex: jgarcia@gmail.com"
-          ];
+          );
           echo form_input($fi_email)."<p>".form_error('email')."</p>";
 
           echo $lab_tel = form_label("Téléphone :", "tel");
-          $fi_tel = [
+          $fi_tel = array(
               "type"  => "tel",
               "name"  =>  "tel",
               "id"    =>  "tel",
               "value" =>  ($tel) ? $tel : set_value('tel'),
               "placeholder"   =>"Ex: 0123456789"
-          ];
+          );
           echo form_input($fi_tel)."<p>".form_error('tel')."</p>";
 
           echo $lab_pass = form_label("Mot de passe :", "userpass");
-          $fi_userpass = [
+          $fi_userpass = array(
               "type"  => "password",
               "name"  =>  "userpass",
               "id"    =>  "userpass",
               "placeholder"   =>""
-          ];
+          );
           echo form_input($fi_userpass)."<p>".form_error('userpass')."</p>";
 
            echo $lab_passconf = form_label("Confirmation :", "passconf");
-          $fi_passconf = [
+          $fi_passconf = array(
               "type"  => "password",
               "name"  =>  "passconf",
               "id"    =>  "passconf",
               "placeholder"   =>""
-          ];
+          );
           echo form_input($fi_passconf)."<p>".form_error('passconf')."</p>";
 
   	?>
