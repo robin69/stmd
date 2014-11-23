@@ -5,6 +5,7 @@ class Page extends CI_Controller{
 
 
 
+    var $data = array();
 	var $guid = "";
 	var $contenu = "";
 	var $theme = "stmd2014";
