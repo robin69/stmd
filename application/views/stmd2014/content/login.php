@@ -144,12 +144,12 @@ a<div class="main">
      <div class="clear"></div>
     <p class="cgu_agreement">
         <?php
-            $fi_cgu_agreement = [
+            $fi_cgu_agreement = array(
                 "type"  => "checkbox",
                 "name"  =>  "accept_cgu_first",
                 "id"    =>  "accept_cgu_first",
                 "value" =>  TRUE
-            ];
+            );
             echo form_input($fi_cgu_agreement) . form_error('accept_cgu_first') ;
             echo $la_cgu_agreement = form_label(" J'ai lu et j'accepte les <a href=''>conditions d'utilisation</a> de l'annuaire SolutionTMD.", "accept_cgu_first");
         ?>
@@ -158,13 +158,13 @@ a<div class="main">
   <?php
 
       //Form button
-      $form_button_attr= [
+      $form_button_attr= array(
           "type"  => "submit",
           "class" =>  "valider",
           "id"    =>  "form_submit_btn",
           "content"=> "Valider l'inscription"
 
-      ];
+      );
       echo form_button($form_button_attr);
 
 		echo form_close();	
