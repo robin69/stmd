@@ -37,7 +37,7 @@ class Login extends CI_Controller {
 	 	*	entrain d'essayer de se connecter avec un profil.
 	 	*
 	 	***************************************************/
-		 if($method != "token" AND $method != "connexion"){
+		 if($method != "token" AND $method != "connexion" AND $method != "sign_up" ){
 
 
              if($this->session->userdata("id_user") != ""){ //si l'utilisateur est déjà identifié on renvois vers l'espace inscrit
@@ -47,7 +47,6 @@ class Login extends CI_Controller {
              } elseif($this->input->cookie("smtp_auth") != ""){ //si l'utilisateur a un cookie, on lance l'anthentifiaction
 
                  //TODO : rediriger ver l'ancer l'authentification avec les infos du cookie
-                 echo "il y a un cookie !";
                  $u = new User;
                  try{
 
@@ -70,48 +69,18 @@ class Login extends CI_Controller {
 
 	 public function token()
 	 {
-	 	//On récupère les informations contenues dans le token
-	 	$token = $this->input->get("token");
-	 	$mails = new Mails;
-	 	$token_datas = $mails->tokenread($token);
-	 	
-	 	//en fonction de ACTION on fait ce qu'il y a à faire
-	 	switch($token_datas["action"])
-	 	{
-		 	case "account_confirm"	:	
-		 		$u = new User;
-		 		//On récupère les infos de l'utilisateur
-		 		$user_id = $u->auth($token_datas["email"], $token_datas["userpass"]);
-		 		$our_user = new User($user_id);
-		 		
-		 		
-		 		//On met à jour l'utilisateur en activant son compte
-		 		$our_user->set_compte_status("active");
-		 		$our_user->_save();
-		 		
-		 		//on crée une fiche vide pour cet utilisateur
-		 		$user_fiche = new Fiche;
-		 		$user_fiche->set_user_id($user_id);
-		 		$user_fiche->set_publication_status("unpublished");
-		 		$user_fiche->set_date_creation();
-		 		$user_fiche->set_payante("0");
-		 		$user_fiche->_save();
-		 		
-		 		
-		 		//On crée la session utilisateur
-		 		$our_user->create_user_session($our_user->id_user());
-		 		
-		 		
-		 		//On redirige vers l'accueil de l'espace inscrit.
-		 		$this->_layout("/esp_inscrit/accueil");
-		 		
-	 	}
+         $token = new Token();
+         if($token->execute() === true)
+         {
+             //On redirige vers l'accueil de l'espace inscrit
+             redirect("espace_inscrits");
+         }
 	 }
 	
 	
 	 public function index()
 	 {
-	 
+
 	 	$this->data["domaine"] = NULL;
 		$this->_layout('login');
 	}
@@ -148,8 +117,42 @@ class Login extends CI_Controller {
 		$this->_layout("login");
 		
 	}
-	
-	
+
+
+    public function sign_up()
+    {
+
+        //Si on ne passe pas la vérification
+        if($this->form_validation->run("front_sign_up_form") == FALSE)
+        {
+
+            //On retourne au formualaire. Les messages d'erreus sont automatiquement affichés
+            $this->_layout("login");
+        }else{
+
+            //On enregistre l'utilisateur
+            $u = new User;
+            $u->hydrate($this->input->post());	//On alimente l'objet
+            $id_user = $u->_save();
+
+
+            //On envois l'email de confirmation
+            $mail 			= new Mails;
+            $mail->to 		= $this->input->post("email");
+            $mail->userpass	= $this->input->post("userpass");
+            $mail->account_activation()	;
+
+            //On affiche le message en popin
+            $this->data["success"]	=	TRUE;
+            $this->data["success_message"]	=	"Un email de confirmation viens de vous être envoyé. Suivez les instructions qu'il contient pour activer votre compte et finaliser votre inscription.";
+
+            $this->_layout("login");
+        }
+
+
+
+
+    }
 	
 	
 	
@@ -166,7 +169,6 @@ class Login extends CI_Controller {
 		$this->layout->view("_html_foot");
 		
 	}
-	
 }
 
 /* End of file welcome.php */

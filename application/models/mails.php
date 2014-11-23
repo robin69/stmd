@@ -50,48 +50,7 @@ class Mails extends CI_Model
 		$this->shoot();
 	}
 	
-	/************************************
-	*
-	*	Fonction qui génère un token
-	*
-	*
-	*	Réceptionne un tableau contenant des informations
-	*	sérialize le tableau, l'encode et retourne une chaine
-	*
-	*	$array = array(
-	*		"action"	=>	"Mon_action",
-	*		"info_nom1"	=>	"info_value1",	
-	*		"info_nom2"	=>	"info_value2"
-	*	);
-	*
-	*************************************/
-	public function tokenize($array)
-	{
-		$string = serialize($array);				//On sérialise la chaine au cas où il s'agisse d'un tableau
-		$string = $this->encrypt->encode($string);	//On décrypte le token
-		$string = urlencode($string);
-		return $string;
-	}
-	
-	/************************************
-	*
-	*	Fonction qui décrypt un token
-	*
-	*
-	*	Réceptionne une chaine, 
-	*	puis désérialize la chaine pour récupérer
-	*	un tableau qu'elle peut retourner
-	*
-	*	ATTENTION : on ne fait pas de urldecode, ce n'est pas la peine.
-	*
-	*************************************/
-	public function tokenread($string)
-	{
-		$string = $this->encrypt->decode($string);	//On décode le cryptage
-		$array = unserialize($string);				//On désérialize pour récupérer notre tableau
-		return $array;
-	}
-	
+
 	/**
 	*
 	*	Fonction qui assure l'envois des emails

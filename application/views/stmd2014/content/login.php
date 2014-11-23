@@ -69,21 +69,104 @@ a<div class="main">
   			"id"		=>	"sign_up"
   		);
   		
-  		echo form_open("espace_inscrits/sign_up",$sign_up_attr);
+  		echo form_open("login/sign_up",$sign_up_attr);
   	?>
-  	<form action="<?php echo base_url(); ?>" method="post" name="sign_up" id="sign_up"> 
-	  	<label for="nom">Nom</label><input type="text" name="nom" id="nom" value="<?php echo set_value('nom'); ?>"/> <br />
-	  	<label for="prenom">Prénom</label><input type="text" name="prenom" id="prenom" value="<?php echo set_value('prenom'); ?>"/> <br />
-	  	<label for="email">Email</label><input type="email" name="email" id="email" value="<?php echo set_value('email'); ?>"/> <br />
-	  	<label for="tel">Téléphone</label><input type="tel" name="tel" id="tel" value="<?php echo set_value('tel'); ?>" /> <br />
-	  	<label for="userpass">Mot de passe</label><input type="text" name="userpass" id="userpass" value=""/> <br />
-	  	<label for="passconf">Confirmation</label><input type="text" name="passconf" id="passconf" value=""/> <br />
 
-	  	<div class="clear"></div>
-	  	<p class="cgu_agreement"><input type="checkbox" name="accept_cgu_first" id="accept_cgu_first" checked /> <label for="accept_cgu_first">J'ai lu et j'accepte les <a href="">conditions d'utilisation</a> de l'annuaire SolutionTMD.</label>
-	  	</p>
-	  	<button class="valider" type="submit" >Valider</button>
+      <?php
+  		$sign_up_attr	=	array(
+            "mehtod"	=>	"post",
+            "name"		=>	"sign_up",
+            "id"		=>	"sign_up"
+        );
+  		echo form_open("login/signup",$sign_up_attr);
+
+
+          //Nom Contact
+          echo $lab_nom = form_label("Nom :", "nom");
+          $fi_nom = [
+              "type"  => "text",
+              "name"  =>  "nom",
+              "id"    =>  "nom",
+              "value" =>  ($nom) ? $nom : set_value('nom'),
+              "placeholder"   =>"Ex: Garcia"
+          ];
+          echo form_input($fi_nom)."<p>".form_error('nom')."</p>";
+
+          echo $lab_prenom = form_label("Prénom :", "prenom");
+          $fi_prenom = [
+              "type"  => "text",
+              "name"  =>  "prenom",
+              "id"    =>  "prenom",
+              "value" =>  ($prenom) ? $prenom : set_value('prenom'),
+              "placeholder"   =>"Ex: José"
+          ];
+          echo form_input($fi_prenom)."<p>".form_error('prenom')."</p>";
+
+          echo $lab_email = form_label("Email :", "email");
+          $fi_email = [
+              "type"  => "email",
+              "name"  =>  "email",
+              "id"    =>  "email",
+              "value" =>  ($email) ? $email : set_value('email'),
+              "placeholder"   =>"Ex: jgarcia@gmail.com"
+          ];
+          echo form_input($fi_email)."<p>".form_error('email')."</p>";
+
+          echo $lab_tel = form_label("Téléphone :", "tel");
+          $fi_tel = [
+              "type"  => "tel",
+              "name"  =>  "tel",
+              "id"    =>  "tel",
+              "value" =>  ($tel) ? $tel : set_value('tel'),
+              "placeholder"   =>"Ex: 0123456789"
+          ];
+          echo form_input($fi_tel)."<p>".form_error('tel')."</p>";
+
+          echo $lab_pass = form_label("Mot de passe :", "userpass");
+          $fi_userpass = [
+              "type"  => "password",
+              "name"  =>  "userpass",
+              "id"    =>  "userpass",
+              "placeholder"   =>""
+          ];
+          echo form_input($fi_userpass)."<p>".form_error('userpass')."</p>";
+
+           echo $lab_passconf = form_label("Confirmation :", "passconf");
+          $fi_passconf = [
+              "type"  => "password",
+              "name"  =>  "passconf",
+              "id"    =>  "passconf",
+              "placeholder"   =>""
+          ];
+          echo form_input($fi_passconf)."<p>".form_error('passconf')."</p>";
+
+  	?>
+     <div class="clear"></div>
+    <p class="cgu_agreement">
+        <?php
+            $fi_cgu_agreement = [
+                "type"  => "checkbox",
+                "name"  =>  "accept_cgu_first",
+                "id"    =>  "accept_cgu_first",
+                "value" =>  TRUE
+            ];
+            echo form_input($fi_cgu_agreement) . form_error('accept_cgu_first') ;
+            echo $la_cgu_agreement = form_label(" J'ai lu et j'accepte les <a href=''>conditions d'utilisation</a> de l'annuaire SolutionTMD.", "accept_cgu_first");
+        ?>
+
+    </p>
   <?php
+
+      //Form button
+      $form_button_attr= [
+          "type"  => "submit",
+          "class" =>  "valider",
+          "id"    =>  "form_submit_btn",
+          "content"=> "Valider l'inscription"
+
+      ];
+      echo form_button($form_button_attr);
+
 		echo form_close();	
 	?>
   </div>
