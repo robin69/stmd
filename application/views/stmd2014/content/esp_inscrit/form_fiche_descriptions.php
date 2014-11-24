@@ -21,17 +21,17 @@
 
 
             //Ouverture formulaire
-            $form_attr = [
+            $form_attr = array(
                 "id"    =>"form_fiche_description",
                 "name"    =>"form_fiche_description",
                 "class" =>"form_description",
                 "method"=>"post",
-                "action"=>"#"];
+                "action"=>"#");
             echo form_open("", $form_attr);
 
             //Description
             echo form_label("Description de la société :", "description");
-            $description = [
+            $description = array(
                 "name"  =>  "description",
                 "id"    =>  "description",
                 "class" =>  "countchar",
@@ -40,7 +40,7 @@
                 "value" =>  ($fiche->description()) ? $fiche->description() : set_value('description'),
                 "placeholder"   =>"",
                 "onClick"   =>  ""
-            ];
+            );
             echo form_textarea($description,$js)."
             <p>Nbr maximum de caractères : <span id='max_char'>".$this->config->item("nbr_carr_max_excerpt")."</span></p>
             <p>Caractères restants : <span id='left_char'>".($this->config->item("nbr_carr_max_excerpt") - strlen($fiche->description()))."<span></p>
@@ -49,13 +49,13 @@
 
 
             //Form button
-            $form_button_attr= [
+            $form_button_attr= array(
                 "type"  => "submit",
                 "class" =>  "prev",
                 "id"    =>  "form_submit_btn",
                 "content"=> "Enregistrer"
 
-            ];
+            );
             echo form_button($form_button_attr);
 
 

@@ -18,12 +18,12 @@
 
 
             //Ouverture formulaire
-            $form_attr = [
+            $form_attr = array(
                 "id"    =>"classement_form",
                 "name"    =>"classement_form",
                 "class" =>"form_description",
                 "method"=>"post",
-                "action"=>"#"];
+                "action"=>"#");
             echo form_open("", $form_attr);
         ?>
 		<section class="form_type">
@@ -147,13 +147,13 @@
 		}
 
                 //Form button
-                $form_button_attr= [
+                $form_button_attr= array(
                     "type"  => "submit",
                     "class" =>  "prev",
                     "id"    =>  "form_submit_btn",
                     "content"=> "Enregistrer"
 
-                ];
+                );
                 echo form_button($form_button_attr);
 		?></form>
 	</article>
