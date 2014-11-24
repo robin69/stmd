@@ -1,0 +1,4 @@
+#Config files to ignore
+application/config/email.php
+.idea/*
+application/config/config.php
