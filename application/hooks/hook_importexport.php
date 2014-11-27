@@ -27,7 +27,7 @@ class hook_ie
 	public function profiler_auto($environment)
 	{
 
-		if($environment == "development")
+		if($environment == "dev")
 		{
 			$CI =& get_instance();
 			$CI->output->enable_profiler(TRUE);

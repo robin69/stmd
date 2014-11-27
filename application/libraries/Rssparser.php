@@ -67,7 +67,12 @@
             // Parse the document
             if (!isset($rawFeed))
             {
-                $rawFeed = file_get_contents($this->feed_uri);
+                try{
+                    $rawFeed = file_get_contents($this->feed_uri);
+                }catch(Exception $e){
+                    echo $e->getMessage();
+                }
+
             }
             $xml = new SimpleXmlElement($rawFeed);
             if ($xml->channel)

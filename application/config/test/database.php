@@ -49,75 +49,21 @@
 $active_group = ENVIRONMENT;
 $active_record = TRUE;
 
-$db['production']['hostname'] = 'cl1-sql14'; 		//cl1-sql14
-$db['production']['username'] = 'p4831_7';			//p4831_7
-$db['production']['password'] = 'YPeQVAwcuJ1m';	//YPeQVAwcuJ1m
-$db['production']['database'] = 'p4831_7';			//p4831_7
-$db['production']['dbdriver'] = 'mysql';
-$db['production']['dbprefix'] = '';
-$db['production']['pconnect'] = TRUE;
-$db['production']['db_debug'] = TRUE;
-$db['production']['cache_on'] = FALSE;	
-$db['production']['cachedir'] = '';
-$db['production']['char_set'] = 'utf8';
-$db['production']['dbcollat'] = 'utf8_general_ci';
-$db['production']['swap_pre'] = '';
-$db['production']['autoinit'] = TRUE;
-$db['production']['stricton'] = FALSE;
+
+$db['test']['hostname'] = 'cl1-sql14'; 		//cl1-sql14
+$db['test']['username'] = 'p4831_7';			//p4831_7
+$db['test']['password'] = 'YPeQVAwcuJ1m';	//YPeQVAwcuJ1m
+$db['test']['database'] = 'p4831_7';			//p4831_7
+$db['test']['dbdriver'] = 'mysql';
+$db['test']['dbprefix'] = '';
+$db['test']['pconnect'] = TRUE;
+$db['test']['db_debug'] = TRUE;
+$db['test']['cache_on'] = FALSE;	
+$db['test']['cachedir'] = '';
+$db['test']['char_set'] = 'utf8';
+$db['test']['dbcollat'] = 'utf8_general_ci';
+$db['test']['swap_pre'] = '';
+$db['test']['autoinit'] = TRUE;
+$db['test']['stricton'] = FALSE;
 
 
-$db['testing']['hostname'] = 'cl1-sql14'; 		//cl1-sql14
-$db['testing']['username'] = 'p4831_7';			//p4831_7
-$db['testing']['password'] = 'YPeQVAwcuJ1m';	//YPeQVAwcuJ1m
-$db['testing']['database'] = 'p4831_7';			//p4831_7
-$db['testing']['dbdriver'] = 'mysql';
-$db['testing']['dbprefix'] = '';
-$db['testing']['pconnect'] = TRUE;
-$db['testing']['db_debug'] = TRUE;
-$db['testing']['cache_on'] = FALSE;	
-$db['testing']['cachedir'] = '';
-$db['testing']['char_set'] = 'utf8';
-$db['testing']['dbcollat'] = 'utf8_general_ci';
-$db['testing']['swap_pre'] = '';
-$db['testing']['autoinit'] = TRUE;
-$db['testing']['stricton'] = FALSE;
-
-
-
-
-
-$db['development']['hostname'] = 'localhost';
-$db['development']['username'] = 'root';
-$db['development']['password'] = 'puce0975';
-$db['development']['database'] = 'stmd';
-$db['development']['dbdriver'] = 'mysql';
-$db['development']['dbprefix'] = '';
-$db['development']['pconnect'] = TRUE;
-$db['development']['db_debug'] = TRUE;
-$db['development']['cache_on'] = FALSE;
-$db['development']['cachedir'] = '';
-$db['development']['char_set'] = 'utf8';
-$db['development']['dbcollat'] = 'utf8_general_ci';
-$db['development']['swap_pre'] = '';
-$db['development']['autoinit'] = TRUE;
-$db['development']['stricton'] = FALSE;
-
-//Sert pour la connexion à l'ancienne base de données du site.
-$db['old']['hostname'] = 'localhost';
-$db['old']['username'] = 'root';
-$db['old']['password'] = 'puce0975';
-$db['old']['database'] = 'stmd';
-$db['old']['dbdriver'] = 'mysql';
-$db['old']['dbprefix'] = '';
-$db['old']['pconnect'] = TRUE;
-$db['old']['db_debug'] = TRUE;
-$db['old']['cache_on'] = FALSE;
-$db['old']['cachedir'] = '';
-$db['old']['char_set'] = 'utf8';
-$db['old']['dbcollat'] = 'utf8_general_ci';
-$db['old']['swap_pre'] = '';
-$db['old']['autoinit'] = TRUE;
-$db['old']['stricton'] = FALSE;
-
-/* End of file database.php */
-/* Location: ./application/config/database.php */
