@@ -53,6 +53,12 @@ h3{
 	font-weight:300;
 	font-size:30px;
 }
+.search_cas h3{
+    font-size: 3em;
+    text-align:center;
+    border-bottom: solid 1px;
+    margin-bottom :15px;
+}
 h4{
 	color:#444444;
 	font-weight:300;
@@ -648,7 +654,7 @@ a.select_offer:hover{
     background:url("../img/checked_icon.png") no-repeat scroll 0 -20px;
     height: 21px;
     list-style: none outside none;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
     padding-left: 33px;
 }
 .check_list{
@@ -665,6 +671,10 @@ a.select_offer:hover{
 .counsel h2{
 	margin:40px 0;
 }
+.route_checked{
+    background:url("../img/route_icons.png") no-repeat scroll 0 0 !important;
+}
+
 .route{
 	font-size:30px;
 	color:#444444;
@@ -677,10 +687,15 @@ a.select_offer:hover{
 	line-height:45px;
 	margin-bottom:25px;
 	padding-left:105px;
+    width: 100%;
 }
+
+
+
 .route:hover{
 	background:url("../img/route_icons.png") no-repeat scroll 0 0;
 	}
+
 .route span{
 	font-size:25px;
 	color:#7b7b7c;
@@ -698,10 +713,15 @@ a.select_offer:hover{
 	line-height:45px;
 	margin-bottom:25px;
 	padding-left:105px;
+    width: 100%;
 }
 .chemin:hover{
 	background:url("../img/chemain_de_fer_icones.png") no-repeat scroll 0 -94px;
 	
+}
+.chemin_checked{
+	background:url("../img/chemain_de_fer_icones.png") no-repeat scroll 0 -94px;
+
 }
 .chemin span{
 	font-size:25px;
@@ -720,9 +740,13 @@ a.select_offer:hover{
 	line-height:45px;
 	margin-bottom:25px;
 	padding-left:105px;
+    width:100%;
 }
 .voie:hover{
 	background:url("../img/voies_navigable_icons.png") no-repeat;
+}
+.voie_checked{
+    background:url("../img/voies_navigable_icons.png") no-repeat 0 0 !important;
 }
 .voie span{
 	font-size:25px;
@@ -1609,9 +1633,6 @@ a.close{
     margin-bottom: 25px;
     padding-left: 33px;
 }
-.check_list{
-	 background:url("../img/checked_icon.png") no-repeat scroll 0 0 !important;
-}
 
 .menu_acordion{
 	margin-left:10px;
@@ -1726,8 +1747,11 @@ a.close{
 	text-align: left;
 }
 #region_selector ul li{
-
-	font-size: 1.2em
+    position: relative;
+	font-size: 1.8em;
+}
+#region_selector ul li label{
+    width :75%;
 }
 
 #region_selector div img{
@@ -1736,16 +1760,132 @@ a.close{
 	width: 100%;
 	clear: both;
 	}
-.counsel_class_selection {
+.counsel_block {
 	display: inline-block;
 
 	width: 45%;
 	vertical-align: top;
 	height: 100%;
+    margin:0;
+    padding:0;
 }
+
+#counsel_class_selection ul{
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+#counsel_class_selection ul li{
+    width: 100%;
+}
+#counsel_class_selection ul label{
+    width: 75%;
+    font-size: 1.6em;
+
+}
+
 .counsel input[type='checkbox']{
 	visibility: hidden;
 }
+.block_2-3{width: 100%; text-align:center;}
+.block_2-3 img{
+    margin-top: 15px;
+    clear:both;
+    text-align:center;
+}
+.block_1-3 div{
+    width: 400px;
+}
+
+
+/************************** BAR DE RECHERCHE CAS *********************/
+#bar_cas_recherche{
+    position:fixed;
+    width: 100%;
+    height:70px;
+    bottom:0;
+    left:0;
+    text-align:center;
+    background-color: #f4f6e8;
+    -moz-box-shadow: 3px -8px 8px 1px #cccccc;
+    -webkit-box-shadow: 3px -8px 8px 1px #cccccc;
+    -o-box-shadow: 3px -8px 8px 1px #cccccc;
+    box-shadow: 3px -8px 8px 1px #cccccc;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#cccccc, Direction=20, Strength=8);
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+
+}
+#bar_cas_recherche h4{
+    position : absolute;
+    text-align: center;
+    width: 250px;
+    top:-27px;
+    margin-left: 42%;
+    margin-right: auto;
+    background: #f4f6e8;
+    border-radius:7px;
+    padding: 5px;
+    -moz-box-shadow: 3px -8px 8px 1px #cccccc;
+    -webkit-box-shadow: 3px -8px 8px 1px #cccccc;
+    -o-box-shadow: 3px -8px 8px 1px #cccccc;
+    box-shadow: 3px -8px 8px 1px #cccccc;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#cccccc, Direction=20, Strength=8);
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+}
+
+#bar_cas_recherche a{
+    text-align: left;
+     display: inline-block;
+    position:relative;
+     width: 26%;
+    padding-top:16px;
+    color: #444444;
+    font-size: 30px;
+    font-weight: 300;
+    margin-left:45px;
+    text-decoration: none;
+ }
+#bar_cas_recherche a:hover{
+    color: #f75556;
+}
+#bar_cas_recherche a:first-child{
+    margin-left:65px;
+}
+#bar_cas_recherche.fixed{
+    position:fixed;
+    bottom:0;
+    left:0;
+}
+
+#bar_cas_recherche .region{
+    position:absolute;
+    background:url("../img/conseiller_icons.png") no-repeat 0 0px;
+    left:-35px;
+    width:35px;
+    height:35px;
+    margin:0 auto 10px;
+}
+#bar_cas_recherche .classe{
+   position: absolute;
+    background:url("../img/conseiller_icons.png") no-repeat scroll 0 -42px;
+    left:-35px;
+    width:35px;
+    height:35px;
+    margin:0 auto 10px;
+}
+#bar_cas_recherche .mode{
+    position: absolute;
+    background:url("../img/conseiller_icons.png") no-repeat scroll 0 -85px;
+    left:-35px;
+    width:35px;
+    height:35px;
+    margin:0 auto 10px;
+}
+
 
 /********************** FORM SIGN IN et SIGN UP ********************/
 .sign_in_form{
@@ -1760,6 +1900,8 @@ a.close{
 	width:25%;
 	margin-right:30px;
 }
+
+
 
 /************************ ESPACE INSCRIT ****************************/
 #esp_insc .main{ 
@@ -1904,6 +2046,7 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
 .classement_form section ul li label, ul.ss_cat li label{
     padding: 0 0 5px 0px;
     width: 100%;
+    background-color: blue;
 }
 
 .classement_form section input[type=checkbox], .classement_form section label
@@ -1954,4 +2097,18 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
 *************/
 .priv_menu ul{
     width: 350px;
+}
+
+
+
+/*************
+*
+*   Class Tools
+*
+**************/
+.center{
+    text-align: center;
+}
+.left{
+    float: left;
 }

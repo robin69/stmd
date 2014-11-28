@@ -29,16 +29,40 @@ $(function()
 	 $(".counsel li label").click(function(){
 	 	$(this).parent().toggleClass('check_list');
 	 });
+
+
 	 
-	 
+	//Si route est sélectionné
 	 $(".counsel input[type='checkbox']").change(function(){
 		 send_cas_request();
 	 });
+
+    $(".route").click(function(){
+        $(this).toggleClass("route_checked");
+
+    });
+    $(".chemin").click(function(){
+        $(this).toggleClass("chemin_checked");
+
+    });
+    $(".voie").click(function(){
+        $(this).toggleClass("voie_checked");
+
+    });
+
+
 	 
 	 $("#send_search_cas").click(function(){
 		 $("#search_cas_form").submit();
 		 return false; 
 	 });
+
+    /***********
+     *
+     * Apparition de la barre de nav pour le formulaire
+     * de recherche de CAS
+     */
+    $("#bar_cas_recherche").show('scale');
 
 
     /******
@@ -205,7 +229,7 @@ function slide_info(id)
 			//On récupère l'ID de la fiche
 			id_fiche = $('#id_fiche_'+id).val();
 */
-			
+
 			//On met à jour les statisitques d'ouverture
 			fiche_count_up(id);
 		}else{
@@ -343,7 +367,16 @@ function classement_form_init()
 
 }
 
+function scrollDownTo(anchor_id)
+{
+    if($("#" + anchor_id).length)
+    {
+        $("html, body").animate({
+            scrollTop:	$("#" + anchor_id).offset().top
+        }, 750,  "easeInOutExpo");
 
+    }
+}
 
 
 /**************************
