@@ -1,4 +1,5 @@
 #Config files to ignore
 #application/config/email.php
 .idea/*
+.ftpquota
 #application/config/config.php
