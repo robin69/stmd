@@ -2,13 +2,12 @@
 	<h3>Ma Fiche</h3>
 	<p>Votre fiche est renseignée à :<progress id="fiche_progress" value="50" min="1" max="100"></progress>50%</p>
 	<hr />
-	<ul>
-		
-		<li><a href="<?php echo base_url("espace_inscrits/fiche_contact_form"); ?>">Le contact de la société</a></li>
-		<li><a href="<?php echo base_url("espace_inscrits/fiche_societe_form"); ?>">Les coordonnées de la société</a></li>
-		<li><a href="<?php echo base_url("espace_inscrits/fiche_descriptions"); ?>">Le descriptif de la société</a></li>
-		<li><a href="<?php echo base_url("espace_inscrits/fiche_classements"); ?>">Classement dans l'annuaire</a></li>
-		<li><a href="<?php echo base_url("espace_inscrits/fiche_res_sociaux"); ?>">Réseaux sociaux</a></li>
+    <ul id="" class="ui-menu ui-widget ui-widget-content" style="width:100px;" role="menu" tabindex="0" aria-activedescendant="ui-id-24">
+        <li id="" class="ui-menu-item" tabindex="-1" role="menuitem"><a href="<?php echo base_url("espace_inscrits/fiche_contact_form"); ?>">Le contact de la société</a></li>
+        <li id="" class="ui-menu-item" tabindex="-1" role="menuitem"><a href="<?php echo base_url("espace_inscrits/fiche_societe_form"); ?>">Les coordonnées de la société</a></li>
+        <li id="" class="ui-menu-item" tabindex="-1" role="menuitem"><a href="<?php echo base_url("espace_inscrits/fiche_descriptions"); ?>">Le descriptif de la société</a></li>
+        <li id="" class="ui-menu-item" tabindex="-1" role="menuitem"><a href="<?php echo base_url("espace_inscrits/fiche_classements"); ?>">Classement dans l'annuaire</a></li>
+        <li id="" class="ui-menu-item" tabindex="-1" role="menuitem"><a href="<?php echo base_url("espace_inscrits/fiche_res_sociaux"); ?>">Réseaux sociaux</a></li>
 	</ul>
 	
 	<hr />

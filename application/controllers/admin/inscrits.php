@@ -505,7 +505,7 @@ class Inscrits extends CI_Controller {
 		//On se connecte à la base de données de l'ancien site
 		$DB1 = $this->load->database('old', TRUE);
 		//On se connecte à la base de données de l'ancien site
-		$DB2 = $this->load->database('development', TRUE);
+		$DB2 = $this->load->database('dev', TRUE);
 
 		
 		$query = $DB1->get("solutionstmd.fiche");

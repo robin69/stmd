@@ -7,9 +7,8 @@
 
 
 	<link href="<?php echo base_url("assets"); ?>/css/style_carousel.css" rel="stylesheet" />
-	<link href="<?php echo base_url("assets"); ?>/css/styles.css" rel="stylesheet" />
 	<link href="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.theme.css" rel="stylesheet" />
-	
+    <link href="<?php echo base_url("assets"); ?>/css/styles.css" rel="stylesheet" />
 	
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!--[if lt IE 9]>

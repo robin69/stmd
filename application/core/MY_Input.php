@@ -36,7 +36,7 @@
                  * Check for Development enviroment - Non-descriptive
                  * error so show me the string that caused the problem
                  */
-                if (getenv('ENVIRONMENT') && getenv('ENVIRONMENT') == 'development'){
+                if (getenv('ENVIRONMENT') && getenv('ENVIRONMENT') == 'dev'){
                     echo "<br/>Attention ERREUR dans le libellé des clefs de tableau ex: name=\"montableau[mavar]\" NE PAS METTRE DE QUOTE DANS LES CLEFS DE TABLEAU !";
                     var_dump($str);
                 }

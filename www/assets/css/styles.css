@@ -1945,3 +1945,13 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
     font-weight: bold;
     padding: 2px;
 }
+
+
+
+
+/*********
+*   Espace Pro
+*************/
+.priv_menu ul{
+    width: 350px;
+}

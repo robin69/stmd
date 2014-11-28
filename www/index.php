@@ -14,8 +14,8 @@
  * This can be set to anything, but default usage is:
  *
  *     development
- *     testing
- *     production
+ *     test
+ *     prod
  *
  * NOTE: If you change these, also change the error_reporting() code below
  *
@@ -27,9 +27,9 @@ $host = $_SERVER["HTTP_HOST"];
 	
 switch($host)
 {
-	case "dev.solutionstmd.com"						:	define('ENVIRONMENT', 'development');	break;
-	case "stmd.en-production.net"					:	define('ENVIRONMENT', 'testing'); 		break;
-	default 										:	define('ENVIRONMENT', 'production');
+	case "dev.solutionstmd.com"						:	define('ENVIRONMENT', 'dev');	break;
+	case "stmd.en-prod.net"					:	define('ENVIRONMENT', 'test'); 		break;
+	default 										:	define('ENVIRONMENT', 'prod');
 }
 
 
@@ -39,7 +39,7 @@ switch($host)
  *---------------------------------------------------------------
  *
  * Different environments will require different levels of error reporting.
- * By default development will show errors but testing and live will hide them.
+ * By default development will show errors but test and live will hide them.
  */
 
 
@@ -48,21 +48,21 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		//Il s'afit de l'environnement local, sur l'ordinateur
-		case 'development': 
+		case 'dev':
 			error_reporting(E_ALL & ~E_NOTICE);//E_ALL & ~E_NOTICE
 			$system_path 			= '/Users/Rumeau/Sites/GIT/stmd/system/';
 			$application_folder 	= '/Users/Rumeau/Sites/GIT/stmd/application';
 		break;
 	
-		//Il s'agit de l'environnement de test, donc sur en-production.net
-		case 'testing':		
+		//Il s'agit de l'environnement de test, donc sur en-prod.net
+		case 'test':		
 			error_reporting(E_ALL & ~E_NOTICE);
 			$system_path 			= '/home/www/stmd/system/';
 			$application_folder 	= '/home/www/stmd/application';//application
 		break;
 		
-		//Il s'agit du site en production, full opérationnel.
-		case 'production':	
+		//Il s'agit du site en prod, full opérationnel.
+		case 'prod':	
 			error_reporting(0);
 			$system_path 			= '';
 			$application_folder 	= '';//application
