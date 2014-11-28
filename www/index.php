@@ -1,4 +1,5 @@
 <?php
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -28,8 +29,6 @@ switch($host)
 	case "stmd.en-production.net"					:	define('ENVIRONMENT', 'test'); 		break;
 	default 										:	define('ENVIRONMENT', 'prod');
 }
-
-
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

@@ -165,7 +165,8 @@ class User_manager extends CI_Model{
 
     public function fprotect()
     {
-        if($this->session->userdata("id_user") =="")
+
+	    if($this->session->userdata("id_user") =="")
         {
             redirect("login/");
         }

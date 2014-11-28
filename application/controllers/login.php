@@ -87,8 +87,9 @@ class Login extends CI_Controller {
 	
 	public function connexion()
 	{
+	
 		
-
+		
 		try {
 			//On prépare les infos pour l'authentification
 			$email 			= $this->input->post("email");
@@ -98,6 +99,7 @@ class Login extends CI_Controller {
 			//On lance l'anthentification
 			$u = new User;
 			$u_id = $u->auth($email,md5($pass));
+			
 			
 			//On crée la session
 			$u->create_user_session($u_id);

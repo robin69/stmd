@@ -39,8 +39,10 @@ class Accueil extends CI_Controller {
 
     public function get_gmjnews()
     {
+    
+    	$this->load->library('rssparser');
         try{
-            $this->load->library('rssparser');
+            
             $this->rssparser->set_feed_url("http://www.gmjphoenix.com/reglementation-matieres-dangereuses/feed/");
             $this->data["rss"] = $this->rssparser->set_feed_url('http://www.gmjphoenix.com/reglementation-matieres-dangereuses/feed/')->set_cache_life(30)->getFeed(6);
         }catch(Exception $e){

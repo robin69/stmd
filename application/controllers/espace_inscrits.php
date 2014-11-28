@@ -10,7 +10,8 @@ class Espace_inscrits extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		//
+		
+		
 		$params = "";
 		$this->layout->set_theme($this->theme);
 		$this->load->library("gravatar", $params);
@@ -24,9 +25,9 @@ class Espace_inscrits extends CI_Controller {
 	
 	public function _remap($method, $params = array())
 	{
+	
 		 //Protection
         $this->user->fprotect();
-
 
 		 //renvois général avec les paramètres.
 		 if(method_exists($this, $method))
