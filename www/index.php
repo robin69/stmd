@@ -1,5 +1,4 @@
 <?php
-//Ceci est un test GIT en local
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -26,7 +25,7 @@ $host = $_SERVER["HTTP_HOST"];
 switch($host)
 {
 	case "dev.solutionstmd.com"						:	define('ENVIRONMENT', 'dev');	break;
-	case "stmd.en-prod.net"					:	define('ENVIRONMENT', 'test'); 		break;
+	case "stmd.en-production.net"					:	define('ENVIRONMENT', 'test'); 		break;
 	default 										:	define('ENVIRONMENT', 'prod');
 }
 
