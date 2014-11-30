@@ -35,17 +35,5 @@ class My_Hooks
 	}
 
 
-    /*****************************
-     * HOOK qui assure le chargement du
-     * thème dans tous les controllers.
-     *
-     * Le thème utilisé est dans /config/specific_config.php > $config["theme"];
-     */
-    public function load_theme()
-    {
-        $CI =& get_instance();
-        $theme = $CI->config->item("theme");
-        $CI->layout->set_theme($theme);
 
-    }
 }

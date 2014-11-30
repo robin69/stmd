@@ -19,11 +19,5 @@ $hook['post_controller_constructor'][] = array(
                             'params'   => ENVIRONMENT
                            );
 
-$hook['post_controller_constructor'][] = array(
-                            'class'    => 'my_hooks',
-                            'function' => 'load_theme',
-                            'filename' => 'my_hooks.php', //hook_importexport.php
-                            'filepath' => 'hooks'
-                           );
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */
