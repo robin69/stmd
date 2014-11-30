@@ -3,7 +3,7 @@
         <center>
             <div class="logo"><a href="<?php echo base_url("assets"); ?>"><img src="<?php echo base_url("assets"); ?>/img/logo_home.png" alt=" " /></a>
                 <div class="slogan">
-                    <p> TOTO : Le carnet d’adresses des expéditeurs et des transporteurs<br />
+                    <p> Le carnet d’adresses des expéditeurs et des transporteurs<br />
                         de marchandises dangereuses </p>
                 </div>
             </div>
