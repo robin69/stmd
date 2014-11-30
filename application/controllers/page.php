@@ -8,13 +8,11 @@ class Page extends CI_Controller{
     var $data = array();
 	var $guid = "";
 	var $contenu = "";
-	var $theme = "stmd2014";
 
 	public function __construct()
 	{
 	
 		parent::__construct();
-		$this->layout->set_theme($this->theme);
 		
 		//On récupère la chaine demandée par l'url
 		$this->guid = $this->uri->uri_string();
@@ -65,7 +63,7 @@ class Page extends CI_Controller{
 
     private function _layout($layout)
     {
-        $this->data["body_id"]	=	"home";
+        $this->data["body_id"]	=	"";//home
         $this->data["domaine"]  =   "";
         $this->data["no_google_map"]  =   "";
 

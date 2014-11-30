@@ -1,4 +1,3 @@
-
 <div class="clear"></div>
 <div class="main">
     <br /><br /><br /><br />
@@ -16,7 +15,7 @@
             <br><br>
             Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
             <br><br>
-            <a href="pk-sinscrire.html#"> Passez à l’inscription</a>
+            <a href="<?php echo base_url("choisir-sa-griffe"); ?>"> Passez à l’inscription</a>
         </p>
     </div>
     <div class="pk_right">
@@ -34,7 +33,7 @@
             <br><br>
             At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
             <br><br>
-            <a href="pk-sinscrire.html#">Passez à l’inscription</a>
+            <a href="<?php echo base_url("choisir-sa-griffe"); ?>">Passez à l’inscription</a>
         </p>
     </div>
 

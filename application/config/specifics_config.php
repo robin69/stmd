@@ -24,6 +24,9 @@ $config["nbr_carr_max_excerpt"]		=	'253';
 /** SITE NAME **/
 $config["site_name"]				=	"SolutionsTMD";
 
+/** THEME IN USED **/
+$config["theme"]                    =   "stmd2014";
+
 
 
 

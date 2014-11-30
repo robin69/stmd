@@ -2,7 +2,6 @@
 
 class Login extends CI_Controller {
 
- 	public $theme = "stmd2014";
 
 	/**
 	 * Index Page for this controller.
@@ -22,9 +21,6 @@ class Login extends CI_Controller {
 	 public function __construct()
 	 {
 		 parent::__construct();
-				 
-		 
-		 $this->layout->set_theme($this->theme);
 	 }
 	 
 	 public function _remap($method, $params =array())
@@ -38,7 +34,6 @@ class Login extends CI_Controller {
 	 	*
 	 	***************************************************/
 		 if($method != "token" AND $method != "connexion" AND $method != "sign_up" ){
-
 
              if($this->session->userdata("id_user") != ""){ //si l'utilisateur est déjà identifié on renvois vers l'espace inscrit
 
@@ -128,7 +123,7 @@ class Login extends CI_Controller {
         if($this->form_validation->run("front_sign_up_form") == FALSE)
         {
 
-            //On retourne au formualaire. Les messages d'erreus sont automatiquement affichés
+            //On retourne au formualaire. Les messages d'erreurs sont automatiquement affichés
             $this->_layout("login");
         }else{
 

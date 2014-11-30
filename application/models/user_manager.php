@@ -24,11 +24,22 @@ class User_manager extends CI_Model{
 		
 		
 	}
-	
+
+
+    /************************************
+     * Ajout d'un utilisateur.
+     * La fonction reçoit le tableau qui contient
+     * toutes les infos et les insert dans la base de données
+     *
+     *
+     * @param $user_array
+     *
+     * @return mixed : l'identifiant utilisateur.
+     */
 	protected function add($user_array)
 	{
 		
-		$exception_field = array("tbl_fiche");
+		$exception_field = array("tbl_fiche","forfait");
 		//On met à jour les informations principales
 		foreach($user_array as $field=>$value)
 		{
@@ -39,10 +50,17 @@ class User_manager extends CI_Model{
 			}
 		}
 		//ajoute les informations dans la table user
-
 		$this->db->insert($this->tbl_user);
-		$fiche_array["id_user"] = $new_id_user = $this->db->insert_id();
-		
+        $this->id_user = $fiche_array["id_user"] = $new_id_user = $this->db->insert_id(); // et on récupère l'id d'insertion
+
+
+        //Cas d'une sélection de forfait avant inscription
+
+
+        if($user_array["forfait"] != "")
+        {
+            $this->user_select_forfait($user_array["forfait"]);
+        }
 		return $new_id_user;	
 		
 	}
@@ -346,6 +364,43 @@ class User_manager extends CI_Model{
 		
 		return $result;
 	}
+
+
+    /*********************************************
+     * Fonction qui sélectionne un forfait pour un utilisateur donné.
+     * Le forfait n'est pas active puisqu'il n'a pas de date de début.
+     * Il est enregistré comme "préférence" au moment de l'inscription.
+     * A ce stade, le tarif enregistré pour l'utilisateur est celui du forfait
+     * initial, mais il pourra être modifié par l'administrateur
+     * si besoin dans l'admin.
+     *
+     * @id_user : Identifiant de l'utilisateur demandeur du forfait
+     * @id_forfait :    Identifiant du forfait demandé
+     *
+     * @return bool
+     */
+    public function user_select_forfait($id_forfait)
+    {
+        $id_user    = $this->id_user;
+
+        //On récupère dans la base les informations du forfait sélectionné
+        $query = $this->db->get_where('forfaits', array('id' => $id_forfait));
+        $forfait = $query->row();
+
+
+
+
+        //On insert dans la base de données le forfait sélectionné
+        $data = array(
+            "forfait_id"    =>  $id_forfait,
+            "user_id"       =>  $id_user,
+            "tarif"         =>  $forfait->tarif,    //On enregistre le prix initial du forfait. On pourra le changer plus tard.
+        );
+        $this->db->insert("user_has_forfaits", $data);
+
+
+        return true;
+    }
 
 
 

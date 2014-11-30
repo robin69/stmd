@@ -82,6 +82,7 @@
     $route['recherche/(.*)']									=	"search_engine/search/$1";
     $route['recherche']											=	"search_engine";
 
+    $route['test/(.*)']                                         =   "test/($1)";
 
     /**************
      * PAGES

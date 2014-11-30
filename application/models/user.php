@@ -21,6 +21,7 @@ class User extends User_manager{
 	protected $prenom;
 	protected $tel;
 	protected $admin;
+    protected $forfait;
 	
 	protected $lastcnx;
 	protected $compte_status;	
@@ -34,7 +35,11 @@ class User extends User_manager{
 
 		if($id_user !="")
 		{
+            //On récupère les informations générales
 			$infos = $this->get($id_user);
+
+            //TODO: Aller chercher les infos de forfait et les ajouter à l'objet
+
 		
 			$this->hydrate($infos);
 		
@@ -86,6 +91,9 @@ class User extends User_manager{
 	public function tel(){ return $this->tel; }
 	public function admin(){ return $this->admin; }
 	public function compte_status(){ return $this->compte_status; }
+    public function forfait(){ return $this->forfait;}
+
+
 	/**
 	*	Retourne la date en seconde ou formatée
 	*	en fonction de la demande $date_format
@@ -208,6 +216,12 @@ class User extends User_manager{
             $this->create_user_cookie($this->email,$this->userpass);
         }
 
+    }
+
+
+    private function set_forfait($forfait)
+    {
+        $this->forfait = $forfait;
     }
 	
 	

@@ -1,4 +1,4 @@
-a<div class="main">
+<div class="main">
 	
   <h1>Accès à votre espace.</h1>
   <div class="sign_in_form">
@@ -63,23 +63,19 @@ a<div class="main">
 	  		<?php
   		}
   		
-  		$sign_up_attr	=	array(
-  			"mehtod"	=>	"post",
-  			"name"		=>	"sign_up",
-  			"id"		=>	"sign_up"
-  		);
-  		
-  		echo form_open("login/sign_up",$sign_up_attr);
-  	?>
 
-      <?php
   		$sign_up_attr	=	array(
             "mehtod"	=>	"post",
             "name"		=>	"sign_up",
             "id"		=>	"sign_up"
         );
-  		echo form_open("login/signup",$sign_up_attr);
+  		echo form_open("login/sign_up",$sign_up_attr);
 
+          //Numéro d'offre sélectionnée (si sélectionnée)
+          $fi_offre_hidden = array(
+              "forfait"  =>  ($_GET["forfait"]) ? $_GET["forfait"] : set_value('forfait')
+          );
+          echo form_hidden($fi_offre_hidden);
 
           //Nom Contact
           echo $lab_nom = form_label("Nom :", "nom");
