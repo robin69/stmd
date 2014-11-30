@@ -11,12 +11,19 @@
 */
 
 
-$hook['post_controller_constructor'] = array(
-                            'class'    => 'hook_ie',
+$hook['post_controller_constructor'][] = array(
+                            'class'    => 'my_hooks',
                             'function' => 'profiler_auto',
-                            'filename' => 'hook_importexport.php',
+                            'filename' => 'my_hooks.php',
                             'filepath' => 'hooks',
                             'params'   => ENVIRONMENT
+                           );
+
+$hook['post_controller_constructor'][] = array(
+                            'class'    => 'my_hooks',
+                            'function' => 'load_theme',
+                            'filename' => 'my_hooks.php', //hook_importexport.php
+                            'filepath' => 'hooks'
                            );
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

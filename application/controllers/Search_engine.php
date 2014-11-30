@@ -11,15 +11,12 @@ class Search_engine extends CI_Controller{
 
 	public $test;
 
-	public 	$theme = "stmd2014";
 	public $guid = "";
 	public $contenu = "";
 
 	public function __construct()
 	{
 		parent::__construct();
-		
-		$this->layout->set_theme($this->theme);
 		
 	}
 	

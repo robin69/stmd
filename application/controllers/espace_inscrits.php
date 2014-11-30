@@ -2,7 +2,6 @@
 
 class Espace_inscrits extends CI_Controller {
 
-	var $theme = "stmd2014";
     var $user;
     var $fiche_user;
 
@@ -13,7 +12,6 @@ class Espace_inscrits extends CI_Controller {
 		
 		
 		$params = "";
-		$this->layout->set_theme($this->theme);
 		$this->load->library("gravatar", $params);
 
         //On récupère les informations de l'utilisateur

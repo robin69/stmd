@@ -2,14 +2,11 @@
 
 class Inscription extends CI_Controller {
 	
-	var $theme = "front";
+
 	
 	public function __construct()
 	{
 		parent::__construct();
-		
-		 
-		$this->layout->set_theme($this->theme);
 		
 	}
 	
