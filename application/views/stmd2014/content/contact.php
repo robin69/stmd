@@ -91,15 +91,8 @@
             );
             echo form_textarea($msg,$js)."<p>".form_error('msg')."</p>";
 
-            $fi_realperson_attr = array(
-                "type"  =>   "text",
-                "name"  =>   "defaultReal",
-                "id"    =>   "defaultReal"
-            );
 
-
-?>
-            <div class="clear"></div><?php
+            ?><div class="clear"></div><?php
 
 
                   //Form button
@@ -110,20 +103,17 @@
                       "content"=> "Valider l'inscription"
 
                   );
-                  echo form_button($form_button_attr);
+                ?>
 
-                echo form_close();
-	?>
+            <?php echo form_button($form_button_attr); ?>
+
+              <?php echo form_close(); ?>
 
         </section>
 
 
     </div>
 </div>
-
-
-
-
 
 
 

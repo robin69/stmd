@@ -17,14 +17,7 @@
 		     </ul>
 		</div>
 	</footer>
-	
-	
-	
-	<?php
-	
-	?>
-	
-	
+
 	<?php 
 	
 	/*
@@ -80,7 +73,8 @@
 	<!-- the jScrollPane script -->
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.mousewheel.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.contentcarousel.js"></script>
-		    
+
+
 	<?php
 		if(!$no_google_map){
 			?>
@@ -95,6 +89,14 @@
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/stmd.js"></script>
 	<script type="text/javascript">
 		$('#ca-container').contentcarousel();
+
+        $(function(){
+            $('#defaultReal').realperson({length: 8});
+        });
 	</script>
+
+
+
+
 </body>
 </html>
