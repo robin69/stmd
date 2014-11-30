@@ -3,7 +3,7 @@
 class Annuaire extends CI_Controller {
 
 
-	public 	$theme = "stmd2014";
+
 	public	$tbl_category = "category";
 	public	$tbl_cat_types = "cat_has_type";
 	public	$tbl_fiche_cat = "fiche_has_category";
@@ -14,9 +14,6 @@ class Annuaire extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		
-		$this->layout->set_theme($this->theme);
-		
 	}
 	
 		

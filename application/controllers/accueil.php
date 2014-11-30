@@ -2,8 +2,6 @@
 
 class Accueil extends CI_Controller {
 
-	public $theme = "stmd2014";
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -22,10 +20,6 @@ class Accueil extends CI_Controller {
 	 public function __construct()
 	 {
 		 parent::__construct();
-		 
-		 
-		 $this->layout->set_theme($this->theme);
-		 
 	 }
 
 	
