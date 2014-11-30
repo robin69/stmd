@@ -23,8 +23,9 @@ class Page extends CI_Controller{
 
         //Is le contenu n'existe pas dans la base
 		if($this->contenu === FALSE){
+
           //On va voir s'il y a une page statique
-            $this->_layout($this->guid);
+            $this->static_page($this->guid);
 
 		}else{
 			
@@ -49,10 +50,17 @@ class Page extends CI_Controller{
 		
 		
 	}
+
+    public function static_page($guid)
+    {
+        //echo "theme" . $this->config->item("theme");
+
+        $this->_layout($guid);
+    }
 	
 	public function error404()
 	{
-		$this->_layout->view("404");
+		$this->_layout("404");
 	}
 	
 	public function page()

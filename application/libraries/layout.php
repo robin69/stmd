@@ -10,7 +10,13 @@
 **/
 class Layout
 {
-	private $theme = 'front';
+	private $theme;
+
+    function __construct()
+    {
+        $CI =& get_instance();
+        $this->theme = $CI->config->item("theme");
+    }
 	
 	function set_theme($theme)
 	{
@@ -20,7 +26,7 @@ class Layout
 	
 	function view($name, $data = array(), $as_data = FALSE)
 	{
-		$CI =& get_instance();
+        $CI =& get_instance();
 		$params["content_for_layout"] = $CI->load->view($this->theme . "/content/" . $name, $data, true);
 		if(!$as_data)
 		{

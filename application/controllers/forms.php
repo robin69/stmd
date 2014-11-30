@@ -24,7 +24,6 @@ class Forms extends CI_Controller {
 	
 	public function sign_in()
 	{
-		$this->layout->set_theme("front");
 		$this->form_validation->set_rules('nom', 'Nom', 'required|trim');
 		$this->form_validation->set_rules('prenom', 'Prénom', 'required|trim');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
