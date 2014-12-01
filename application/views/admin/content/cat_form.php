@@ -149,13 +149,27 @@
 										$parent_options[$cat_option->id_category] = $cat_option->public_name;
 									}
 		
-									?>
+
+                                    ?>
 									<div class="form-field clear">
 									<?php
 									echo form_label('Parent : ', 'parent_cat', $args_label);
 									echo form_dropdown('parent_cat',$parent_options, $value);
 									echo form_error('parent_cat');
 									?></div>
+                                    <div class="form-field clear"><?php
+
+                                    if(isset($cat) && $cat->description() != ""){ $value = $cat->description() ; }else{ $value = set_value('description'); }
+                                    echo form_label('Description : ', 'description', $args_label);
+                                    $description = array(
+                                        "name"  =>  "description",
+                                        "id"    =>  "description",
+                                        "value" =>  $value
+                                    );
+                                    echo form_textarea($description);
+
+
+                                    ?></div>
 												
 								</div><!-- END OF BOX-WRAP -->
 							</div>

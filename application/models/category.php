@@ -9,6 +9,7 @@ class Category extends Category_manager
 	protected $slug;
 	protected $parent_cat;
 	protected $type;
+    protected $description;
 	protected $guid;
 	
 	
@@ -88,8 +89,19 @@ class Category extends Category_manager
 	public function slug(){ return $this->slug; }	
 	public function parent_cat(){ return $this->parent_cat; }
 	public function type(){ return $this->type; }	
-	public function guid(){ return $this->parent_cat; }		
-	
+	public function guid(){ return $this->parent_cat; }
+    public function description(){ return $this->description;}
+
+
+
+    public function set_description($description)
+    {
+        if($description!=''){
+            $this->description = $description;
+        }
+    }
+
+
 	/***
 	*
 	*	Setters
