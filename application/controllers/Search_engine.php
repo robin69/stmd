@@ -25,7 +25,7 @@ class Search_engine extends CI_Controller{
 	public function index()
 	{
 		//On récupère la chaine de recherche
-		$string = urlencode($this->input->get("string"));
+		$string = urlencode($this->input->post("string"));
 		
 		//On récupère l'offset s'il y en a un
 		redirect("/recherche/".$string."/");
@@ -41,6 +41,7 @@ class Search_engine extends CI_Controller{
 			
 		//On instancie la classe fiche
 		$f= new Fiche;
+
 		//On compte les résultats
 		$config["total_rows"] = $this->data["total_fiches"] = $f->search_fiche($string,$offset,TRUE,TRUE);
 		$config["per_page"] = $this->config->item('elem_per_page');

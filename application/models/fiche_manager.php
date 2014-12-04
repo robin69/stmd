@@ -352,6 +352,7 @@ class Fiche_manager extends CI_Model
 	
 	public function search_fiche($string,$offset,$published=TRUE,$count=FALSE)
 	{
+        echo $string." ";
 		//On construit la requête
 		$query = $this->db->from($this->tbl_fiche);
 		
@@ -360,7 +361,7 @@ class Fiche_manager extends CI_Model
 			$query = $this->db->where(array("publication_status"=>"published"));
 		}
 		
-		$query = $this->db->where('MATCH(`nom_contact`,`raison_sociale`,`ville`,`cp`,`email_societe`,`site`,`facebook`,`googleplus`,`viadeo`,`twitter`,`linkedin`,`description`,`competences`,`certifications`,`references`) AGAINST ("'.$string.'" IN BOOLEAN MODE)');
+		$query = $this->db->where('MATCH(`nom_contact`,`raison_sociale`,`ville`,`cp`,`email_societe`,`site`,`facebook`,`googleplus`,`viadeo`,`twitter`,`linkedin`,`description`,`competences`,`certifications`,`references`) AGAINST ("'.$string.'")');
 		
 		//On récupère l'information de "Type".		
 		$query = $this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","left");

@@ -47,7 +47,7 @@
                     $timedif = (time() - filemtime($filename));
                     if ($timedif < ( $this->cache_life * 60))
                     {
-                        $rawFeed = file_get_contents($filename);
+                        $rawFeed = @file_get_contents($filename);
                     }
                     else
                     {
@@ -68,7 +68,7 @@
             if (!isset($rawFeed))
             {
                 try{
-                    $rawFeed = file_get_contents($this->feed_uri);
+                    $rawFeed = @file_get_contents($this->feed_uri);
                 }catch(Exception $e){
                     echo $e->getMessage();
                 }

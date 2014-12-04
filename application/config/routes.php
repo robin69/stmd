@@ -80,7 +80,7 @@
      */
     $route['recherche/(.*)/(.*)']								=	"search_engine/search/$1/$2";
     $route['recherche/(.*)']									=	"search_engine/search/$1";
-    $route['recherche']											=	"search_engine";
+    $route['recherche']									        =	"search_engine/";
 
     $route['test/(.*)']                                         =   "test/($1)";
 

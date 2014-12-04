@@ -23,7 +23,7 @@
             </p>
         </center>
         <div class="home_search">
-            <form id="search_form" method="get" action="<?php echo base_url("recherche"); ?>/" >
+            <form id="search_form" method="post" action="<?php echo base_url("recherche"); ?>/" >
                 <label for="search_field"></label>
                 <input type="search" name="string" id="string" placeholder="Tapez votre recherche. Ex: éditions"/><button id="search"></button>
             </form>
