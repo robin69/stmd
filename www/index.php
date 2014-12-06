@@ -52,7 +52,7 @@ if (defined('ENVIRONMENT'))
 	
 		//Il s'agit de l'environnement de test, donc sur en-prod.net
 		case 'test':		
-			error_reporting(E_ALL); //& ~E_NOTICE
+			error_reporting(E_ALL & ~E_NOTICE); //& ~E_NOTICE
 			$system_path 			= '/home/www/stmd/system/';
 			$application_folder 	= '/home/www/stmd/application';//application
 		break;
