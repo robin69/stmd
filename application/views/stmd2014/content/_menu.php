@@ -52,14 +52,15 @@
 			</div>
       
 			<div class="newsletter"> 
-				<a href="<?php echo base_url("newsletter/inscription"); ?>"> Newsletter<br />
+				<a href="http://lists.gmjphoenix.com/?p=subscribe&id=1" class="fancybox fancybox.iframe"> Newsletter<br />
 				<span>S’inscrire</span> </a> 
 			</div>
-			
-			<div class="options"> 
+
+
+            <div class="options">
 				<a class="annonceur" href="<?php echo base_url('login'); ?>"> Espace<br />annonceurs </a> 
 		        <a class="inscri_annuaire" href="<?php echo base_url('pourquoi-s-inscrire'); ?>"> Inscription<br />annuaire </a> 
-		        <a class="information" href="<?php echo base_url('contact/demande-infos'); ?>"> Demande<br />d’informations </a> 
+		        <!--<a class="information" href="<?php /*echo base_url('contact/demande-infos'); */?>"> Demande<br />d’informations </a> -->
 		        <a class="contact" href="<?php echo base_url('contact'); ?>"> Nous<br /> contacter </a>
 			</div>
 		</div>

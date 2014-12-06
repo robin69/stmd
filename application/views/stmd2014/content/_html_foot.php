@@ -74,6 +74,9 @@
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.mousewheel.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.contentcarousel.js"></script>
 
+    <!-- FANCYBOX -->
+    <script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
 
 	<?php
 		if(!$no_google_map){
@@ -91,7 +94,12 @@
 		$('#ca-container').contentcarousel();
 
         $(function(){
-            $('#defaultReal').realperson({length: 8});
+
+
+            $(".fancybox").fancybox();
+
+
+
         });
 	</script>
 
