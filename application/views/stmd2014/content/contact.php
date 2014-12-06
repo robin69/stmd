@@ -92,7 +92,9 @@
             echo form_textarea($msg,$js)."<p>".form_error('msg')."</p>";
 
 
+
             ?><div class="clear"></div><?php
+
 
 
                   //Form button
@@ -109,12 +111,12 @@
 
               <?php echo form_close(); ?>
 
+
         </section>
 
 
     </div>
 </div>
-
 
 
 
