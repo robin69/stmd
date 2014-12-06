@@ -12,7 +12,7 @@
     <div class="contact_form">
         <header>
             <h1>Nous contacter</h1>
-            <p>Cum saepe multa, tum memini domi in hemicyclio sedentem, ut solebat, cum et ego essem una et pauci admodum familiares, in eum sermonem illum incidere qui tum forte multis erat in ore. Meministi enim profecto, Attice, et eo magis, quod P. Sulpicio utebare multum, cum is tribunus plebis capitali odio a Q. Pompeio, qui tum erat consul, dissideret, quocum coniunctissime et amantissime vixerat, quanta esset hominum vel admiratio vel querella.</p>
+            <p>Merci de remplir de formulaire. Nous répondrons à votre demande dans les meilleurs délais.</p>
         </header>
         <?php if($send_mail_status):?>
         <aside class="error">

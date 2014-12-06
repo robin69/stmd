@@ -9,12 +9,7 @@
         <h2>SolutionsTMD n’est pas qu’un annuaire...</h2>
         <br>
         <p align="left">
-            Wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-            <br><br>
-            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-            <br><br>
-            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
-            <br><br>
+            Depuis 2007, Solutions TMD s’est imposé comme une vraie boite à outils. <br /><br />Près de 600 adresses sont réunies autour de la thématique de la gestion, de l’expédition et du transport des produits classés dangereux. <br /><br />Grâce à un moteur de recherche puissant, les expéditeurs et les transporteurs de marchandises viennent y chercher des prestataires ayant un service ou un produit dédié à ces thématiques.<br/><br />
             <a href="<?php echo base_url("choisir-sa-griffe"); ?>"> Passez à l’inscription</a>
         </p>
     </div>
@@ -29,10 +24,7 @@
         <h2 align="left">Pourquoi s’inscrire ?</h2>
         <br>
         <p align="left">
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-            <br><br>
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
-            <br><br>
+            L’inscription est réservée aux spécialistes de ces réglementations : ADR, IATA, IMDG, CLP, Code l’environnement, ... .<br /><br />Pour garder un haut niveau de pertinence, chaque demande d’inscription est évaluée par un comité. Chaque entreprise référencée ajoute une compétence, un outil pour nos internautes.<br /><br />S’inscrire dans Solutions TMD signifie que vous souhaitez être contacté par des clients ayant besoin de vos compétences en relation avec les produits dangereux.<br><br>
             <a href="<?php echo base_url("choisir-sa-griffe"); ?>">Passez à l’inscription</a>
         </p>
     </div>
