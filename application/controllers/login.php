@@ -77,6 +77,8 @@ class Login extends CI_Controller {
 	 {
 
 	 	$this->data["domaine"] = NULL;
+         $this->data["breadcrumb"]["Annuaire MD"]    =   "/";
+         $this->data["breadcrumb"]["Accès à votre espace"]    =   "/login/";
 		$this->_layout('login');
 	}
 	

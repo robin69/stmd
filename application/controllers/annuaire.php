@@ -32,6 +32,10 @@ class Annuaire extends CI_Controller {
         $this->data["type_guid"]    =   $g->get_guid("types","transporteurs_md");   //On récupère le guid du type
         $this->data["description"]  =   "Vous êtes transporteurs de marchandises dangereuses par route (ADR), les rubriques présentées ci-dessous vous aideront à trouver le prestataire qui correspond à votre problématique. Nous demeurons à votre disposition pour répondre à vos demandes.";
 		$this->data["cats"]			=	$this->list_cats("transporteurs_md");
+        $this->data["breadcrumb"]   =   array(
+            "Annuaire MD"   =>  "/",
+            "Métiers du transport de marchandises dangereuses"  =>  "annuaire/transporteurs-md-adr"
+        );
 		$this->data["no_google_map"] = TRUE;
 
 		$this->_layout("ann_liste_cat");
@@ -47,6 +51,10 @@ class Annuaire extends CI_Controller {
 Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qui correspond à votre problématique. Nous demeu- rons à votre disposition pour répondre à vos demandes.";
         $this->data["cats"]		=	$this->list_cats("expediteurs_md");
 		$this->data["menu_sidebar"]	=	"presta";
+        $this->data["breadcrumb"]   =   array(
+            "Annuaire MD"   =>  "/",
+            "Métiers de l'expédition de marchandises dangereuses"  =>  "annuaire/expediteurs-md-adr-iata-imdg"
+        );
 		$this->data["no_google_map"] = TRUE;
 
 		$this->_layout("ann_liste_cat");
@@ -60,6 +68,10 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
         $this->data["type_guid"]    =   $g->get_guid("types","conseiller_securite");   //On récupère le guid du type
         $this->data["description"]  =   "En France, l’intervention d’un conseiller à la sécurité pour le transport de marchandises dangereuses est une obliga- tion légale (voir conditions fixées par l’arrêté TMD). Pour trouver un conseiller à la sécurité ADR proche de chez vous, vous devez sélectionner la région, la ou les classes de danger concernées correspondant à la matière dangereuse transportée ET au mode de transport qui sera utilisé : transport de marchandises par route (ADR), transport de mar- chandises dangereuses par chemin de fer (RID), transport de marchandises dangereuses par voies navigables (ADN).";
         $this->data["cats"]		=	$this->list_cats("expediteurs_md");
+
+        //Fil d'Arianne
+        $this->data["breadcrumb"]["Annuaire MD"]    =   "/";
+        $this->data["breadcrumb"]["Rechercher un conseiller à la scurité"]    =   "/rechercher-un-conseiller-a-la-securite-adr/";
 		$this->data["menu_sidebar"]	=	"cas";
 		
 		$this->_layout("search_conseiller");
@@ -149,16 +161,19 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$args["limit"]	=	$config["per_page"];
 		$fiche_liste = $f->get_list($args);
 		
-		//On alimente toutes les fiches dans $this->data
-		
-		
+
 		//On alimente la liste des catégories dans $this->data
 		$this->data["domaine"]	=	$domaine;
-		$this->data["breadcrumb"] = array(
-			"SolutionsTMD"	=> "",
-			"Annuaire ".$domaine => "annuaire/".$domaine,
-			$cat["public_name"] => "#"
-		);
+		$this->data["breadcrumb"]["Annuaire MD"] = "/";
+        //echo $domaine;
+        if($domaine == "transporteurs_md")
+        {
+            $this->data["breadcrumb"]["Métiers du transport de marchandises dangereuses"] = "/annuaire/transporteurs-md-adr";
+        }else{
+            $this->data["breadcrumb"]["Métiers de l'expédition de marchandises dangereuses"] = "/annuaire/expediteurs-md-adr-iata-imdg";
+        }
+		$this->data["breadcrumb"][$cat["public_name"]]     = "/annuaire/transporteurs-md-adr/".$cat["slug"];
+
 		$this->data["fiches"]	=	$fiche_liste;
 		
 		//Configuration de la pagination

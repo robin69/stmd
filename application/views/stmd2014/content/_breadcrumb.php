@@ -10,14 +10,14 @@
 	$i=0;
 	if(isset($breadcrumb)) :
 	?>
-	<div class="fil_ariane">
+	<div class="fil_ariane" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 		<p>Vous êtes ici : 
 			<?php
 				foreach($breadcrumb as $name => $link)
 				{
 					if($i!=0){ echo " > "; }
 					?>
-					<a href="<?php echo base_url().$link; ?>" ><?php echo $name; ?></a>
+					<a href="<?php echo $link; ?>" itemprop="url"><span itemprop="title"><?php echo $name; ?></span></a>
 					<?php
 					$i++;
 				}
