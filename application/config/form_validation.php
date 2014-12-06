@@ -1,6 +1,7 @@
 <?php
+    $CI =& get_instance();
     //On récupère le nombre maxi de caractère pour l'utiliser come règle de validation
-    $max_allowed_carracters = $this->config->item('nbr_carr_max_excerpt');
+    $max_allowed_carracters = $CI->config->item('nbr_carr_max_excerpt');
 $config = array(
 					"fiche_infos_update"=>	array(
 										array(

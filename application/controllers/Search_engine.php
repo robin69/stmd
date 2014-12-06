@@ -17,7 +17,6 @@ class Search_engine extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
-		
 	}
 
 
@@ -35,21 +34,22 @@ class Search_engine extends CI_Controller{
 
 
        // var_dump($this->input->post());
-        redirect("recherche/". $string . "/");
+        //redirect("recherche/". $string . "/");
 
 
 
 		//On récupère l'offset s'il y en a un
-		//$this->search();
+		$this->search();
 	}
 	
 	public function search($offset=0)
 	{
-        echo "couco";
-		
-		//$string = $this->input->get("string");
 
-        $string =  urldecode($this->uri->segment(2));
+        //echo "couco";
+		
+		$string = $this->input->get("string");
+
+        //$string =  urldecode($this->uri->segment(2));
         //echo "string = ". $string;
 		//On instancie la classe fiche
 		$f= new Fiche;
