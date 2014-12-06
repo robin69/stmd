@@ -18,17 +18,8 @@ class Search_engine extends CI_Controller{
 	{
 		parent::__construct();
 	}
-	
-	public function index()
-	{
-		
-	}
-	
-	public function toto(){
-	
-		
-		$this->_layout("ann_results");
-	}
+
+
 
 
     /***************************
@@ -44,7 +35,7 @@ class Search_engine extends CI_Controller{
 
 
 
-       // var_dump($this->input->post());
+       //On renvvois vers cette URL pour l'avoir réécrite dans le navigateur
         redirect("recherche/". $string . "/");
 
 
@@ -55,7 +46,6 @@ class Search_engine extends CI_Controller{
 	
 	public function search($offset=0)
 	{
-       die();
 		
 		//$string = $this->input->get("string");
 
@@ -67,13 +57,7 @@ class Search_engine extends CI_Controller{
 		//On compte les résultats
 		$config["total_rows"] = $this->data["total_fiches"] = $f->search_fiche($string,$offset,TRUE,TRUE);
 		$config["per_page"] = $this->config->item('elem_per_page');
-/* 		echo $config["total_rows"]; */
-		/*
-if($config["total_rows"] == 0)
-		{
-			redirect('/?search_error=1', 'refresh');
-		}
-*/
+
 		//$config['enable_query_strings'] = TRUE;
 		$config["base_url"] 	= site_url("recherche/".$string."/");
 		
@@ -111,11 +95,6 @@ if($config["total_rows"] == 0)
 
 		$this->pagination->initialize($config);
 		$this->_layout("ann_results");
-		
-/* 		die("Count : ".$config["total_rows"]); */
-	
-		
-		/* $result = $query->result(); */
 
 	}
 	
