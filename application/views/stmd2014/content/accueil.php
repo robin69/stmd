@@ -8,7 +8,15 @@
                 </div>
             </div>
         </center>
-        <div class="social"> <a href="#" class="gplus"></a> <a href="#" class="twitter"></a> <a href="#" class="facebook"></a> <a href="#" class="linkedin"></a> <a href="#" class="vimeo"></a> <a href="<?php echo base_url("login"); ?>" class="connexion">connexion</a> <a href="#" class="copy"></a> <a href="#" class="favoris"></a> </div>
+        <div class="social">
+            <a href="<?php echo $this->config->item("gplus"); ?>" class="gplus" title="GMJ Phoenix sur Google+" target="_blank"></a>
+            <a href="<?php echo $this->config->item("twitter"); ?>" class="twitter" target="_blank"></a>
+            <a href="<?php echo $this->config->item("facebook"); ?>" class="facebook" target="_blank"></a>
+            <a href="<?php echo $this->config->item("linkedin"); ?>" class="linkedin" target="_blank"></a>
+            <a href="<?php echo $this->config->item("viadeo"); ?>" class="viadeo" target="_blank"></a>
+            <a href="<?php echo base_url("login"); ?>" class="connexion">connexion</a>
+            <a href="#" class="copy"></a>
+            <a href="#" class="favoris"></a> </div>
     </div>
 </header>
 

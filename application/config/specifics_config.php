@@ -28,5 +28,12 @@ $config["site_name"]				=	"SolutionsTMD";
 $config["theme"]                    =   "stmd2014";
 
 
-
+/********************
+ * Réseaux Sociaux
+ ****************/
+$config['gplus']    =   "https://plus.google.com/+Gmjphoenix";
+$config['twitter']    =   "https://twitter.com/gmjphoenix";
+$config['facebook']    =   "https://www.facebook.com/gmjphoenix";
+$config['linkedin']    =   "http://fr.linkedin.com/pub/le-coz-guillaume";
+$config['viadeo']    =   "http://fr.viadeo.com/fr/company/gmj-phoenix";
 

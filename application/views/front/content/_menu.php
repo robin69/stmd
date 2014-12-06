@@ -5,7 +5,7 @@
       <p> Le carnet d’adresses des expéditeurs et des transporteurs<br />
         de marchandises dangereuses </p>
     </div>
-    <div class="social"> <a href="annuaire-transp.html#" class="gplus"></a> <a href="annuaire-transp.html#" class="twitter"></a> <a href="annuaire-transp.html#" class="facebook"></a> <a href="annuaire-transp.html#" class="linkedin"></a> <a href="annuaire-transp.html#" class="vimeo"></a> <a href="annuaire-transp.html#" class="copy"></a> <a href="annuaire-transp.html#" class="favoris"></a> </div>
+    <div class="social"> <a href="annuaire-transp.html#" class="gplus"></a> <a href="annuaire-transp.html#" class="twitter"></a> <a href="annuaire-transp.html#" class="facebook"></a> <a href="annuaire-transp.html#" class="linkedin"></a> <a href="annuaire-transp.html#" class="viadeo"></a> <a href="annuaire-transp.html#" class="copy"></a> <a href="annuaire-transp.html#" class="favoris"></a> </div>
   </div>
   <nav class="main-navigation">
     <div class="nav_container">

@@ -28,7 +28,7 @@
 			<div class="row header_top">
 				<div class="col-md-8"></div>
 				<div class="col-md-4 social">
-					<a href="home.html#" class="gplus"></a> <a href="home.html#" class="twitter"></a> <a href="home.html#" class="facebook"></a> <a href="home.html#" class="linkedin"></a> <a href="home.html#" class="vimeo"></a> <a href="home.html#" class="connexion">connexion</a> <a href="home.html#" class="copy"></a> <a href="home.html#" class="favoris"></a>
+					<a href="home.html#" class="gplus"></a> <a href="home.html#" class="twitter"></a> <a href="home.html#" class="facebook"></a> <a href="home.html#" class="linkedin"></a> <a href="home.html#" class="viadeo"></a> <a href="home.html#" class="connexion">connexion</a> <a href="home.html#" class="copy"></a> <a href="home.html#" class="favoris"></a>
 				</div>
 			</div><!-- HEOF header_top -->
 			<div class="row header_home">

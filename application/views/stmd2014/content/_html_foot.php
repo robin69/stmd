@@ -6,7 +6,7 @@
 				 <li><a href="<?php echo base_url("annuaire"); ?>/transporteurs-md-adr">Prestataires pour transporteurs MD</a></li>
 				 <li><a href="<?php echo base_url("annuaire"); ?>/expediteurs-md-adr-iata-imdg/">Prestataires pour expéditeurs MD</a></li>
 				 <li><a href="<?php echo base_url("pourquoi-s-inscrire"); ?>">Inscrire votre entreprise</a></li>
-				 <li><a href="<?php echo base_url("newsletter/inscription"); ?>">S’inscrire à la newsletter</a></li>
+				 <li><a href="http://lists.gmjphoenix.com/?p=subscribe&id=1" class="fancybox fancybox.iframe">S’inscrire à la newsletter</a></li>
 				 <li><a class="nosep" href="http://www.gmjphoenix.com" target="_blank">GMJ Phoenix</a></li>
 			 </ul>
 			 <ul class="footer_nav_bot">
