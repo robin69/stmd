@@ -32,14 +32,7 @@ class Search_engine extends CI_Controller{
 		$string = urlencode($this->input->get("string"));
 
 
-
-       // var_dump($this->input->post());
-        //redirect("recherche/". $string . "/");
-
-
-
-		//On récupère l'offset s'il y en a un
-		$this->search();
+        redirect("recherche/". $string . "/");
 	}
 	
 	public function search($offset=0)
