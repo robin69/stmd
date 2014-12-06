@@ -359,21 +359,5 @@ $config['proxy_ips'] = '';
 
 
 
-/*
-|--------------------------------------------------------------------------
-| Modules (hmvc) directory location
-|--------------------------------------------------------------------------
-|
-| If you use or create modules, CI needs to know where is the modules directory.
-| Each modules has its own mvc struture and can be dropped in an otther
-| application to add or extends application functionnalities.
-| Add by Robin on the 31/07/2014.
-| 
-|
-*/
-$config['modules_locations'] = array(
-    APPPATH.'modules/' => '../modules/',
-);
-
 /* End of file config.php */
 /* Location: ./application/config/config.php */
