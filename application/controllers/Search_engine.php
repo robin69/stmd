@@ -45,6 +45,7 @@ class Search_engine extends CI_Controller{
 	
 	public function search($offset=0)
 	{
+        echo "couco";
 		
 		//$string = $this->input->get("string");
 
