@@ -19,26 +19,37 @@ class Search_engine extends CI_Controller{
 		parent::__construct();
 		
 	}
-	
-		
-	
+
+
+    /***************************
+     * Lorsque l'utilisateur fait une recherche
+     * il pointe son formulaire vers cette fonction
+     * On encode alors la chaine cherchée et on redirige
+     * vers la page recherche avec la chaine dans l'URL.
+     */
 	public function index()
 	{
 		//On récupère la chaine de recherche
-		$string = urlencode($this->input->post("string"));
-		
+		$string = urlencode($this->input->get("string"));
+
+
+
+       // var_dump($this->input->post());
+        redirect("recherche/". $string . "/");
+
+
+
 		//On récupère l'offset s'il y en a un
-		redirect("/recherche/".$string."/");
-				
+		//$this->search();
 	}
 	
-	public function search($string, $offset=0)
+	public function search($offset=0)
 	{
-	
 		
-		$string = urldecode($string);
-		
-			
+		//$string = $this->input->get("string");
+
+        $string =  urldecode($this->uri->segment(2));
+        //echo "string = ". $string;
 		//On instancie la classe fiche
 		$f= new Fiche;
 
@@ -61,8 +72,8 @@ if($config["total_rows"] == 0)
 		
 		//On alimente la liste des catégories dans $this->data
 		$this->data["breadcrumb"] = array(
-			"SolutionsTMD"	=> "",
-			"Recherche " => "",
+			"SolutionsTMD"	=> "/",
+			"Recherche " => "/recherche/",
 			$string	=>	""
 		);
 

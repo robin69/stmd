@@ -352,29 +352,57 @@ class Fiche_manager extends CI_Model
 	
 	public function search_fiche($string,$offset,$published=TRUE,$count=FALSE)
 	{
-        echo $string." ";
-		//On construit la requête
-		$query = $this->db->from($this->tbl_fiche);
-		
+
+
 		//On demande par défaut les fiches publiées
 		if($published){
 			$query = $this->db->where(array("publication_status"=>"published"));
 		}
-		
-		$query = $this->db->where('MATCH(`nom_contact`,`raison_sociale`,`ville`,`cp`,`email_societe`,`site`,`facebook`,`googleplus`,`viadeo`,`twitter`,`linkedin`,`description`,`competences`,`certifications`,`references`) AGAINST ("'.$string.'")');
-		
-		//On récupère l'information de "Type".		
+
+        $indexed_columns = array(
+            "nom_contact"   => $string,
+            "raison_sociale"  => $string,
+            "ville"  => $string,
+            "cp"  => $string,
+            "email_societe"  => $string,
+            "site"  => $string,
+            "facebook"  => $string,
+            "googleplus"  => $string,
+            "viadeo"  => $string,
+            "twitter"  => $string,
+            "linkedin"  => $string,
+            "description"  => $string,
+            "competences"  => $string,
+            "certifications"  => $string,
+            "references"  => $string
+        );
+        $i = 0;
+        foreach($indexed_columns as $column => $value)
+        {
+            $i++;
+            if($i==1){
+                $query = $this->db->like($column,$value);
+            }else{
+                $query = $this->db->or_like($column,$value);
+            }
+
+        }
+
+
+
+
+        $query = $this->db->group_by("id_fiche");
+		//On récupère l'information de "Type".
 		$query = $this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","left");
 		$query = $this->db->join($this->tbl_fiche_cats, "fiche.id_fiche = fiche_has_category.fiche_id","left");
 		if(!$count)
 		{
 			$query = $this->db->limit($this->config->item('elem_per_page'),$offset);
 		}
-		
-		$query = $this->db->group_by("id_fiche");
-		
 
-		$query = $this->db->get();
+		$query = $this->db->group_by("id_fiche");
+        $query = $this->db->get($this->tbl_fiche);
+
 		$results = $query->result_array();
 		$nbr_results = count($results);
 		
