@@ -10,6 +10,7 @@
 				 <li><a class="nosep" href="http://www.gmjphoenix.com" target="_blank">GMJ Phoenix</a></li>
 			 </ul>
 			 <ul class="footer_nav_bot">
+				 <li><a href="<?php echo base_url('presentation'); ?>">Présentaiton de Solutions TMD</a></li>
 				 <li><a href="<?php echo base_url('contact'); ?>">Contacts</a></li>
 				 <li><a href="<?php echo base_url("mentions-legales"); ?>">Mentions légales</a></li>
 				 <li><a href="#">Tous droits réservés © 2014 Solutions TMD</a></li>
