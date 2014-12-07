@@ -11,8 +11,7 @@
 
     <div class="contact_form">
         <header>
-            <h1>Nous contacter</h1>
-            <p>Merci de remplir de formulaire. Nous répondrons à votre demande dans les meilleurs délais.</p>
+            <h1>Nous contacter</h1>            <p>Merci de remplir de formulaire. Nous répondrons à votre demande dans les meilleurs délais.</p>
         </header>
         <?php if($send_mail_status):?>
         <aside class="error">
@@ -93,8 +92,9 @@
 
 
 
-            ?><div class="clear"></div><?php
 
+?>
+            <div class="clear"></div><?php
 
 
                   //Form button
@@ -112,11 +112,17 @@
               <?php echo form_close(); ?>
 
 
+
         </section>
 
 
     </div>
 </div>
+
+
+
+
+
 
 
 
