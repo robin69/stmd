@@ -41,6 +41,87 @@ class Annuaire extends CI_Controller {
 		$this->_layout("ann_liste_cat");
 	}
 	
+
+	/**
+	*
+	*	Il faut sécuriser la réception avec $domaine
+	*	qui arrive tout droit de l'url...
+	*
+	*****/
+	public function list_cats($domaine)
+	{
+
+		//On instancie la classe category
+		$cats = new $this->category;
+
+		//On récupère la liste des catégories qui appartiennet au domaine ET qui ont au moins une fiche
+		$query = $this->db->join($this->tbl_cat_types, "cat_has_type.category_id = id_category");
+		$query = $this->db->join($this->tbl_fiche_cat, "fiche_has_category.category_id = id_category");
+		$query = $this->db->where(array('type_slug' => $domaine));
+		$query = $this->db->group_by("id_category");
+		$query = $this->db->order_by("public_name", "ASC");
+		$query = $this->db->get($this->tbl_category);
+		$results = $query->result_array();
+
+		//on compte le nombre de fiche par catégories
+		foreach($results as $key=>$cat)
+		{
+
+			$query = $this->db->where("category_id",$cat["id_category"]);
+			$this->db->from('fiche_has_category');
+			$nbr_fiches =  $this->db->count_all_results();
+
+
+/* 			echo $nbr_fiches."<br/>"; */
+
+				$f= new Fiche;
+				$args = array(
+						"filter_name"	=> "category_id",
+						"filter_value"	=> $cat["id_category"],
+						"type"			=> $domaine
+
+					);
+
+				$results[$key]["nbr_fiches"] = $f->count_list($args);
+
+
+		}
+
+
+		//On transforme le retour en tableau
+		//$cat_liste_array = $cats->get_list();
+
+
+		return $results;
+	}
+	
+
+	private function _layout($layout)
+	{
+		switch($layout)
+		{
+			case 'ann_liste_cat' :	$this->data["body_id"]	=	"annuaire-transp";
+									break;
+			case 'choisir_griffe' :	$this->data["body_id"]	=	"home";
+									break;
+			case 'results_conseillers' :
+			case 'ann_results' :	$this->data["body_id"]	=	"search_result";
+									break;
+
+			default :				$this->data["body_id"]	=	"home";
+									break;
+		}
+
+/* 		$this->data["view_has_slider"] = TRUE; */
+		$this->layout->view("_html_head", 	$this->data);
+		$this->layout->view("_menu", 	$this->data);
+		$this->layout->view("_breadcrumb", $this->data);
+		$this->layout->view($layout, 	$this->data);
+		$this->layout->view("_html_foot", 	$this->data);
+
+	}
+
+
 	public function cat_prestas_emd()
 	{
         $g = new Guid_model();
@@ -60,6 +141,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$this->_layout("ann_liste_cat");
 	}
 	
+	
 	public function search_cas_form()
 	{
         $g = new Guid_model();
@@ -73,63 +155,9 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
         $this->data["breadcrumb"]["Annuaire MD"]    =   "/";
         $this->data["breadcrumb"]["Rechercher un conseiller à la scurité"]    =   "/rechercher-un-conseiller-a-la-securite-adr/";
 		$this->data["menu_sidebar"]	=	"cas";
-		
+
 		$this->_layout("search_conseiller");
 	}
-
-	/**
-	*
-	*	Il faut sécuriser la réception avec $domaine
-	*	qui arrive tout droit de l'url...
-	*
-	*****/
-	public function list_cats($domaine)
-	{
-
-		//On instancie la classe category
-		$cats = new $this->category;
-		
-		//On récupère la liste des catégories qui appartiennet au domaine ET qui ont au moins une fiche
-		$query = $this->db->join($this->tbl_cat_types, "cat_has_type.category_id = id_category");
-		$query = $this->db->join($this->tbl_fiche_cat, "fiche_has_category.category_id = id_category");
-		$query = $this->db->where(array('type_slug' => $domaine));
-		$query = $this->db->group_by("id_category");
-		$query = $this->db->order_by("public_name", "ASC");
-		$query = $this->db->get($this->tbl_category);
-		$results = $query->result_array();
-		
-		//on compte le nombre de fiche par catégories
-		foreach($results as $key=>$cat)
-		{
-		
-			$query = $this->db->where("category_id",$cat["id_category"]);
-			$this->db->from('fiche_has_category');
-			$nbr_fiches =  $this->db->count_all_results();
-			
-			
-/* 			echo $nbr_fiches."<br/>"; */
-			
-				$f= new Fiche;
-				$args = array(
-						"filter_name"	=> "category_id",
-						"filter_value"	=> $cat["id_category"],
-						"type"			=> $domaine
-						
-					);	
-				
-				$results[$key]["nbr_fiches"] = $f->count_list($args);
-			
-			
-		}
-
-		
-		//On transforme le retour en tableau
-		//$cat_liste_array = $cats->get_list();
-
-				
-		return $results;
-	}
-	
 	
 	
 	public function show_results_cat($domaine, $cat_segment,$offset=0)
@@ -138,11 +166,11 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$cat_slug = str_replace("cat-", "", $cat_segment);	//Le nom de la catégorie
 		$c = new Category;
 		$cat = $c->get_cat_by_slug($cat_slug);
-				
-		
+
+
 		//On prépare l'affichage des fiches avec pagination
 		//Si il y a un numéro de page on le récupère via le troisième argument facultatif
-		
+
 
 		$args = array(
 			"filter_name"	=> 	"category_id",
@@ -151,31 +179,33 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		);
 		$f = new Fiche;
 		$config["total_rows"] = $this->data["total_fiches"] = $f->count_list($args);
-		$config["base_url"] = site_url("annuaire/".$domaine."/cat-".$cat_segment)."/";
+
+        //On génère les variables en fonction du domaine
+        if($domaine == "transporteurs_md"){
+            $domaine_url    =   "/annuaire/transporteurs-md-adr";
+            $domaine_label  =   "Métiers du transport de marchandises dangereuses";
+        }else{
+            $domaine_url    =   "/annuaire/expediteurs-md-adr-iata-imdg";
+            $domaine_label  =   "Métiers de l'expédition de marchandises dangereuses";
+        }
+		$config["base_url"] = site_url($domaine_url."/cat-".$cat_segment)."/";
 		$config['uri_segment'] = 4;	//Une entrée dans le tableau = 2 éléments (key et value) donc 4 segments d'url.
 		$config["per_page"] = $this->config->item('elem_per_page');
-		
-		
+
+
 		//On complète la reqûete pour l'affichage et on lance la requête
 		$args["offset"]	= 	$offset;
 		$args["limit"]	=	$config["per_page"];
 		$fiche_liste = $f->get_list($args);
-		
+
 
 		//On alimente la liste des catégories dans $this->data
 		$this->data["domaine"]	=	$domaine;
 		$this->data["breadcrumb"]["Annuaire MD"] = "/";
-        //echo $domaine;
-        if($domaine == "transporteurs_md")
-        {
-            $this->data["breadcrumb"]["Métiers du transport de marchandises dangereuses"] = "/annuaire/transporteurs-md-adr";
-        }else{
-            $this->data["breadcrumb"]["Métiers de l'expédition de marchandises dangereuses"] = "/annuaire/expediteurs-md-adr-iata-imdg";
-        }
-		$this->data["breadcrumb"][$cat["public_name"]]     = "/annuaire/transporteurs-md-adr/".$cat["slug"];
-
+        $this->data["breadcrumb"][$domaine_label] = $domaine_url;   //Breadcrumb du domaine
+		$this->data["breadcrumb"][$cat["public_name"]]     = "/annuaire/transporteurs-md-adr/cat-".$cat["slug"];
 		$this->data["fiches"]	=	$fiche_liste;
-		
+
 		//Configuration de la pagination
 		$config['full_tag_open'] = '<ul>';
 		$config['full_tag_close'] = '</ul>';
@@ -197,20 +227,20 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$config['num_tag_close'] = '</li>';
 
 
-		
+
 		$this->pagination->initialize($config);
-		
+
 		$this->data["alaune"] = $this->fiches_alaune($domaine,$cat);
 		$this->data["menu_sidebar"]	=	"prestas";
-		
+
 		$c = new Category;
-		
+
 		$this->data["menu_categories"]	= $c->get_cat_by_type($domaine);
-		
+
 		$this->_layout("ann_results");
 	}
 	
-	
+
 	/***
 	*
 	*	Cette fonction interroge la base des fiches et récupère
@@ -230,29 +260,30 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 	*	@$domaine (string) Correspond au type
 	*	@return (array) Tableau de résultat contenant les fiches
 	******/
-	
+
 	public function fiches_alaune($domaine, $cat)
 	{
 		$limit = $this->config->item("nbr_fiche_alaune");
-		
+
 		$args = array(
-					
+
 					"type"			=> $domaine, //Type transporteurs_md, experiteurs_md, etc...
 					"payante"		=> TRUE //Une fiche est à la une si elle est payante.
 				);
 		$f = new Fiche;
 		$results = $f->get_list($args);
-	
+
 		$list_key = array_rand($results, $limit);
-		
+
 		$list_alaune = array();
 		foreach($list_key as $offset => $key)
 		{
 			array_push($list_alaune, $results[$key]);
 		}
-		
+
 		return $list_alaune;
 	}
+	
 	
 	/*********************************
 	*
@@ -264,14 +295,14 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 	public function fiche_count_up($id_fiche)
 	{
 		//on récupère l'id de la fiche
-		
+
 		$data = array(
 			"fiche_view"	=>	$id_fiche,
 			"datetime"		=>	time()
-		);		
+		);
 		$this->db->insert("fiche_view", $data);
-		
-			
+
+
 	}
 	
 	
@@ -286,30 +317,30 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 	*******************/
 	public function fiche_eval($id_fiche,$note)
 	{
-	
+
 
 		//On récupère l'adresse IP
 		$ip = $this->input->ip_address();
-		
+
 		//On détermine la date du jour en secondes
 		echo "<br />".$starttime 	= strtotime(date("Y-m-d 00:00:00"));
 		echo "<br />".$endtime		= strtotime(date("Y-m-d 23:59:59"));
-		
-		
+
+
 
 		//Si l'adresse IP est valide
 		if( $ip != "0.0.0.0")
 		{
-			
+
 			//On vérifie si le couple id_fiche<>adresse IP existe pour aujourd'hui
 			$query = $this->db->get_where("fiche_eval", array(
 						"fiche_id"	=> $id_fiche,
 						"ip"		=> $ip,
 						"timestamp >"	=> $starttime,
-						"timestamp <"	=> $endtime	
+						"timestamp <"	=> $endtime
 						));
 			$result = $query->result();
-			
+
 /* A REMETTRE
 			if(count($result)==0)
 			{
@@ -320,11 +351,11 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 					"eval"		=> $note,
 					"timestamp"	=> time()
 				);
-				
-				
+
+
 				//On insert l'évaluation dans l'historique
 				$this->db->insert("fiche_eval", $data);
-								
+
 				//On récupère la liste des notes
 				$query2 = $this->db->select("eval");
 				$query2 = $this->db->where("fiche_id", $id_fiche);
@@ -338,32 +369,32 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 						array_push($result_array, $row->eval);
 					}
 				}
-				
+
 				$eval_count  = count($result_array);
-				$eval_average = array_sum($result_array) / $eval_count; 
+				$eval_average = array_sum($result_array) / $eval_count;
 				$eval_average = ceil($eval_average);
 				echo "<br />eval average 2 : ".$eval_average;
-				
+
 				//On met à jour la fiche
 				$data = array(
 				               'eval_average' 	=> $eval_average,
 				               'eval_count' 	=> $eval_count
-				              );				         
-				
+				              );
+
 				$this->db->where('id_fiche', $id_fiche);
-				$this->db->update($this->tbl_fiches, $data); 
+				$this->db->update($this->tbl_fiches, $data);
 				echo $this->db->last_query();
 				//On calcul la moyenne des notes
-							/* 
-			} A REMETTRE 
+							/*
+			} A REMETTRE
 			*/
 		}
-		
-		
+
+
 		return FALSE;
 	}
 	
-	
+
 	/**
 	*
 	*	Fonction qui permet de retourner le nombre de fiches
@@ -375,12 +406,12 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 	public function search_cas_ajax()
 	{
 		//On récupère la demande
-		
+
 		$ajax_req = $this->input->get();
-		
+
 		//On instancie le tableau des tables, pour alimenter dynamiquement les noms des tables
 		$from= array("fiche","fiche_has_type as fht");
-		
+
 		if(isset($ajax_req["classe"]) AND count($ajax_req["classe"])>=1)
 		{
 			$classes_in_string = implode("','",$ajax_req["classe"]);
@@ -390,7 +421,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		}else{
 			$sql_classes = " ";
 		}
-		
+
 		if(isset($ajax_req["zone"]) AND count($ajax_req["zone"])>=1)
 		{
 			$zones_in_string = implode("','",$ajax_req["zone"]);
@@ -400,7 +431,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		}else{
 			$sql_zones = " ";
 		}
-		
+
 		if(isset($ajax_req["mdtransp"]) AND count($ajax_req["mdtransp"])>=1)
 		{
 			$mdtransp_in_string = implode("','",$ajax_req["mdtransp"]);
@@ -410,10 +441,10 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		}else{
 			$sql_mdtransp =" ";
 		}
-		
+
 		$sql = "SELECT COUNT(Distinct fiche.id_fiche) as nbr_fiches";
 		$sql .= " FROM ".implode(",",$from)." ";
-		$sql .= " 
+		$sql .= "
 				WHERE publication_status = 'published'
             	AND fiche.id_fiche = fht.fiche_id
 				AND fht.type_slug = 'conseiller_securite'
@@ -423,29 +454,30 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$sql .= $sql_mdtransp;
 
         //$sql .= " GROUP BY fiche.id_fiche ";
-		
+
 		$query = $this->db->query($sql);
        //echo $this->db->last_query();
 		$results = $query->result_array();
-		
+
 		$data["json"] = json_encode($results);
-		
+
 		$this->output->enable_profiler(FALSE);				//On envoie une instruction spécifique pour désactiver le profiler d'application (automatisé via un hook)
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$this->layout->view("ajax_json_view", $data);
 	}
 	
+	
 	public function show_results_cas()
 	{
-	
+
 		//On récupère le POST de recherche
 		$req = $this->input->post();
 
-		
-		
+
+
 		//On instancie le tableau des tables, pour alimenter dynamiquement les noms des tables
 		$from= array("fiche","fiche_has_type as fht");
-		
+
 		if(isset($req["classe"]) AND count($req["classe"])>=1)
 		{
 			$classes_in_string = implode("','",$req["classe"]);
@@ -455,7 +487,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		}else{
 			$sql_classes = " ";
 		}
-		
+
 		if(isset($req["zone"]) AND count($req["zone"])>=1)
 		{
 
@@ -466,7 +498,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		}else{
 			$sql_zones = " ";
 		}
-		
+
 		if(isset($req["mdtransp"]) AND count($req["mdtransp"])>=1)
 		{
 			$mdtransp_in_string = implode("','",$req["mdtransp"]);
@@ -476,10 +508,10 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		}else{
 			$sql_mdtransp =" ";
 		}
-		
+
 		$sql = "SELECT * ";
 		$sql .= " FROM ".implode(",", $from)." ";
-		$sql .= " 
+		$sql .= "
 				WHERE publication_status = 'published'
             	AND fiche.id_fiche = fht.fiche_id
 				AND fht.type_slug = 'conseiller_securite'
@@ -489,46 +521,17 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$sql .= $sql_mdtransp;
 
         $sql .= " GROUP BY fiche.id_fiche ";
-		
-		
+
+
 		$query = $this->db->query($sql);
 /* 		echo $this->db->last_query(); */
 		$this->data["fiches"] = $query->result_array();
 		$this->data["total_fiches"]	=	count($this->data["fiches"]);
 		$this->data["domaine"]	=	"conseiller_securite";
 		$this->data["menu_sidebar"]	=	"cas";
-				
-		$this->_layout("ann_results");
-		
-		
-	}
-	
-	
-	
-	
-	
-	private function _layout($layout)
-	{
-		switch($layout)
-		{
-			case 'ann_liste_cat' :	$this->data["body_id"]	=	"annuaire-transp";
-									break;
-			case 'choisir_griffe' :	$this->data["body_id"]	=	"home";
-									break;
-			case 'results_conseillers' :
-			case 'ann_results' :	$this->data["body_id"]	=	"search_result";
-									break;
 
-			default :				$this->data["body_id"]	=	"home";
-									break;
-		}
-		
-/* 		$this->data["view_has_slider"] = TRUE; */
-		$this->layout->view("_html_head", 	$this->data);
-		$this->layout->view("_menu", 	$this->data);
-		$this->layout->view("_breadcrumb", $this->data);
-		$this->layout->view($layout, 	$this->data);
-		$this->layout->view("_html_foot", 	$this->data);
-		
+		$this->_layout("ann_results");
+
+
 	}
 }
