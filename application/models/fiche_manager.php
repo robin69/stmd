@@ -19,15 +19,34 @@
 class Fiche_manager extends CI_Model
 {
 
-	private $tbl_fiche 			= "fiche";
-	private $tbl_cats			= "category";
-	private $tbl_fiche_cats		= "fiche_has_category";
-	private $tbl_fiche_types	= "fiche_has_type";
-	private $tbl_fiche_zones	= "fiche_has_zone";
-	private $tbl_fiche_eval		= "fiche_eval";
 	protected $required_infos		= array(					//Les champs qui sont obligatoires pour une fiche
-									
+
 								);
+
+
+	private $tbl_fiche 			= "fiche";
+
+
+	private $tbl_cats			= "category";
+
+
+	private $tbl_fiche_cats		= "fiche_has_category";
+
+
+	private $tbl_fiche_types	= "fiche_has_type";
+
+
+	private $tbl_fiche_zones	= "fiche_has_zone";
+
+
+    private $tbl_fiche_mdtransp = "fiche_has_mdtransp";
+
+
+    private $tbl_fiche_classes  = "fiche_has_classe";
+
+
+	private $tbl_fiche_eval		= "fiche_eval";
+
 
 	public function __construct()
 	{
@@ -56,7 +75,7 @@ class Fiche_manager extends CI_Model
 		}
 
 		
-		$exception_field = array("categories","types","zones");
+		$exception_field = array("categories","types","zones","mdtransp","classes");
 		//On met à jour les informations principales
 		foreach($fiche_array as $field=>$value)
 		{
@@ -81,6 +100,12 @@ class Fiche_manager extends CI_Model
 		
 		//ajoute la zone de la fiche
 		$this->_add_zones($fiche_array);
+
+        //ajoute le mode de transp
+        $this->_add_mdtransp($fiche_array);
+
+		//ajoute le mode de transp
+        $this->_add_classes($fiche_array);
 
 		return $new_id_fiche;
 		
@@ -206,7 +231,79 @@ class Fiche_manager extends CI_Model
 	}
 	
 	
-	
+	/**
+	*
+	*	ajoute les mode de transport d'une fiche dans
+	*	la table d'association
+	*
+	*	@fiche_obj obj L'objet fiche (contenant l'id_fiche)
+	*	@return void
+	*
+	*
+	*
+	*************************************/
+	private function _add_mdtransp($fiche_array)
+	{
+		$mdtransp = $fiche_array["mdtransp"];
+		if(count($mdtransp)>=1)
+		{
+			$array_to_insert = array();
+			foreach($mdtransp as $key=>$value)
+			{
+				$array = array(
+					"fiche_id"		=>	$fiche_array["id_fiche"],
+					"mdtransp"		=>	$value
+				);
+
+				array_push($array_to_insert,$array);
+			}
+
+			$this->db->insert_batch($this->tbl_fiche_mdtransp, $array_to_insert);
+		}
+
+
+
+		return;
+	}
+
+
+/**
+	*
+	*	ajoute les classes de matière d'une fiche dans
+	*	la table d'association
+	*
+	*	@fiche_obj obj L'objet fiche (contenant l'id_fiche)
+	*	@return void
+	*
+	*
+	*
+	*************************************/
+	private function _add_classes($fiche_array)
+	{
+		$classes = $fiche_array["classes"];
+		if(count($classes)>=1)
+		{
+			$array_to_insert = array();
+			foreach($classes as $key=>$value)
+			{
+				$array = array(
+					"fiche_id"		=>	$fiche_array["id_fiche"],
+					"classe"		=>	$value
+				);
+
+				array_push($array_to_insert,$array);
+			}
+
+			$this->db->insert_batch($this->tbl_fiche_classes, $array_to_insert);
+		}
+
+
+
+		return;
+	}
+
+
+
 	
 	
 	
@@ -236,6 +333,12 @@ class Fiche_manager extends CI_Model
 		//On supprime la fiche dans la table de liaison zone
 		$this->db->delete($this->tbl_fiche_zones, array("fiche_id" => $id_fiche));
 		
+		//On supprime la fiche dans la table de liaison mdtransp
+		$this->db->delete($this->tbl_fiche_mdtransp, array("fiche_id" => $id_fiche));
+
+		//On supprime la fiche dans la table de liaison mdtransp
+		$this->db->delete($this->tbl_fiche_classes, array("fiche_id" => $id_fiche));
+
 		return;
 		
 	}
@@ -631,7 +734,11 @@ $fiches_liste = array();
 
 
 
-		$exception_field = array("categories","types","zones");
+        //var_dump($fiche_array);
+
+
+
+		$exception_field = array("categories","types","zones","mdtransp","classes");
 		//On met à jour les informations principales
 		foreach($fiche_array as $field=>$value)
 		{
@@ -649,11 +756,16 @@ $fiches_liste = array();
 		$this->db->delete($this->tbl_fiche_cats, array("fiche_id" 	=> $fiche_array["id_fiche"]));
 		$this->db->delete($this->tbl_fiche_types, array("fiche_id" 	=> $fiche_array["id_fiche"]));
 		$this->db->delete($this->tbl_fiche_zones, array("fiche_id" 	=> $fiche_array["id_fiche"]));
+		$this->db->delete($this->tbl_fiche_mdtransp, array("fiche_id" 	=> $fiche_array["id_fiche"]));
+		$this->db->delete($this->tbl_fiche_classes, array("fiche_id" 	=> $fiche_array["id_fiche"]));
+
 		//On insert le nouveau lot de catégories
 		//Si l'objet contient des éléments de dépendance, on les ajoute dans les tables appropriées
 		$this->_add_cats($fiche_array);
 		$this->_add_types($fiche_array);
 		$this->_add_zones($fiche_array);
+        $this->_add_mdtransp($fiche_array);
+        $this->_add_classes($fiche_array);
 
 
 		

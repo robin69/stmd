@@ -115,6 +115,16 @@ class Inscrits extends CI_Controller {
 	}
 		
 	
+	private function _layout($layout)
+	{
+		$this->layout->view("_header");
+		$this->layout->view("_menu", $this->data);
+		$this->layout->view($layout, $this->data);
+		$this->layout->view("_footer");
+
+	}
+	
+	
 	/***************************************
 	*
 	*	EDIT Function
@@ -131,7 +141,7 @@ class Inscrits extends CI_Controller {
 			{
 				$fiche = $this->_update_object_field();
 			}
-			
+
 		}else{
 			//On récupère les informations de la fiche
 			$manager = new Fiche_manager;
@@ -139,11 +149,11 @@ class Inscrits extends CI_Controller {
 			$infos = $manager->get($id_fiche);
 			$fiche->hydrate($infos);
 		}
-		
-		
-		
+
+
+
 		$cat = new Category;
-		
+
 		$this->data["form"]					=	"modif";
 		$this->data["sub_menu_actif"]		=	"fiche_infos_form";
 		$this->data["submit_button_label"]	=	"Mettre à jour";
@@ -156,6 +166,40 @@ class Inscrits extends CI_Controller {
 
 
 		$this->_layout("fiche_infos_form");
+	}
+	
+
+	/****
+	*
+	*	Met à jour l'objet
+	*	avec les éléments envoyés par le post
+	*
+	*
+	*
+	*
+	*/
+	private function _update_object_field()
+	{
+		//On récupère les informations actuelles
+		$fiche = new Fiche;
+
+		$infos = $fiche->get($this->input->post("id_fiche"));
+
+		$fiche->hydrate($infos);
+
+		//On ajoute modifie avec les informations du post
+		foreach($this->input->post() as $field => $value)
+		{
+			$method_name = "set_".$field;
+			$fiche->$method_name($value);
+		}
+
+
+		//on Enregistre l'objet.
+		$fiche->_save();
+
+
+		return $fiche;
 	}
 	
 	
@@ -172,7 +216,7 @@ class Inscrits extends CI_Controller {
 		if($this->input->post())
 		{
 			$fiche = $this->_update_object_field();
-			
+
 		}else{
 			//On récupère les informations de la fiche
 			$manager = new Fiche_manager;
@@ -180,11 +224,11 @@ class Inscrits extends CI_Controller {
 			$infos = $manager->get($id_fiche);
 			$fiche->hydrate($infos);
 		}
-		
-		
-		
+
+
+
 		$cat = new Category;
-		
+
 		$this->data["form"]					=	"modif";
 		$this->data["sub_menu_actif"]		=	"fiche_desc_form";
 		$this->data["submit_button_label"]	=	"Mettre à jour";
@@ -198,6 +242,7 @@ class Inscrits extends CI_Controller {
 		$this->_layout("fiche_desc_form");
 	}
 	
+	
 	/***************************************
 	*
 	*	EDIT Function
@@ -207,12 +252,12 @@ class Inscrits extends CI_Controller {
 	*****************************************/
 	public function edit_fiche_ressoc($id_fiche="")
 	{
-		
+
 		//On traite le formulaire s'il est envoyé
 		if($this->input->post())
 		{
 			$fiche = $this->_update_object_field();
-			
+
 		}else{
 			//On récupère les informations de la fiche
 			$manager = new Fiche_manager;
@@ -220,11 +265,11 @@ class Inscrits extends CI_Controller {
 			$infos = $manager->get($id_fiche);
 			$fiche->hydrate($infos);
 		}
-		
-		
-		
+
+
+
 		$cat = new Category;
-		
+
 		$this->data["form"]					=	"modif";
 		$this->data["sub_menu_actif"]		=	"fiche_ressoc_form";
 		$this->data["submit_button_label"]	=	"Mettre à jour";
@@ -254,70 +299,55 @@ class Inscrits extends CI_Controller {
 		if($this->input->post())
 		{
 			$fiche = $this->_update_object_field();
-			
+
 		}else{
 			//On récupère les informations de la fiche
 			$fiche = new Fiche;
 			$fiche->hydrate($fiche->get($id_fiche));
 		}
-		
-		
-		
+
+
+
+        //var_dump($fiche);
+
+
+
+
 		$cat = new Category;
-		
+
 		$this->data["form"]					=	"modif";
 		$this->data["sub_menu_actif"]		=	"fiche_cats_form";
 		$this->data["submit_button_label"]	=	"Mettre à jour";
 		$this->data["title"]				=	"FICHE : ".$fiche->raison_sociale() ;
 		$this->data["fiche"] 				=	$fiche;
-		
+
+
+
+
+
 		//TYPES
 		$this->data["types"]				=	Type::get();
+        //ZONES
+        $query = $this->db->get("zones");
+        $zone_list = $query->result();
 
-		$this->data["zones"]				=	$this->db->get("zones");
+        //CLASSES
+        $query = $this->db->get("classes");
+        $class_list = $query->result();
+
+
+        //var_dump($results);
+
+
+		$this->data["zones"]				=	$zone_list;
 		$this->data["domaines"]				= 	$cat->get_all_domaines();
 		$this->data["fiche_cats"] 			= 	$fiche->categories();
+        $this->data["classes"]              =   $class_list;
 
 
 		$this->_layout("fiche_cats_form");
 	}
-	
-	
-	
-	/****
-	*
-	*	Met à jour l'objet
-	*	avec les éléments envoyés par le post
-	*
-	*
-	*
-	*
-	*/
-	private function _update_object_field()
-	{
-		//On récupère les informations actuelles
-		$fiche = new Fiche;
 
-		$infos = $fiche->get($this->input->post("id_fiche"));
-
-		$fiche->hydrate($infos);
-		
-		//On ajoute modifie avec les informations du post
-		foreach($this->input->post() as $field => $value)
-		{
-			$method_name = "set_".$field;
-			$fiche->$method_name($value);
-		}
-		
-		
-		//on Enregistre l'objet.
-		$fiche->_save();
-		
-
-		return $fiche;	
-	}
-	
-	
 	
 	public function add()
 	{
@@ -333,13 +363,13 @@ class Inscrits extends CI_Controller {
 				$fiche->hydrate($this->input->post());	//On alimente l'objet
 				$id_fiche = $fiche->_save();
 
-				
+
 				redirect("admin/inscrits/edit_fiche_infos/".$id_fiche);
 			}
-			
+
 		}
 /* 		echo "coucou"; */
-		
+
 		$this->data["form"]					=	"add";
 		$this->data["sub_menu_actif"]		=	"fiche_infos_form";
 		$this->data["submit_button_label"]	=	"Enregistrer";
@@ -349,18 +379,16 @@ class Inscrits extends CI_Controller {
 		$this->data["zones"]				=	$this->db->get("zones");
 		$this->data["domaines"]				= 	$cat->get_all_domaines();
 
-		
+
 		$this->_layout("fiche_infos_form");
-		
+
 
 	}
+	
 
-	
-	
-	
 	public function edit_submit()
 	{
-		
+
 		//On vérifie les informations envoyées
 		if($this->form_validation->run("fiche_form_modif") == TRUE)
 		{
@@ -376,36 +404,38 @@ class Inscrits extends CI_Controller {
 			}else{
 				$this->data["notification_note"] = array("type"=>"error","msg"=>"Il y a eu problème pendant la mise à jour");
 			}
-			
 
-				
+
+
 			if($this->input->post("cat"))
 			{
-				
-				//On met à jour les catégories pour cette fiche. 
+
+				//On met à jour les catégories pour cette fiche.
 				$fiche->update_cats($this->input->post("cat"));
-				
+
 			}
-			
+
 			//On revient sur le formulaire d'édition
 			$this->edit($fiche->id_fiche);
-			
+
 		}else{
 			$this->edit($fiche->id_fiche);
 		}
 	}
 	
+
 	public function unpublish($id_fiche)
 	{
 		$fiche = new Fiche;
 		$fiche->set_id_fiche($id_fiche)	;
 		$fiche->unpublish();
-		
+
 		//On récupère l'url d'origine et on redirige vers cette url
 		$url_back = str_replace(site_url(),"",$_SERVER["HTTP_REFERER"]);
 		redirect($url_back);
-		
+
 	}
+	
 	
 	public function publish($id_fiche)
 	{
@@ -413,49 +443,45 @@ class Inscrits extends CI_Controller {
 		//avant de publier il faut alimenter l'objet pour qu'il puisse vérifier si la publication est possible
 		$infos = $fiche->get($id_fiche);
 		$fiche->hydrate($infos);
-		
-		
+
+
 		$fiche->publish();
-		
+
 		//On récupère l'url d'origine et on redirige vers cette url
 		$url_back = str_replace(site_url(),"",$_SERVER["HTTP_REFERER"]);
 		redirect($url_back);
-		
+
 	}
 	
 	
-
-	
 	public function publishing($id_fiche,$status)
 	{
-		
+
 		$fiche = new Fiche;
 
 		if($status == TRUE)
 		{
-			
+
 			$fiche->set_id_fiche($id_fiche)	;
 			$fiche->publish();
 		}
-		
+
 		//On récupère l'url d'origine et on redirige vers cette url
 		$url_back = str_replace(site_url(),"",$_SERVER["HTTP_REFERER"]);
 		//redirect($url_back);
 	}
 	
 	
-	
 	public function delete($id_fiche)
 	{
-	
+
 		$fiche = new Fiche;
 		$fiche->delete($id_fiche);
 		//On récupère l'url d'origine et on redirige vers cette url
 		$url_back = str_replace(site_url(),"",$_SERVER["HTTP_REFERER"]);
 		redirect($url_back);
-		
+
 	}
-	
 	
 	
 	public function add_submit()
@@ -469,23 +495,12 @@ class Inscrits extends CI_Controller {
 			$fiche->build($this->input->post());
 			$this->id_fiche = $fiche->add();
 			$this->edit($this->id_fiche);
-			
-			
+
+
 		}else{
 			//echo validation_errors();
 			$this->_layout("fiche_form");
 		}
-	}
-	
-	
-	
-	private function _layout($layout)
-	{
-		$this->layout->view("_header");
-		$this->layout->view("_menu", $this->data);
-		$this->layout->view($layout, $this->data);
-		$this->layout->view("_footer");
-		
 	}
 	
 	
@@ -576,7 +591,7 @@ class Inscrits extends CI_Controller {
 				//on récupère l'id utilisateur
 				$query = $DB2->get_where("user", array("email"=>$fiche["email"]));
 				$result = $query->row_array();
-				$$id_user = $result["id_user"];
+				$id_user = $result["id_user"];
 				
 			}
 						

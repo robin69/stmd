@@ -22,7 +22,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/admin"); ?>/js/cufon.js"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/admin"); ?>/js/Zurich_Condensed_Lt_Bd.js"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/admin"); ?>/js/script.js"></script>
-
+<script type="text/javascript" src="<?php echo base_url("assets/admin"); ?>/js/stmd_admin.js"></script>
 
 </body>
 </html>

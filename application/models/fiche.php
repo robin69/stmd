@@ -39,7 +39,9 @@ class Fiche extends fiche_manager
 	protected $categories	=	array();				//Le tableau des catégories sous la forme array(id1, id2, id3, id4, etc...);
 	protected $types		=	array();
 	protected $zones		=	array();
-	
+    protected $mdtransp     =   array();
+    protected $classes         =   array();
+
 	
 	
 	public function __construct($id_fiche="")
@@ -116,12 +118,22 @@ class Fiche extends fiche_manager
 	public function categories(){ return $this->categories; }
 	public function types(){ return $this->types; }
 	public function zones(){ return $this->zones; }
+    public function mdtransp(){ return $this->mdtransp;}
+    public function classes(){ return $this->classes;}
 	public function date_reglement(){ return $this->date_reglement; }
 	public function payante(){ return $this->payante; }
 	public function temp(){ return $this->temp;}
+
 	
+
+    public function set_classes($classes){
+        $this->classes =   $classes;
+    }
 	
-	
+	public function set_mdtransp($mdtransp){
+        $this->mdtransp =   $mdtransp;
+    }
+
 	public function set_temp($bool)
 	{
 		$this->temp = $bool;
@@ -442,23 +454,104 @@ class Fiche extends fiche_manager
 	}
 	
 	
-	/********************************
+	/*****************************************
 	*
-	*	Vérifie si la fiche a au moins
-	*	Une catégorie.
+	*	S'occupe d'enregistrer la fiche.
+	*	Si l'objet Fiche a $id_fiche renseigné
+	*	la fonction met à jour l'enregistrement
+	*	dans la base.
+	*	Si l'objet n'a pas d'ID, la function
+	*	crée un nouvel enregistrement
 	*
-	*	@return bool
+	*	@return TRUE si update,
+	*	@return int $id_fiche si ajout.
 	*
-	*
-	***********************************/
-	public function have_category()
+	******************************************/
+	public function _save()
 	{
-		if(count($this->categories)>=1)
+		$manager = new Fiche_manager;
+		$exception_fields = array(
+			"required_infos"
+		);
+		$array_to_save = array();
+			//on prépare le tableau de sauvegarde
+			foreach($this as $key=>$value){
+				if(!in_array($key,$exception_fields))
+				{
+					$array_to_save[$key] = $value;
+				}
+
+
+
+		}
+		//Si l'objet à un id, on fait un update.
+		if($this->id_fiche != "")
+		{
+			$manager->update($array_to_save);
+			return $this->id_fiche;
+		}else{
+
+			//Si l'objet n'a pas d'id, on crée une nouvelle fiche
+			$id_fiche = $manager->add($array_to_save);
+			return $id_fiche;
+		}
+
+
+
+	}
+	
+	
+	/**********************************************
+	*
+	*	Gère la publication d'une fiche en vérifiant
+	*	si elle est publiable au préalable.
+	*
+	***********************************************/
+	public function publish()
+	{
+
+		if($this->_check_fiche_before_publishing() == TRUE)
+		{
+			$this->_publishing(TRUE);
+		}else{
+			echo "	erreur lors de la publication.";
+		}
+
+	}
+	
+	
+	/**
+	*	Fonction qui vérifie si une fiche est publiable.
+	*	Les critères pour être publiable sont les suivants :
+	*
+	*	- Les Infos Minimum abligatoires doivent être renseignées.
+	*	- Avoir au moins un type.
+	*		- si type presta : au moins 1 catégorie
+	*		- si type conseiller : champs conseillers obligatoires
+	*
+	*	Si type Presta :
+	*
+	***************/
+	protected function _check_fiche_before_publishing()
+	{
+		$fiche = $this->get($this->id_fiche);
+
+		$have_type		=	$this->have_type();
+
+		//La fiche a au moins une catégorie OU est de type "Conseiller"
+		$have_category	=	$this->have_category();
+
+		//les informations minimum sont renseignées
+		$have_infos_mini=	$this->have_mini_infos();
+
+		if($have_type AND $have_category AND $have_infos_mini)
 		{
 			return TRUE;
 		}else{
 			return FALSE;
 		}
+
+
 	}
 	
 	
@@ -472,6 +565,26 @@ class Fiche extends fiche_manager
 	*
 	***********************************/
 	public function have_type()
+	{
+		if(count($this->categories)>=1)
+		{
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+	
+	
+	/********************************
+	*
+	*	Vérifie si la fiche a au moins
+	*	Une catégorie.
+	*
+	*	@return bool
+	*
+	*
+	***********************************/
+	public function have_category()
 	{
 		if(count($this->categories)>=1)
 		{
@@ -501,74 +614,8 @@ class Fiche extends fiche_manager
 				return FALSE;
 			}
 		}
-		
+
 		return TRUE;
-	}
-	
-	
-	/*****************************************
-	*
-	*	S'occupe d'enregistrer la fiche.
-	*	Si l'objet Fiche a $id_fiche renseigné
-	*	la fonction met à jour l'enregistrement
-	*	dans la base.
-	*	Si l'objet n'a pas d'ID, la function
-	*	crée un nouvel enregistrement
-	*
-	*	@return TRUE si update,
-	*	@return int $id_fiche si ajout.
-	*
-	******************************************/
-	public function _save()
-	{
-		$manager = new Fiche_manager;
-		$exception_fields = array(
-			"required_infos"
-		);
-		$array_to_save = array();
-			//on prépare le tableau de sauvegarde
-			foreach($this as $key=>$value){
-				if(!in_array($key,$exception_fields))
-				{
-					$array_to_save[$key] = $value;
-				}
-				
-				
-				
-		}
-		//Si l'objet à un id, on fait un update.
-		if($this->id_fiche != "")
-		{
-			$manager->update($array_to_save);
-			return $this->id_fiche;
-		}else{
-
-			//Si l'objet n'a pas d'id, on crée une nouvelle fiche
-			$id_fiche = $manager->add($array_to_save);
-			return $id_fiche;
-		}
-
-
-		
-	}
-	
-	
-	/**********************************************
-	*
-	*	Gère la publication d'une fiche en vérifiant
-	*	si elle est publiable au préalable.
-	*
-	***********************************************/
-	public function publish()
-	{
-
-		if($this->_check_fiche_before_publishing() == TRUE)
-		{
-			$this->_publishing(TRUE);	
-		}else{
-			echo "	erreur lors de la publication.";
-		}
-		
 	}
 	
 	
@@ -581,43 +628,6 @@ class Fiche extends fiche_manager
 	public function unpublish()
 	{
 		$this->_publishing(FALSE);
-	}
-	
-	
-	
-	
-	/**
-	*	Fonction qui vérifie si une fiche est publiable.
-	*	Les critères pour être publiable sont les suivants :
-	*
-	*	- Les Infos Minimum abligatoires doivent être renseignées.
-	*	- Avoir au moins un type.
-	*		- si type presta : au moins 1 catégorie
-	*		- si type conseiller : champs conseillers obligatoires
-	*
-	*	Si type Presta : 
-	*
-	***************/
-	protected function _check_fiche_before_publishing()
-	{
-		$fiche = $this->get($this->id_fiche);
-		
-		$have_type		=	$this->have_type();
-		
-		//La fiche a au moins une catégorie OU est de type "Conseiller"
-		$have_category	=	$this->have_category();
-		
-		//les informations minimum sont renseignées
-		$have_infos_mini=	$this->have_mini_infos();
-		
-		if($have_type AND $have_category AND $have_infos_mini)
-		{
-			return TRUE;
-		}else{
-			return FALSE;
-		}
-		
-
 	}
 	
 	
