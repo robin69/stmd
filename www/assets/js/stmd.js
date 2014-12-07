@@ -173,7 +173,7 @@ function send_cas_request()
 			classe:		classe,
 			mdtransp:	mdtransp
 		},
-		type: "POST",
+		type: "GET",
 		dataType: "json",
 		success: function(data){
 			console.log(data[0]["nbr_fiches"]);	

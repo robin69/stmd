@@ -376,14 +376,14 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 	{
 		//On récupère la demande
 		
-		$ajax_req = $this->input->post();
+		$ajax_req = $this->input->get();
 		
 		//On instancie le tableau des tables, pour alimenter dynamiquement les noms des tables
 		$from= array("fiche","fiche_has_type as fht");
 		
-		if(isset($ajax_req["classes"]) AND count($ajax_req["classes"])>=1)
+		if(isset($ajax_req["classe"]) AND count($ajax_req["classe"])>=1)
 		{
-			$classes_in_string = implode("','",$ajax_req["classes"]);
+			$classes_in_string = implode("','",$ajax_req["classe"]);
 			array_push($from,"fiche_has_classe as fhc") ;
 			$sql_classes = " AND fiche.id_fiche = fhc.fiche_id
             AND fhc.classe IN ('".$classes_in_string."') ";
@@ -391,9 +391,9 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 			$sql_classes = " ";
 		}
 		
-		if(isset($ajax_req["zones"]) AND count($ajax_req["zones"])>=1)
+		if(isset($ajax_req["zone"]) AND count($ajax_req["zone"])>=1)
 		{
-			$zones_in_string = implode("','",$ajax_req["zones"]);
+			$zones_in_string = implode("','",$ajax_req["zone"]);
 			array_push($from,"fiche_has_zone as fhz") ;
 			$sql_zones = " AND fiche.id_fiche = fhz.fiche_id
             AND fhz.zone_id IN ('".$zones_in_string."') ";
@@ -411,7 +411,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 			$sql_mdtransp =" ";
 		}
 		
-		$sql = "SELECT COUNT(*) as nbr_fiches";
+		$sql = "SELECT COUNT(Distinct fiche.id_fiche) as nbr_fiches";
 		$sql .= " FROM ".implode(",",$from)." ";
 		$sql .= " 
 				WHERE publication_status = 'published'
@@ -421,8 +421,11 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$sql .= $sql_zones;
 		$sql .= $sql_classes;
 		$sql .= $sql_mdtransp;
+
+        //$sql .= " GROUP BY fiche.id_fiche ";
 		
 		$query = $this->db->query($sql);
+       //echo $this->db->last_query();
 		$results = $query->result_array();
 		
 		$data["json"] = json_encode($results);
@@ -484,6 +487,8 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$sql .= $sql_zones;
 		$sql .= $sql_classes;
 		$sql .= $sql_mdtransp;
+
+        $sql .= " GROUP BY fiche.id_fiche ";
 		
 		
 		$query = $this->db->query($sql);

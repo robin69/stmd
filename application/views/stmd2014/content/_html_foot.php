@@ -100,6 +100,31 @@
             $(".fancybox").fancybox();
 
 
+            $("a.bookmark").click(function(){
+                var bookmarkUrl = this.href;
+                var bookmarkTitle = this.title;
+
+                if ($.browser.mozilla) // For Mozilla Firefox Bookmark
+                {
+                    window.sidebar.addPanel(bookmarkTitle, bookmarkUrl,"");
+                }
+                else if($.browser.msie || $.browser.webkit) // For IE Favorite
+                {
+                    window.external.AddFavorite( bookmarkUrl, bookmarkTitle);
+                }
+                else if($.browser.opera ) // For Opera Browsers
+                {
+                    $(this).attr("href",bookmarkUrl);
+                    $(this).attr("title",bookmarkTitle);
+                    $(this).attr("rel","sidebar");
+                    $(this).click();
+                }
+                else // for other browsers which does not support
+                {
+                    alert('Please hold CTRL+D and click the link to bookmark it in your browser.');
+                }
+                return false;
+            });
 
         });
 	</script>
