@@ -560,7 +560,8 @@ class Fiche_manager extends CI_Model
 					"offset"		=> "",
 					"limit"			=> ""
 				);
-		*/	
+		*/
+
 		
 		//On récupère la liste des ID. Requête de base
 		$query 	=	$this->db->from($this->tbl_fiche);
@@ -600,32 +601,18 @@ class Fiche_manager extends CI_Model
 			$query 	=	$this->db->limit($args["limit"],$args["offset"]);
 		}
 		
-		//Si on ne veut que les fiches payantes/alaune
-		if(isset($args["payante"]) AND $args["payante"]==TRUE)
-		{
-			$this->db->where(array("payante"=> "1" ));
-			//$this->db->join($this->tbl_fiche_types, "type_slug = ".$args["type"], "left");
-			
-		}
+
 		
 		
 		
+		$query = $this->db->order_by("payante", "desc");
 		$query = $this->db->order_by("raison_sociale", "asc");
 		//on exécute la requête
 		$query = $this->db->get();
-		
 		//On génère le résultat
 		$results = $query->result_array();
 		
-		/*
-$fiches_liste = array();
-		foreach($results as $row)
-		{
-			unset($fiche); 								//on détruit le tableau par précaution.
-			$fiche = $this->get($row->id_fiche);		//On récupère chaque fiche
-			$fiches_liste[$row->id_fiche] = $fiche;		//On alimente le tableau global de résultat
-		}
-		*/
+
 		
 		if(count($results) >=1)
 		{

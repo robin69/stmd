@@ -92,7 +92,7 @@
 	?>	
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/stmd.js"></script>
 	<script type="text/javascript">
-		$('#ca-container').contentcarousel();
+		//$('#ca-container').contentcarousel();
 
         $(function(){
 

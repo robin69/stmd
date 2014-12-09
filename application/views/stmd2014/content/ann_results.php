@@ -130,11 +130,17 @@ if(isset($alaune) AND count($alaune)>=1) :
 							case	"expediteurs_md"		:	$icone_class = "result_expert";	break;
 							default 						:	$icone_class = ""; break;
 						}
-						?>
-						
-						
+
+                        if($fiche["payante"])
+                        {
+                            $alaune_class = "alaune2";
+                        }else{
+                            $alaune_class = "";
+                        }
+                        ?>
+
 						<a href="#"><div class="result_icons <?php echo $icone_class; ?>"></div></a>
-						<div class="result_text">
+						<div class="result_text <?php echo $alaune_class; ?>">
 							<h4><a href="#" onclick="slide_info(<?php echo $fiche["id_fiche"]; ?>);  return false;" ><?php echo $fiche["raison_sociale"]; ?></a></h4>
 							<?php 
 								if(isset($fiche["category"]) AND $fiche["category"]!="")
@@ -253,7 +259,7 @@ if(isset($alaune) AND count($alaune)>=1) :
 								</span>
 							</div>
 						</div>
-						
+
 						<div class="clear"></div>
 						
 						

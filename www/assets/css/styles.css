@@ -1108,6 +1108,23 @@ a.conseiller_md span{
 .fil_ariane p a:hover{
 	text-decoration:underline;
 }
+
+.alaune2{
+    border: solid 1px #e5e8f2;
+    padding:5px;
+    border-radius: 5px;
+    background-color: #fafbfc;
+}
+
+/***************************************
+*   Class alaune n'est plus utilisée.
+* elle servait à mettre en avant les
+* annonces payantes dans un bloc situé
+* au-dessus et en-dehors de la liste principale
+*
+*
+**************/
+
 .alaune{
 	height:352px;
 	background-color:#f4f6f9;

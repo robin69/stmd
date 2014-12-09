@@ -230,7 +230,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 
 		$this->pagination->initialize($config);
 
-		$this->data["alaune"] = $this->fiches_alaune($domaine,$cat);
+		//$this->data["alaune"] = $this->fiches_alaune($domaine,$cat);
 		$this->data["menu_sidebar"]	=	"prestas";
 
 		$c = new Category;
@@ -243,6 +243,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 
 	/***
 	*
+     *  DEPRECATED:
 	*	Cette fonction interroge la base des fiches et récupère
 	*	celles qui appartiennent au type (transporteurs_md, expediteurs_md, etc.)
 	*	et qui sont payantes.
