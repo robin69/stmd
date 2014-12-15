@@ -579,8 +579,8 @@ class Fiche_manager extends CI_Model
 			***************/
 			switch($args["filter_name"])
 			{
-				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_has_category.fiche_id = fiche.id_fiche","left");
-										$query = $this->db->join($this->tbl_cats, "category_id = id_category","left");
+				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_has_category.fiche_id = fiche.id_fiche","inner");
+										$query = $this->db->join($this->tbl_cats, "category_id = id_category","inner");
 
 				default :				$query	=	$this->db->where(array($args["filter_name"] => $args["filter_value"]));
 			}
@@ -588,7 +588,7 @@ class Fiche_manager extends CI_Model
 		}
 		
 		
-		$this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","left"); 
+		$this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","inner");
 		if(isset($args["type"]) AND $args["type"]!="")
 		{
 			//Si un type est sélectionné, il faut filtrer avec
@@ -609,6 +609,8 @@ class Fiche_manager extends CI_Model
 		$query = $this->db->order_by("raison_sociale", "asc");
 		//on exécute la requête
 		$query = $this->db->get();
+
+        //echo $this->db->last_query();
 		//On génère le résultat
 		$results = $query->result_array();
 		
@@ -668,15 +670,15 @@ class Fiche_manager extends CI_Model
 			***************/
 			switch($args["filter_name"])
 			{
-				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_id = id_fiche","left");
-										$query = $this->db->join($this->tbl_cats, "category_id = id_category","left");
+				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_id = id_fiche","inner");
+										$query = $this->db->join($this->tbl_cats, "category_id = id_category","inner");
 
 				default :				$query	=	$this->db->where(array($args["filter_name"] => $args["filter_value"]));
 			}
 			
 		}
 		
-		$this->db->join($this->tbl_fiche_types, "fiche_has_type.fiche_id = id_fiche", "left");
+		$this->db->join($this->tbl_fiche_types, "fiche_has_type.fiche_id = id_fiche", "inner");
 		//Si un type est sélectionné, il faut filtrer avec 
 		if(isset($args["type"]) AND $args["type"]!="")
 		{
