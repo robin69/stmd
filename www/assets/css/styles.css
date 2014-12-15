@@ -2066,7 +2066,6 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
 .classement_form section ul li label, ul.ss_cat li label{
     padding: 0 0 5px 0px;
     width: 100%;
-    background-color: blue;
 }
 
 .classement_form section input[type=checkbox], .classement_form section label
