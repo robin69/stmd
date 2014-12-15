@@ -22,7 +22,7 @@
  //This is a news change
 $host = $_SERVER["HTTP_HOST"];
 
-	
+
 switch($host)
 {
 	case "dev.solutionstmd.com"						:	define('ENVIRONMENT', 'dev');	break;
