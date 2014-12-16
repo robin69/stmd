@@ -13,27 +13,27 @@
 		<div class="page clear">
 			
 			<!-- ICONBAR -->
-			<div class="content-box clear">
+			<!--<div class="content-box clear">
 			<div class="box-body iconbar">
 				<div class="box-wrap">
 				<div class="main-icons" id="iconbar">
 					<ul class="clear">
-		                        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_folder_64.png" class="icon" alt="" /><span class="text">Create an Article</span></a></li>
-		                        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_page_64.png" class="icon" alt="" /><span class="text">Add Page</span></a></li>
-                		        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_picture_64.png" class="icon" alt="" /><span class="text">Add Picture</span></a></li>
-		                        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_clock_64.png" class="icon" alt="" /><span class="text">Add Event</span></a></li>
-                		        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_users_64.png" class="icon" alt="" /><span class="text">Users</span></a></li>
-		                        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_settings_64.png" class="icon" alt="" /><span class="text">Settings</span></a></li>
-		                        <li><a href="#modal" class="modal-link"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_chat_64.png" class="icon" alt="" /><span class="text">Open Modal</span></a></li>
-                		        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_folder_64.png" class="icon" alt="" /><span class="text">Create an Article</span></a></li>
-                        		<li class="active"><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_page_64.png" class="icon" alt="" /><span class="text">Active icon</span></a></li>
-		                        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_picture_64.png" class="icon" alt="" /><span class="text">Add Picture</span></a></li>
-                		        <li><a href="#"><img src="<?php echo base_url("assets/admin"); ?>/images/ico_clock_64.png" class="icon" alt="" /><span class="text">Add Event</span></a></li>
+		                        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_folder_64.png" class="icon" alt="" /><span class="text">Create an Article</span></a></li>
+		                        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_page_64.png" class="icon" alt="" /><span class="text">Add Page</span></a></li>
+                		        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_picture_64.png" class="icon" alt="" /><span class="text">Add Picture</span></a></li>
+		                        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_clock_64.png" class="icon" alt="" /><span class="text">Add Event</span></a></li>
+                		        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_users_64.png" class="icon" alt="" /><span class="text">Users</span></a></li>
+		                        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_settings_64.png" class="icon" alt="" /><span class="text">Settings</span></a></li>
+		                        <li><a href="#modal" class="modal-link"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_chat_64.png" class="icon" alt="" /><span class="text">Open Modal</span></a></li>
+                		        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_folder_64.png" class="icon" alt="" /><span class="text">Create an Article</span></a></li>
+                        		<li class="active"><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_page_64.png" class="icon" alt="" /><span class="text">Active icon</span></a></li>
+		                        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_picture_64.png" class="icon" alt="" /><span class="text">Add Picture</span></a></li>
+                		        <li><a href="#"><img src="<?php /*echo base_url("assets/admin"); */?>/images/ico_clock_64.png" class="icon" alt="" /><span class="text">Add Event</span></a></li>
 					</ul>
 				</div>
 				</div>
 			</div>
-			</div>
+			</div>-->
 			
 			<!-- MODAL WINDOW -->
 			<div id="modal" class="modal-window modal-600">
@@ -68,64 +68,41 @@
 				<!-- DASHBOARD - LEFT COLUMN -->
 				<div class="col2-3">
 						
-					<h1>Dashboard Example <a href="#modal-label" class="label modal-link">INFO</a></h1>
-					<p>Nam posuere, felis sed feugiat viverra, quam felis dapibus eros, vitae pulvinar nisl quam ut eros. Curabitur eget fringilla mi. Vivamus sed justo sit amet elit malesuada bibendum. Pellentesque consectetur blandit nisl, a eleifend arcu adipiscing eu. In et neque nec urna mollis fermentum gravida at turpis. </p>
+					<h1>Tableau de bord <!--<a href="#modal-label" class="label modal-link">INFO</a>--></h1>
+					<p>Bienvenue dans le tableau de bord de l'interface d'administration STMD. Vous trouverez ci-dessous la liste complète des informations qui nécessitent votre intervention.</p>
 
 					<!-- MODAL WINDOW -->
-					<div id="modal-label" class="modal-window modal-400">
-						<div class="notification note-attention">
-							<a href="#" class="close" title="Close notification"><span>close</span></a>
-							<span class="icon"></span>
-							<p><strong>Attention:</strong> More about settings of modal windows is described in Dashboard - Open Modal icon.</p>
-						</div>
-						<h2>Modal Window : size 400</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique, lorem id hendrerit sodales, nisl felis sollicitudin lacus, et facilisis felis quam at quam. Nullam vel nunc at sapien sagittis feugiat. Vestibulum est eros, condimentum ac sodales vel, iaculis vitae neque.</p>
-						<p>Nam nisl odio, scelerisque non venenatis quis, venenatis a leo. Cras non vehicula justo. Nam vel arcu sem. Suspendisse quam enim, dictum quis lacinia sed, lobortis eget libero. Suspendisse potenti. Suspendisse et ante vitae turpis vestibulum fermentum nec nec elit. Suspendisse ullamcorper lacus in arcu mollis fringilla porta mi placerat. Ut at elit non diam tristique scelerisque. </p>
-					</div>
+                    <!--<div id="modal-label" class="modal-window modal-400">
+                        <div class="notification note-attention">
+                            <a href="#" class="close" title="Close notification"><span>close</span></a>
+                            <span class="icon"></span>
+                            <p><strong>Attention:</strong> More about settings of modal windows is described in Dashboard - Open Modal icon.</p>
+                        </div>
+                        <h2>Modal Window : size 400</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique, lorem id hendrerit sodales, nisl felis sollicitudin lacus, et facilisis felis quam at quam. Nullam vel nunc at sapien sagittis feugiat. Vestibulum est eros, condimentum ac sodales vel, iaculis vitae neque.</p>
+                        <p>Nam nisl odio, scelerisque non venenatis quis, venenatis a leo. Cras non vehicula justo. Nam vel arcu sem. Suspendisse quam enim, dictum quis lacinia sed, lobortis eget libero. Suspendisse potenti. Suspendisse et ante vitae turpis vestibulum fermentum nec nec elit. Suspendisse ullamcorper lacus in arcu mollis fringilla porta mi placerat. Ut at elit non diam tristique scelerisque. </p>
+                    </div>-->
 					
 					<div class="columns clear">
 						<div class="col1-2">
 						
 							<!-- OVERVIEW - BASIC TABLE -->
-							<h2>Overview</h2>
+							<h2>Informations importantes</h2>
 							<table class="basic" cellspacing="0">
 							<tbody>
 							<tr>
 								<td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_green_16.png" class="block" alt="" /></td>
-								<th class="full">Visits Today</th>
-								<td class="value right">127</td>
-								<td><a href="#">more</a></td>
+								<th class="full">Fiches à modérer</th>
+								<td class="value right"><?php echo COUNT($fiches_a_moderer); ?></td>
+								<td><a href="<?php echo base_url("admin");?>/inscrits/liste/filter_name/temp/filter_value/1">Voir</a></td>
 							</tr>
 							<tr>
 								<td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_yellow_16.png" class="block" alt="" /></td>
-								<th>Traffic Today</th>
-								<td class="value right">1.542</td>
-								<td><a href="#">more</a></td>
+								<th>Fiches en attente de règlement</th>
+								<td class="value right"><?php echo COUNT($fiches_att_paiement); ?></td>
+								<td><a href="#">Voir</a></td>
 							</tr>
-							<tr>
-								<td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_purple_16.png" class="block" alt="" /></td>
-								<th>Free Space</th>
-								<td class="value right">1.542</td>
-								<td><a href="#">more</a></td>
-							</tr>
-							<tr>
-								<td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_black_16.png" class="block" alt="" /></td>
-								<th>Total Posts</th>
-								<td class="value right">34</td>
-								<td><a href="#">more</a></td>
-							</tr>
-							<tr>
-								<td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_blue_16.png" class="block" alt="" /></td>
-								<th>Total Comments</th>
-								<td class="value right">218</td>
-								<td><a href="#">more</a></td>
-							</tr>
-							<tr>
-								<td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_red_16.png" class="block" alt="" /></td>
-								<th>Aproval: Comments</th>
-								<td class="value right">11</td>
-								<td><a href="#">more</a></td>
-							</tr>
+
 							</tbody>
 							</table>
 						

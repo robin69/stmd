@@ -4,7 +4,7 @@ class Fiche extends fiche_manager
 {
 
 	//Informations générales
-	protected $id_fiche;
+	protected $id_fiche;            //Clef primaire en couple avec temp
 	protected $user_id;
 	protected $nom_contact;
 	protected $prenom_contact;
@@ -34,13 +34,14 @@ class Fiche extends fiche_manager
 	protected $date_reglement;
 	protected $payante;
 	protected $publication_status;
+    protected $temp;                    //Clef primaire en couple avec id_fiche
 	
 	//Elements relatifs
 	protected $categories	=	array();				//Le tableau des catégories sous la forme array(id1, id2, id3, id4, etc...);
 	protected $types		=	array();
 	protected $zones		=	array();
     protected $mdtransp     =   array();
-    protected $classes         =   array();
+    protected $classes      =   array();
 
 	
 	
@@ -134,7 +135,15 @@ class Fiche extends fiche_manager
         $this->mdtransp =   $mdtransp;
     }
 
-	public function set_temp($bool)
+
+    /***********************************
+     * Détermine si la fiche est une fiche
+     * temporaire (demande de modération)
+     * ou normale (inscription ou en ligne)
+     *
+     * @param bool $bool
+     */
+	public function set_temp($bool=FALSE)
 	{
 		$this->temp = $bool;
 	}
@@ -635,5 +644,23 @@ class Fiche extends fiche_manager
 	{
 		return "on est dabns une fiche";
 	}
+
+
+    /**********************************
+     * Lorsqu'un utilisateur fait une modification sur sa
+     * fiche alors que celle-ci est publiée, on fait un clône
+     * de l'original. c'est ce clone qui sera modéré par
+     * l'administrateur. Si le clône est validé, l'original
+     * sera alors remplacé par la version courante.
+     */
+    public function __clone()
+    {
+
+        //Lorsqu'on clone la fiche c'est qu'on a fait une demande de modération. Donc on passe le champ temp à TRUE;
+        $this->temp = TRUE;
+
+        //
+
+    }
 
 }

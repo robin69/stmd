@@ -45,10 +45,15 @@ class Dashboard extends CI_Controller {
 		 }
 	}
 
-	 
+
 	 
 	public function index()
 	{
+        $f = new Fiche_manager();
+        //Menu Action
+        $this->data["fiches_a_moderer"] = $f->get_fiche_to_moderate();
+        $this->data["fiches_att_paiement"]  =   $f->get_fiche_unpaid();
+
 		$this->layout->view("_header");
 		$this->layout->view("_menu", $this->data);
 		$this->layout->view('index', $this->data);

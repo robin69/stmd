@@ -44,12 +44,12 @@ class Search_engine extends CI_Controller{
 		//$this->search();
 	}
 	
-	public function search($offset=0)
+	public function search($string,$offset=0)
 	{
 		
 		//$string = $this->input->get("string");
 
-        $string =  urldecode($this->uri->segment(2));
+       $string =  urldecode($this->uri->segment(2));
         //echo "string = ". $string;
 		//On instancie la classe fiche
 		$f= new Fiche;
@@ -62,9 +62,10 @@ class Search_engine extends CI_Controller{
 		$config["base_url"] 	= site_url("recherche/".$string."/");
 		
 		//On construit la requête
-		
-		$this->data["fiches"] = $f->search_fiche($string,$offset);
-		
+		$this->data["fiches"] = $f->search_fiche($string,$offset,TRUE);
+
+
+
 		//On alimente la liste des catégories dans $this->data
 		$this->data["breadcrumb"] = array(
 			"SolutionsTMD"	=> "/",
