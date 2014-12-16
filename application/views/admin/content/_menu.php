@@ -3,7 +3,7 @@
 		<div class="head_top">
 			<div class="topbuts">
 				<ul class="clear">
-				<li><a href="<?php echo site_url(); ?>" target="_blank">Voir le sitee</a></li>
+				<li><a href="<?php echo site_url(); ?>" target="_blank">Voir le site</a></li>
 				<li><a href="<?php echo site_url("admin/utilisateurs/logout"); ?>" class="red">Déconnexion</a></li>
 				</ul>
 				
