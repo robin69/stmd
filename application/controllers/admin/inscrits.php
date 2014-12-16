@@ -71,7 +71,7 @@ class Inscrits extends CI_Controller {
 		//On crée une instance du manageur de fiche
 		$f_manager = new Fiche_manager;
 		//On récupère le nombre totale de lignes
-		$config["total_rows"] = $f_manager->count_list($uri_array);
+		$config["total_rows"] = $f_manager->count_list($uri_array,false);
 		//On définie l'URL de pagination
 		$uri = $this->uri->assoc_to_uri($uri_array)."/";
 		
@@ -83,7 +83,7 @@ class Inscrits extends CI_Controller {
 		//On complète la reqûete pour l'affichage et on lance la requête
 		$uri_array["offset"]	= 	$offset;
 		$uri_array["limit"]		=	$config["per_page"];
-		$liste_fiche = $f_manager->get_list($uri_array);
+		$liste_fiche = $f_manager->get_list($uri_array, false);
 		
 		//On parse le résultat pour générer la variable $data["fiches"];
 		if(count($liste_fiche)>=1)
@@ -132,15 +132,12 @@ class Inscrits extends CI_Controller {
 	*	@id_fiche : Identifiant de la fiche
 	*
 	*****************************************/
-	public function edit_fiche_infos($id_fiche)
+	public function edit_fiche_desc($id_fiche="")
 	{
 		//On traite le formulaire s'il est envoyé
 		if($this->input->post())
 		{
-			if($this->form_validation->run("fiche_infos_update") == TRUE)
-			{
-				$fiche = $this->_update_object_field();
-			}
+			$fiche = $this->_update_object_field();
 
 		}else{
 			//On récupère les informations de la fiche
@@ -155,7 +152,7 @@ class Inscrits extends CI_Controller {
 		$cat = new Category;
 
 		$this->data["form"]					=	"modif";
-		$this->data["sub_menu_actif"]		=	"fiche_infos_form";
+		$this->data["sub_menu_actif"]		=	"fiche_desc_form";
 		$this->data["submit_button_label"]	=	"Mettre à jour";
 		$this->data["title"]				=	"FICHE : ".$fiche->raison_sociale();
 		$this->data["fiche"] 				=	$fiche;
@@ -164,8 +161,7 @@ class Inscrits extends CI_Controller {
 		$this->data["domaines"]				= 	$cat->get_all_domaines();
 		$this->data["fiche_cats"] 			= 	$fiche->categories();
 
-
-		$this->_layout("fiche_infos_form");
+		$this->_layout("fiche_desc_form");
 	}
 	
 
@@ -200,46 +196,6 @@ class Inscrits extends CI_Controller {
 
 
 		return $fiche;
-	}
-	
-	
-	/***************************************
-	*
-	*	EDIT Function
-	*
-	*	@id_fiche : Identifiant de la fiche
-	*
-	*****************************************/
-	public function edit_fiche_desc($id_fiche="")
-	{
-		//On traite le formulaire s'il est envoyé
-		if($this->input->post())
-		{
-			$fiche = $this->_update_object_field();
-
-		}else{
-			//On récupère les informations de la fiche
-			$manager = new Fiche_manager;
-			$fiche = new Fiche;
-			$infos = $manager->get($id_fiche);
-			$fiche->hydrate($infos);
-		}
-
-
-
-		$cat = new Category;
-
-		$this->data["form"]					=	"modif";
-		$this->data["sub_menu_actif"]		=	"fiche_desc_form";
-		$this->data["submit_button_label"]	=	"Mettre à jour";
-		$this->data["title"]				=	"FICHE : ".$fiche->raison_sociale();
-		$this->data["fiche"] 				=	$fiche;
-		$this->data["types"]				=	$this->db->get("types");
-		$this->data["zones"]				=	$this->db->get("zones");
-		$this->data["domaines"]				= 	$cat->get_all_domaines();
-		$this->data["fiche_cats"] 			= 	$fiche->categories();
-
-		$this->_layout("fiche_desc_form");
 	}
 	
 	
@@ -347,7 +303,7 @@ class Inscrits extends CI_Controller {
 
 		$this->_layout("fiche_cats_form");
 	}
-
+	
 	
 	public function add()
 	{
@@ -368,7 +324,6 @@ class Inscrits extends CI_Controller {
 			}
 
 		}
-/* 		echo "coucou"; */
 
 		$this->data["form"]					=	"add";
 		$this->data["sub_menu_actif"]		=	"fiche_infos_form";
@@ -384,8 +339,8 @@ class Inscrits extends CI_Controller {
 
 
 	}
-	
 
+	
 	public function edit_submit()
 	{
 
@@ -436,7 +391,7 @@ class Inscrits extends CI_Controller {
 
 	}
 	
-	
+
 	public function publish($id_fiche)
 	{
 		$fiche = new Fiche;
@@ -506,7 +461,7 @@ class Inscrits extends CI_Controller {
 	
 	/*****************************
 	*
-	*	Importer les catégories de 
+	*	Importer les catégories de
 	*	l'ancien site SolutionsTMD.
 	*	Nes pas utiliser pour importer de
 	*	nouvelles catégories
@@ -515,17 +470,17 @@ class Inscrits extends CI_Controller {
 	***************/
 	public function import_from_old_site()
 	{
-	
-		
+
+
 		//On se connecte à la base de données de l'ancien site
 		$DB1 = $this->load->database('old', TRUE);
 		//On se connecte à la base de données de l'ancien site
 		$DB2 = $this->load->database('dev', TRUE);
 
-		
+
 		$query = $DB1->get("solutionstmd.fiche");
 		$fiches = $query->result_array();
-		
+
 		echo "<h1>Import des fiches depuis SolutiondTMD (ancien site)</h1>";
 		echo "<br /><br /><br />";
 		echo "+++++++++++++++++++++++++++++";
@@ -533,25 +488,25 @@ class Inscrits extends CI_Controller {
 		//On remet à zéro les deux tables
 		$query = $DB2->truncate("stmd.fiche");					//La table catégory
 		$query = $DB2->truncate("stmd.fiche_has_category");		//La table de liaison catégorie
-		$query = $DB2->truncate("stmd.fiche_has_type");			//La table de liaison catégorie	
-		$query = $DB2->truncate("stmd.user");					//La table de liaison catégorie	
+		$query = $DB2->truncate("stmd.fiche_has_type");			//La table de liaison catégorie
+		$query = $DB2->truncate("stmd.user");					//La table de liaison catégorie
 		$query = $DB2->truncate("stmd.fiche_has_zone"); 		//La table de liaison des zones
 		echo "<br />> Purge effectuée";
-		
+
 		echo "<h3>+++++++++++++++++++++++++++++ MIGRATION DES FICHES +++++++++++++++++++++++++++++</h3>";
 		//Pour chaque fiche
 		$stored_users = array();
-		
+
 		foreach($fiches as $fiche)
 		{
-		
+
 			echo "<pre style='background-color:white;color:black;font-size:16px;text-align:left;'>";
 				var_dump($fiche);
 			echo "</pre>";
-		
+
 			echo "<br/><br/>";
 			echo "<h5>ID ancienne Fiche::".$fiche["id"]."</h5>";
-		
+
 			//Si il ne s'agit pas d'un compte géré par Guillaume ET si l'utilisateur n'existe pas déjà
 			if(!in_array($fiche["email"], $stored_users))
 			{
@@ -567,20 +522,20 @@ class Inscrits extends CI_Controller {
 						"tel"		=>	$fiche["tel"],
 						"admin"		=>	0
 					);
-					
+
 					switch($fiche["published"])
 					{
 						case "1"	:	$array_user_to_store["compte_status"]	=	"active"; break;
 						default 	: 	$array_user_to_store["compte_status"]	=	"non-active";
 					}
-					
+
 					$u = new User;
 					$u->hydrate($array_user_to_store);
 					$id_user = $u->_save();
 					echo "<br />Création de l'utilisateur ...";
-					
+
 					array_push($stored_users, $fiche["email"]);
-				
+
 				}else{
 					echo "<br />L'utilisateur est l'admin ...";
 					$id_user = 1;
@@ -592,12 +547,12 @@ class Inscrits extends CI_Controller {
 				$query = $DB2->get_where("user", array("email"=>$fiche["email"]));
 				$result = $query->row_array();
 				$id_user = $result["id_user"];
-				
+
 			}
-						
-			
-			
-			
+
+
+
+
 			//On prépare le tableau
 			$array_fiche_to_store = array(
 				"user_id"				=>	$id_user,
@@ -620,16 +575,16 @@ class Inscrits extends CI_Controller {
 				"types"					=>	array(),
 				"zones"					=>  array()
 			);
-			
+
 			echo "<br/> SOCIETE : ".$array_fiche_to_store["raison_sociale"]."<br/>";
-			
+
 			//Lorsqu'il s'agit d'une fiche gérée par Guillaume, on ne s'occupe pas du nom et du prénom du contact
 			if($fiche["nom_contact"] == "C" OR $fiche["prenom_contact"] == "C")
 			{
 				$array_fiche_to_store["nom_contact"] = "";
 				$array_fiche_to_store["prenom_contact"] = "";
 			}
-			
+
 			//On alimente le type
 			switch($fiche["main_cat"])
 			{
@@ -639,28 +594,28 @@ class Inscrits extends CI_Controller {
 			}
 			array_push($array_fiche_to_store["types"], $type[0]);
 			echo "<br />Le type est : ".$type[0]." ...";
-			
-			
-			
+
+
+
 			//On alimente les zones (régions). Par défaut, la région du siège correspond à une première zone d'intervention.
 			$dpt = substr($fiche["cp"], 0, 2);
 			$query = $DB2->get_where("stmd.departements", array("dept_nbr"=>$dpt));
 			$result = $query->row();
-			
-			
-					
+
+
+
 			//Si il y a des résultats (certains CP sont étrangers et n'ont pas de région par défaut
 			if($query->num_rows() > 0)
 			{
 				echo "<br />MAIN REGION: ".$result->main_region;
-		
+
 				array_push($array_fiche_to_store["zones"], $result->main_region);
 				echo "<br />La zone par défaut est : ".$result->main_region." ...";
-			}	
-			
-			
-			
-			
+			}
+
+
+
+
 			//On corrige le status de publication
 			echo "<br />Le status est : ".$fiche["published"];
 			switch($fiche["published"])
@@ -680,7 +635,7 @@ class Inscrits extends CI_Controller {
 				$query = $DB1->from("solutionstmd.cat");
 				$query = $DB1->get();
 				$results = $query->result_array();
-				
+
 				$new_id_list = array();
 				foreach($results as $old_cat)
 				{
@@ -689,27 +644,27 @@ class Inscrits extends CI_Controller {
 					$query = $DB2->get_where("stmd.category", array("slug"=>$nom));
 					$new_cat = $query->row_array();
 					array_push($new_id_list, $new_cat["id_category"]);
-					
+
 				}
-				
+
 				$array_fiche_to_store["categories"] = $new_id_list;
 			}
 
-			
-			
+
+
 			//On vérifie si une fiche existe déjà avec le même libellé dans la base actuelle
 			$query = $DB2->where("raison_sociale", $array_fiche_to_store["raison_sociale"]);
 			$query = $DB2->from("fiche");
 			$query = $DB2->get();
 			$result = $query->row();
-			
+
 			if($result)
 			{
 				echo "<br />La fiche existe deja. Il faut juste la mettre a jout avec les bons types (et categories peut etre...).<br />";
-				
+
 				//On récupère la fiche concernée
 				$f = new Fiche($result->id_fiche);
-				
+
 				//On complète les catégories par celle de la nouvelle fiche
 				if(isset($array_fiche_to_store["categories"]))
 				{
@@ -719,8 +674,8 @@ class Inscrits extends CI_Controller {
 					$totale_categories = array_unique($totale_categories); //Dédoublonne les éléments du tableau
 					$f->set_categories($totale_categories);
 				}
-				
-				
+
+
 				//On fait la même opération pour les types
 				if(isset($array_fiche_to_store["types"]))
 				{
@@ -730,7 +685,7 @@ class Inscrits extends CI_Controller {
 					$totale_types = array_unique($totale_types);
 					$f->set_types($totale_types);
 				}
-				
+
 			}else{
 				echo "<br /> La fiche n'existe pas encore on peut l'enregistrer dans la nouvelle base.<br /> ";
 				//On insert la fiche dans la nouvelle base
@@ -738,23 +693,95 @@ class Inscrits extends CI_Controller {
 				$f->hydrate($array_fiche_to_store);
 
 			}
-			
-			
+
+
 			//Qu'il s'agisse d'une nouvelle fiche ou d'une mise à jour, je sauvegarde mon travail
 			$new_id_fiche = $f->_save();
-			
+
 			echo "<br />La nouvel ID de la fiche est : ".$new_id_fiche;
 			echo "<br />La fiche a été créée correctement.";
 			echo "<br/>-----------------------------------------------------------";
-			
-			
-		
+
+
+
 
 		}
-			
-			
+
+
+
+
+
+
 		//fin chaque catégorie
-		
+
+	}
+	
+	
+    public function moderate($id_fiche,$accepted)
+    {
+        /*echo $id_fiche;
+        echo $accepted;*/
+        $f = new Fiche($id_fiche);
+        $status = $f->moderate($accepted);
+
+        //On envois un message de confirmation au formulaire
+        if($status){
+            $this->data["notification_note"] = array("type"=>"success","msg"=>"La modération est prise en compte, un message a été envoyé à l'utlisateur");
+        }else{
+            $this->data["notification_note"] = array("type"=>"error","msg"=>"La modération a été prise en compte, mais l'utilisateur n'a pas été notifié.");
+        }
+
+
+        //On retourne sur la page d'édition de la fiche
+        $this->edit_fiche_infos($id_fiche);
+
+
+
+
+    }
+
+
+	/***************************************
+	*
+	*	EDIT Function
+	*
+	*	@id_fiche : Identifiant de la fiche
+	*
+	*****************************************/
+	public function edit_fiche_infos($id_fiche)
+	{
+		//On traite le formulaire s'il est envoyé
+		if($this->input->post())
+		{
+			if($this->form_validation->run("fiche_infos_update") == TRUE)
+			{
+				$fiche = $this->_update_object_field();
+			}
+
+		}else{
+			//On récupère les informations de la fiche
+			$manager = new Fiche_manager;
+			$fiche = new Fiche;
+			$infos = $manager->get($id_fiche);
+			$fiche->hydrate($infos);
+		}
+
+
+
+		$cat = new Category;
+
+		$this->data["form"]					=	"modif";
+		$this->data["sub_menu_actif"]		=	"fiche_infos_form";
+		$this->data["submit_button_label"]	=	"Mettre à jour";
+		$this->data["title"]				=	"FICHE : ".$fiche->raison_sociale();
+		$this->data["fiche"] 				=	$fiche;
+		$this->data["types"]				=	$this->db->get("types");
+		$this->data["zones"]				=	$this->db->get("zones");
+		$this->data["domaines"]				= 	$cat->get_all_domaines();
+		$this->data["fiche_cats"] 			= 	$fiche->categories();
+
+
+		$this->_layout("fiche_infos_form");
 	}
 
 	

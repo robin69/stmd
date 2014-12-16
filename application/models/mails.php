@@ -23,70 +23,52 @@ class Mails extends CI_Model
 
 	}
 	
-	
-	
-	
-	public function account_activation()
-	{
-		//On prépare les informations du Token
-		$token_array	=	array(
-			"action"	=>	"account_confirm",
-			"email"		=>	$this->to,
-			"userpass"	=>	$this->userpass
-			);
-			
-		//On encode le token
-        $token = new Token;
-        $token->tokenize($token_array);
-
-		//On prépare le contenu du mail
-		$this->subject	=	"Activation de votre compte - ".$this->config->item("site_name");
-		$this->message 	= 	"Bonjour, <br />
+	public function fiche_moderation()
+    {
+        $this->subject = "Modération de votre fiche - ".$this->config->item("site_name");
+        $this->message 	= 	"Bonjour, <br />
 			<br />
-			
-			Vous venez de vous inscrire dans l'annuaire ".$this->config->item("site_name").". Pour finaliser votre inscription et activer votre compte merci de cliquer sur ce lien :<br />
-			<a href='".base_url("login")."/token/?token=".$token->string."'>Je confirme mon adresse email.</a><br /><br /><br />";
-		
-		
-		$this->shoot();
-	}
+
+			Les informations constitutives de votre fiche ont été validés par l'équipe d'administration de SolutionsTMD. La publication de la fiche sera effective dans quelques minutes.<br /><br />";
 
 
+        return $this->shoot();
+    }
+	
+	
 	/**
 	*
 	*	Fonction qui assure l'envois des emails
 	*
 	*	ATTENTION : si on renseing from, on n'a plus les erreurs au moment de l'envois
-	*	mais le mail ne part pas. 
+	*	mais le mail ne part pas.
 	********/
 	private function shoot()
 	{
 		$this->email->to($this->to);
 		$this->email->cc($this->cc);
 		$this->email->subject($this->subject);
-		
+
 		$msg 	= $this->_header();
 		$msg 	.= $this->message;
 		$msg 	.= $this->_footer();
-		
+
 		$this->email->message($msg);
-		
+
 		if(@$this->email->send())
 		{
 			//echo $this->email->print_debugger();
 			return TRUE;
 		}else{
 			return FALSE;
-			echo $this->email->print_debugger();
+			//echo $this->email->print_debugger();
 		}
 	}
-	
-	
 
-	
+
 	private function _header()
 	{
-		
+
 		$header = '<head>
 					</head>
 					<body>
@@ -97,9 +79,10 @@ class Mails extends CI_Model
 		return $header;
 	}
 	
+	
 	private function _footer()
 	{
-		
+
 		$footer = "<br />
 				<br />
 				<strong>L'équipe ".$this->config->item("site_name")."</strong>
@@ -112,6 +95,32 @@ class Mails extends CI_Model
 		</body>
 		";
 		return $footer;
+	}
+	
+
+	public function account_activation()
+	{
+		//On prépare les informations du Token
+		$token_array	=	array(
+			"action"	=>	"account_confirm",
+			"email"		=>	$this->to,
+			"userpass"	=>	$this->userpass
+			);
+
+		//On encode le token
+        $token = new Token;
+        $token->tokenize($token_array);
+
+		//On prépare le contenu du mail
+		$this->subject	=	"Activation de votre compte - ".$this->config->item("site_name");
+		$this->message 	= 	"Bonjour, <br />
+			<br />
+
+			Vous venez de vous inscrire dans l'annuaire ".$this->config->item("site_name").". Pour finaliser votre inscription et activer votre compte merci de cliquer sur ce lien :<br />
+			<a href='".base_url("login")."/token/?token=".$token->string."'>Je confirme mon adresse email.</a><br /><br /><br />";
+
+
+		$this->shoot();
 	}
 	
 	

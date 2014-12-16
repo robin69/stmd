@@ -355,7 +355,8 @@
 				$sidebar_datas = array(
 					"sub_menu_actif"		=>	"fiche_infos_form",
 					"form_name"				=>	"infos_form",
-					"id_fiche"				=>	$fiche->id_fiche()
+					"id_fiche"				=>	$fiche->id_fiche(),
+                    "fiche"                 =>  $fiche
 				);
 				$this->layout->view("_fiche_sub_menu", $sidebar_datas); 
 				?>

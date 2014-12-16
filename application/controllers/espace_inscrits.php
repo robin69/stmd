@@ -43,11 +43,27 @@ class Espace_inscrits extends CI_Controller {
     }
 	
 	
+	private function _layout($layout)
+	{
+
+
+		$this->data["no_google_map"] 	= TRUE;
+		$this->data["body_id"] 			= "esp_insc";
+		$this->data["domaine"] 			= NULL;
+		$this->layout->view("_html_head", 	$this->data);
+		$this->layout->view("_menu", 	$this->data);
+		$this->layout->view($layout, $this->data);
+		$this->layout->view("_html_foot");
+
+	}
+	
+
 	public function index()
 	{
 		$this->_layout("/esp_inscrit/accueil");
 	}
 	
+
 	public function user_profil()
 	{
 
@@ -73,11 +89,58 @@ class Espace_inscrits extends CI_Controller {
 		$this->_layout("/esp_inscrit/form_user");
 	}
 	
+
+    /**
+     * Fonction qui traite les posts en vérifiant les informations saisies
+     * par les utilisateurs avant de les enregistrer en tant que fiche
+     *
+     * @param $posts    : tableau de post issue de la classe input pour les vérifications de sécurité
+     * @param $form : le nom du formulaire pour qu'on puisse gérer les spécificités de chacun des
+     *              formulaires
+     *
+     * @return bool : TRUE/FALSE en fonction du résultat.
+     */
+	private function _treat_posts($posts, $form, $enregType = "fiche")
+    {
+        //On lance la vérification.
+        if($this->form_validation->run($form) == FALSE)
+        {
+
+            return false;
+        }else{
+
+
+            if($enregType == "fiche")
+            {
+                //On enregistre les informations dans la fiche
+                $f = new Fiche();
+                $f->get_user_fiche($this->session->userdata("id_user"));//On récupère la fiche par l'ID_USER
+                $f->hydrate($posts);//On met à jour l'objet avec les datas du post
+                $f->set_temp(TRUE); // On passe la fiche à temporaire (on garde le status de publication), elle ne sera donc pas visible en front.
+                $f->_save(); //On sauvegarde dans la base de donées.
+            }elseif($enregType == "user"){
+
+                $u = new User($this->session->userdata("id_user"));
+                $u->hydrate($posts);
+                $u->_save();
+
+            }
+
+
+
+
+            //On retourne True
+            return true;
+        }
+    }
+	
+
 	public function user_forfait()
 	{
 		$this->_layout("/esp_inscrit/form_user_forfait");
 	}
 	
+
 	public function fiche_contact_form()
 	{
 
@@ -112,6 +175,7 @@ class Espace_inscrits extends CI_Controller {
 		$this->_layout("/esp_inscrit/form_fiche_contact");
 	}
 	
+
 	public function fiche_societe_form()
 	{
         //Si il y a un post, on traite
@@ -135,6 +199,7 @@ class Espace_inscrits extends CI_Controller {
 		$this->_layout("/esp_inscrit/form_fiche_societe");
 	}
 	
+
 	public function fiche_descriptions()
 	{
 
@@ -159,7 +224,8 @@ class Espace_inscrits extends CI_Controller {
 
 		$this->_layout("/esp_inscrit/form_fiche_descriptions");
 	}
-	
+
+
 	public function fiche_classements()
 	{
 
@@ -199,6 +265,7 @@ class Espace_inscrits extends CI_Controller {
 		$this->_layout("/esp_inscrit/form_fiche_classements");
 	}
 	
+
 	public function fiche_res_sociaux()
 	{
         //Si il y a un post, on traite
@@ -221,65 +288,5 @@ class Espace_inscrits extends CI_Controller {
 
 
         $this->_layout("/esp_inscrit/form_fiche_res_sociaux");
-	}
-
-
-    /**
-     * Fonction qui traite les posts en vérifiant les informations saisies
-     * par les utilisateurs avant de les enregistrer en tant que fiche
-     *
-     * @param $posts    : tableau de post issue de la classe input pour les vérifications de sécurité
-     * @param $form : le nom du formulaire pour qu'on puisse gérer les spécificités de chacun des
-     *              formulaires
-     *
-     * @return bool : TRUE/FALSE en fonction du résultat.
-     */
-	private function _treat_posts($posts, $form, $enregType = "fiche")
-    {
-        //On lance la vérification.
-        if($this->form_validation->run($form) == FALSE)
-        {
-
-            return false;
-        }else{
-
-
-            if($enregType == "fiche")
-            {
-                //On enregistre les informations dans la fiche
-                $f = new Fiche();
-
-
-                $f->get_user_fiche($this->session->userdata("id_user"));//On récupère la fiche par l'ID_USER
-                $f->hydrate($posts);//On met à jour l'objet avec les datas du post
-                $f->_save(); //On sauvegarde dans la base de donées.
-            }elseif($enregType == "user"){
-
-                $u = new User($this->session->userdata("id_user"));
-                $u->hydrate($posts);
-                $u->_save();
-
-            }
-
-
-
-
-            //On retourne True
-            return true;
-        }
-    }
-	
-	private function _layout($layout)
-	{
-
-		
-		$this->data["no_google_map"] 	= TRUE;
-		$this->data["body_id"] 			= "esp_insc";
-		$this->data["domaine"] 			= NULL;
-		$this->layout->view("_html_head", 	$this->data);
-		$this->layout->view("_menu", 	$this->data);
-		$this->layout->view($layout, $this->data);
-		$this->layout->view("_html_foot");
-		
 	}
 }

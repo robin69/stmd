@@ -158,8 +158,15 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 
 		$this->_layout("search_conseiller");
 	}
-	
-	
+
+
+    /*******************************
+     * Liste les fiches publiées pour un couple domaine-catégorie
+     *
+     * @param     $domaine
+     * @param     $cat_segment
+     * @param int $offset
+     */
 	public function show_results_cat($domaine, $cat_segment,$offset=0)
 	{
 		//On récupère les informations de la catégorie
@@ -230,7 +237,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 
 		$this->pagination->initialize($config);
 
-		//$this->data["alaune"] = $this->fiches_alaune($domaine,$cat);
+
 		$this->data["menu_sidebar"]	=	"prestas";
 
 		$c = new Category;
@@ -241,49 +248,6 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 	}
 	
 
-	/***
-	*
-     *  DEPRECATED:
-	*	Cette fonction interroge la base des fiches et récupère
-	*	celles qui appartiennent au type (transporteurs_md, expediteurs_md, etc.)
-	*	et qui sont payantes.
-	*	On ne s'occupe pas de la catégorie parce qu'il n'y aurait pas assez de résultats.
-	*	Pour ajouter les catégories, compléter le tableau args = array() avec les éléments
-	*	attendus par category_manager.php dans get_list();
-	*
-	*	$limit est réglé dans les paramètres spécifiques du site dans le répertoire config.
-	*
-	*
-	*	L'ordre d'affichage est rendu aléatoire.
-	*
-	*
-	*
-	*	@$domaine (string) Correspond au type
-	*	@return (array) Tableau de résultat contenant les fiches
-	******/
-
-	public function fiches_alaune($domaine, $cat)
-	{
-		$limit = $this->config->item("nbr_fiche_alaune");
-
-		$args = array(
-
-					"type"			=> $domaine, //Type transporteurs_md, experiteurs_md, etc...
-					"payante"		=> TRUE //Une fiche est à la une si elle est payante.
-				);
-		$f = new Fiche;
-		$results = $f->get_list($args);
-
-		$list_key = array_rand($results, $limit);
-
-		$list_alaune = array();
-		foreach($list_key as $offset => $key)
-		{
-			array_push($list_alaune, $results[$key]);
-		}
-
-		return $list_alaune;
-	}
 	
 	
 	/*********************************
@@ -447,6 +411,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$sql .= " FROM ".implode(",",$from)." ";
 		$sql .= "
 				WHERE publication_status = 'published'
+				AND fiche.temp = 0
             	AND fiche.id_fiche = fht.fiche_id
 				AND fht.type_slug = 'conseiller_securite'
 		";
@@ -514,6 +479,7 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		$sql .= " FROM ".implode(",", $from)." ";
 		$sql .= "
 				WHERE publication_status = 'published'
+				AND fiche.temp = 0
             	AND fiche.id_fiche = fht.fiche_id
 				AND fht.type_slug = 'conseiller_securite'
 		";

@@ -414,9 +414,13 @@ class Fiche_manager extends CI_Model
 	*********/
 	private function get_fiche_cats($id_fiche)
 	{
+
 		//On récupère les catégories de la fiche
-		$query = $this->db->join($this->tbl_cats, "category_id = id_category","left");
-		$query = $this->db->get_where($this->tbl_fiche_cats, array("fiche_id"=>$id_fiche));
+        $sql = "SELECT * FROM category cat
+          INNER JOIN fiche_has_category fhc ON cat.id_category = fhc.category_id
+        WHERE fhc.fiche_id = ".$id_fiche;
+
+        $query = $this->db->query($sql);
 		$result = $query->result_array();
 
 		//Il faut transformer la liste de catégorie en élément simple.
@@ -424,9 +428,9 @@ class Fiche_manager extends CI_Model
 		foreach($result as $key=>$cat){
 			array_push($cats,$cat);
 		}
-		
+		//echo $this->db->last_query();
 		return $cats;
-		$query->free_result();
+		//$query->free_result();
 	}
 
 
@@ -459,7 +463,7 @@ class Fiche_manager extends CI_Model
 
 		//On demande par défaut les fiches publiées
 		if($published){
-			$query = $this->db->where(array("publication_status"=>"published"));
+			$query = $this->db->where(array("publication_status"=>"published", "temp"=>0));
 		}
 
         $indexed_columns = array(
@@ -479,37 +483,47 @@ class Fiche_manager extends CI_Model
             "certifications"  => $string,
             "references"  => $string
         );
+
+        $query = "SELECT * FROM (`fiche`) ";
+        $query .= " LEFT JOIN `fiche_has_type` ON `fiche`.`id_fiche` = `fiche_has_type`.`fiche_id` ";
+        $query .= "LEFT JOIN `fiche_has_category` ON `fiche`.`id_fiche` = `fiche_has_category`.`fiche_id` ";
+        $query .= "WHERE `publication_status` = 'published' AND `temp` = 0 ";
+        $query .= " AND ( ";
+
         $i = 0;
         foreach($indexed_columns as $column => $value)
         {
             $i++;
-            if($i==1){
-                $query = $this->db->like($column,$value);
-            }else{
-                $query = $this->db->or_like($column,$value);
+            if($i>1){
+                $query .= " OR ";
             }
+            $query .="`$column` LIKE '%$value%' ";
+
 
         }
 
+        $query .= " ) ";
+        $query .= "GROUP BY `id_fiche` ";
+        $query .= "ORDER BY `payante` DESC, `raison_sociale`";
 
-
-
-        $query = $this->db->group_by("id_fiche");
-		//On récupère l'information de "Type".
-		$query = $this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","left");
-		$query = $this->db->join($this->tbl_fiche_cats, "fiche.id_fiche = fiche_has_category.fiche_id","left");
 		if(!$count)
 		{
-			$query = $this->db->limit($this->config->item('elem_per_page'),$offset);
+            $query .= " LIMIT ".$offset.",".$this->config->item('elem_per_page');
 		}
 
-		$query = $this->db->group_by("id_fiche");
-        $query = $this->db->get($this->tbl_fiche);
+        $query = $this->db->query($query);
+
+
+
+
 
 		$results = $query->result_array();
 		$nbr_results = count($results);
 		
-		
+
+
+
+
 		
 		if($count==FALSE)
 		{
@@ -518,7 +532,7 @@ class Fiche_manager extends CI_Model
 				//On ajoute le tableau des catégories de la fiche au résultats.
 				foreach($results as $key => $fiche)
 				{
-					
+
 					$cats = $this->get_fiche_cats($fiche["id_fiche"]); //On récupère les infos de catégorie
 					$results[$key]["category"]=$cats;					//On les ajoute aux résultats.
 					
@@ -533,6 +547,27 @@ class Fiche_manager extends CI_Model
 	
 	}
 	
+
+    /*********************************
+     * Compte le nombre de résultats d'une liste de fiche
+     * @param $args
+     * @param $published_only
+     *
+     * @return mixed
+     */
+	public function count_list($args, $published_only = true)
+	{
+
+
+        $count = count($this->get_list($args, $published_only));
+
+
+		return $count;
+
+
+	}
+
+
 	/**********************************
 	*
 	*	retourne la liste des fiches
@@ -544,12 +579,12 @@ class Fiche_manager extends CI_Model
 	*		"filter_by"	=> "",
 	*		"offset"	=> "",
 	*		"limit"		=> ""
-	*	);	
+	*	);
 	*
 	*	@args	array	tableau d'arguments
 	*	@return	array	tableau multi-dimensionnel
 	**********************************/
-	public function get_list($args)
+	public function get_list($args,$published_only = true)
 	{
 		/*
 		$args = array(
@@ -562,14 +597,14 @@ class Fiche_manager extends CI_Model
 				);
 		*/
 
-		
+
 		//On récupère la liste des ID. Requête de base
 		$query 	=	$this->db->from($this->tbl_fiche);
-		
+
 		//Si il y a des filtres, on les ajoutes à la requête
 		if(isset($args["filter_name"]))
 		{
-			
+
 			/**********
 			*
 			*	un SWITCH sans BREAK !
@@ -579,32 +614,37 @@ class Fiche_manager extends CI_Model
 			***************/
 			switch($args["filter_name"])
 			{
+
 				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_has_category.fiche_id = fiche.id_fiche","inner");
 										$query = $this->db->join($this->tbl_cats, "category_id = id_category","inner");
 
 				default :				$query	=	$this->db->where(array($args["filter_name"] => $args["filter_value"]));
 			}
-			
+
 		}
-		
-		
-		$this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","inner");
+
+
+		$this->db->join($this->tbl_fiche_types, "fiche.id_fiche = fiche_has_type.fiche_id","left"); //INNER OBLIGATOIRE sinon ça ne fonctionne plus en back
 		if(isset($args["type"]) AND $args["type"]!="")
 		{
 			//Si un type est sélectionné, il faut filtrer avec
 			$this->db->where(array("type_slug"=>$args["type"]));
 			//$this->db->join($this->tbl_fiche_types, "type_slug = ".$args["type"], "left");
-			
+
 		}
 		if(isset($args["limit"]) AND $args["limit"] != "")
 		{
 			$query 	=	$this->db->limit($args["limit"],$args["offset"]);
 		}
-		
 
-		
-		
-		
+
+
+		//Si on vient du front on ne demande que les fiche publiées.
+		if($published_only){
+
+            $this->db->where(array("publication_status"=>"published","temp"=>0));
+        }
+
 		$query = $this->db->order_by("payante", "desc");
 		$query = $this->db->order_by("raison_sociale", "asc");
 		//on exécute la requête
@@ -613,100 +653,28 @@ class Fiche_manager extends CI_Model
         //echo $this->db->last_query();
 		//On génère le résultat
 		$results = $query->result_array();
-		
 
-		
+
+
 		if(count($results) >=1)
 		{
 			//On ajoute le tableau des catégories de la fiche au résultats.
 			foreach($results as $key => $fiche)
 			{
-				
+
 				$cats = $this->get_fiche_cats($fiche["id_fiche"]); //On récupère les infos de catégorie
 				$results[$key]["category"]=$cats;					//On les ajoute aux résultats.
-				
+
 			}
 		}
-		
 
-		
 
-		
+
+
+
 		return $results;
-		
-		
-	}
-	
-	
-	
-	
-	public function count_list($args)
-	{
-		/*
-		$args = array(
-					"filter_name"	=> "",
-					"filter_value"	=> "",
-					"type"			=> "",
-					"offset"		=> "",
-					"limit"			=> ""
-				);	
-		*/
-		
-			
 
-		//On récupère la liste des ID. Requête de base
-		$query 	=	$this->db->from("fiche");
-		
-		//Si il y a des filtres, on les ajoutes à la requête
-		if(isset($args["filter_name"]))
-		{
-			
-			/**********
-			*
-			*	un SWITCH sans BREAK !
-			*	parce que comme ça, l'instruction par défaut est exécutée quand même.
-			*	Si besoin on peut rajouter des "join" pour d'autres tables (types, zones, etc...)
-			*
-			***************/
-			switch($args["filter_name"])
-			{
-				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_id = id_fiche","inner");
-										$query = $this->db->join($this->tbl_cats, "category_id = id_category","inner");
 
-				default :				$query	=	$this->db->where(array($args["filter_name"] => $args["filter_value"]));
-			}
-			
-		}
-		
-		$this->db->join($this->tbl_fiche_types, "fiche_has_type.fiche_id = id_fiche", "inner");
-		//Si un type est sélectionné, il faut filtrer avec 
-		if(isset($args["type"]) AND $args["type"]!="")
-		{
-			
-			$this->db->where(array("type_slug"=>$args["type"]));
-			//$this->db->join($this->tbl_fiche_types, "type_slug = ".$args["type"], "left");
-			
-		}
-
-		if(array_key_exists("limit",$args))
-		{
-			if($args["limit"] != "" && $args["offset"] != "")
-			{
-				$query 	=	$this->db->limit($args["limit"],$args["offset"]);
-			}
-		}
-
-			
-		
-		
-		//on exécute la requête
-		
-		$count = $this->db->count_all_results();
-
-				
-		return $count;
-		
-		
 	}
 	
 	
@@ -762,15 +730,76 @@ class Fiche_manager extends CI_Model
 
 		
 	}
-	
-	
+
+
+    /*********************************************
+     * Permet de lister l'ensemble des fiches qui
+     * nécessitent d'être modérée.
+     *
+     * @return mixed
+     */
+    public function get_fiche_to_moderate()
+    {
+        $query = $this->db->get_where($this->tbl_fiche, array("temp"=>1));
+        $results = $query->result();
+
+
+        //var_dump($results);
+
+
+
+        return $results;
+    }
+
+
+    public function get_fiche_unpaid()
+    {
+        $query = $this->db->get_where($this->tbl_fiche, array("payante"=>1,"date_reglement"=>0));
+        $results = $query->result();
+
+        return $results;
+    }
+
+
+    /***********************************
+     * Modération : change le champ temp
+     * à la valeur souhaitée.
+     * @param $accepted
+     */
+    public function moderate($accepted)
+    {
+        $data = array(
+            "temp"  => $accepted
+        );
+        $query  = $this->db->where("id_fiche",$this->id_fiche);
+        $query  = $this->db->update($this->tbl_fiche, $data);
+
+
+        //Envoie un email lorsque la modération est faite
+        $mail = new Mails();
+        $mail->to = $this->email_contact;
+        if($mail->fiche_moderation())
+        {
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+    /***********************************
+     * Seul l'admin peut appeller cette fonction
+     *
+     * @param $bool
+     */
 	protected function _publishing($bool)
 	{
 		if($bool)
 		{
 			//on publie
 			$this->db->set("publication_status","published");
-			
+
 		}else{
 			//on dépublie
 			$this->db->set("publication_status","unpublished");
@@ -779,9 +808,6 @@ class Fiche_manager extends CI_Model
 		$this->db->where("id_fiche",$this->id_fiche);
 		$this->db->update($this->tbl_fiche);
 	}
-	
-	
-	
 
 
 

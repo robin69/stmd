@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 $status = $fiche->publication_status();
 switch($status)
 {
@@ -49,9 +52,23 @@ switch($status)
 											}
 											?>
 										</ul>
-										
+
+
 										<div class="rule"></div>
-										
+
+                                        <?php if($fiche->temp() == true): ?>
+										<h4>Modération</h4>
+                                        <ul class="list">
+                                            <li>
+                                                <a href="<?php echo site_url("admin/inscrits")."/moderate/".$id_fiche."/true"; ?>" onclick="">Accepter</a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo site_url("admin/inscrits")."/moderate/".$id_fiche."/false"; ?>" onclick="">Refuser</a>
+                                            </li>
+										</ul>
+                                        <div class="rule"></div>
+                                        <?php endif; ?>
+
 										<h4>Informations relatives</h4>
 										<div class="mark_blue bt-space20">
 											
