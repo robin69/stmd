@@ -114,6 +114,8 @@ if(isset($alaune) AND count($alaune)>=1) :
 				</div>
 				
 				<h1>Résultats (<?php echo $total_fiches; ?>)</h1>
+
+                <div class="pub megaban">Mégabannière IAB : 728px X 90px </div>
 					<?php
 					// $i est initialisé dans les annonces à la une.
 					foreach($fiches as $fiche)

@@ -2131,3 +2131,42 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
 .left{
     float: left;
 }
+
+
+
+/*******************
+*
+*   Format de pub
+*
+**************/
+.pub{
+    position: relative;
+    border: solid 1px grey;
+    background-color: pink;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    opacity: .5;
+    margin: 10px auto 10px auto;
+}
+
+
+.megaban{
+    width:728px;
+    height:90px;
+}
+
+.gigaban{
+    width:928px;
+    height:90px;
+}
+
+.pave{
+    width:300px;
+    height:250px;
+}
+
+.sidekick{
+    width:300px;
+    height:600px;
+}

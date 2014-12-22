@@ -3,6 +3,7 @@
 						//Si on fait une recherche on n'affiche pas le menu categorie.
 						if($menu_sidebar=="prestas"):
 					?>
+                            <div class="pub pave">Gigabannière IAB : 300px X 250px </div>
 					<div class="categories">
 						<h2>
 						catégories
@@ -47,6 +48,8 @@
 					<?php
 						endif;
 					?>
+
+                    <div class="pub sidekick">Bannière SideKick : 300px X 600px </div>
 					<div class="annonces">
 					
 						<a href="#"><img src="<?php echo base_url("assets"); ?>/img/annonce1.png"></a>
@@ -72,4 +75,6 @@
 						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore utate velit essecons <span>...</span>
 						</p>
 					</div>
+
+
 				</div>

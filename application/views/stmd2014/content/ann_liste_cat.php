@@ -10,6 +10,8 @@
 <div class="main">
 <p class="top_description"><?php echo $description; ?></p>
 <!--<h1>"Trouver votre spécialiste matière dangereuse</h1>-->
+
+    <div class="pub gigaban">Gigabannière IAB : 928px X 90px </div>
 <div class="container cat_list">
 <?php 
 	foreach($cats as $cat) :
