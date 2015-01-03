@@ -68,7 +68,8 @@
 	chargement des autres pages -->
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.min.js"></script>
-  	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.6.2.min.js"></script>
+    <link href="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.theme.css" rel="stylesheet" />
+  	<!-- <script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.6.2.min.js"></script> -->
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.slides.min.js"></script>
 	<!-- the jScrollPane script -->
@@ -78,6 +79,8 @@
     <!-- FANCYBOX -->
     <script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+
 
 	<?php
 		if(!$no_google_map){

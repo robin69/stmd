@@ -102,6 +102,12 @@
 								<td class="value right"><?php echo COUNT($fiches_att_paiement); ?></td>
 								<td><a href="#">Voir</a></td>
 							</tr>
+                            <tr>
+                                <td><img src="<?php echo base_url("assets/admin"); ?>/images/ball_red_16.png" class="block" alt="" /></td>
+                                <th>Demande de changement de forfait</th>
+                                <td class="value right"><?php echo COUNT($demmande_changement_forfait); ?></td>
+                                <td><a href="#">Voir</a></td>
+                            </tr>
 
 							</tbody>
 							</table>
