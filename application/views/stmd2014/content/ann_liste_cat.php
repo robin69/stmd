@@ -18,9 +18,10 @@
 		if($cat["nbr_fiches"] >= 1) :
 ?>
 			<div class="cat">
-				<h3><a href="<?php echo base_url("annuaire/".$type_guid); ?>/cat-<?php echo $cat["slug"]; ?>"><span><?php echo $cat["public_name"]; ?> (<?php echo $cat["nbr_fiches"]; ?>)</span></a></h3>
+                <a href="<?php echo base_url("annuaire/".$type_guid); ?>/cat-<?php echo $cat["slug"]; ?>">
+				<h3><span><?php echo $cat["public_name"]; ?> (<?php echo $cat["nbr_fiches"]; ?>)</span></h3>
 				<p><?php echo $cat["description"]; ?></p>
-		
+                </a>
 			</div>
 
 

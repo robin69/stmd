@@ -464,9 +464,12 @@ a.contact:hover {
 }
 .cat{
 	float:left;
-	width:367px;
+	width:364px;
 	padding:10px;
+    margin: 3px;
 	height: 55px;
+    background-color: #f7a22f;
+    border-radius: 5px;
 }
 .container_left{
 	float:left;
@@ -501,19 +504,34 @@ a.contact:hover {
 	display:block;
 }
 .cat{
-    color: #707171;
+    color: white;
     font-size: 15px;
     line-height: 30px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
+}
+
+.cat p{
+    color: white;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.cat a{
+    width: 100%;
+    height: 100%;
 }
 #home .container p {
     color: #7b7b7c;
     font-size: 20px;
 }
-.container h3 a{
+.container a, .container h3{
 	font-size:18px;
-	color:#f7a22f;
+	color:white;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
 	display:block;
+    border: none;
 }
 .fleche{
     background: url("../img/icons.png") no-repeat scroll 0 -70px;
