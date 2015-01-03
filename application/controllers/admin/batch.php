@@ -16,4 +16,16 @@
 
 
 
+        public function batch_fiche_to_moderate()
+        {
+
+            //On va lire le répertoire batch
+
+
+        }
+        //Est-ce qu'il y a une nouvelle modération à faire
+
+
+
+
     }
