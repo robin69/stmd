@@ -55,7 +55,58 @@
             <p>Visuel<span>gratuit</span></p>
             <br><br>
             <span class="fleche"></span>
-            <a href="<?php echo base_url("login");?>/?forfait=1" class="select_offer">Je sélectionne l’offre<br>et je m’inscris</a>
+            <?php
+
+                $id_user = $this->session->userdata(id_user);
+
+
+                if(!empty($id_user))
+                {
+                    ?>
+                    <a href="<?php echo base_url("espace_inscrits"); ?>/select_forfait/?id_user=<?php echo $id_user;?>&id_forfait=1" class="select_offer">Je sélectionne ce forfait</a>
+                <?php
+                }else{
+                    ?>
+                    <a href="<?php echo base_url("login");?>/?forfait=1" class="select_offer">Je sélectionne cette offre<br>et je m’inscris</a>
+                <?php
+                }
+
+            ?></div>
+        <div class="offer_type">
+            <h3>Pour qui ?</h3>
+            <p class="check">Prestataires expéditeurs</p>
+            <p class="check">Prestataires transporteurs</p>
+            <p class="check">Conseillers à la sécurité</p>
+            <h3>Annuaires</h3>
+            <p class="check">Annuaire en ligne</p>
+            <p class="uncheck">Annuaire papier</p>
+            <p class="check">Annuaire mobile</p>
+            <p class="uncheck">Sites partenaires</p>
+            <p class="uncheck">Sites partenaires</p>
+            <h3>Visibilité</h3>
+            <p class="uncheck">Première page garantie</p>
+            <p class="uncheck">à la une</p>
+            <br><br><br>
+            <p>Visuel<span>à partir de xx €</span></p>
+            <br><br>
+            <span class="fleche"></span>
+            <?php
+
+                $id_user = $this->session->userdata(id_user);
+
+
+                if(!empty($id_user))
+                {
+                    ?>
+                    <a href="<?php echo base_url("espace_inscrits"); ?>/select_forfait/?id_user=<?php echo $id_user;?>&id_forfait=2" class="select_offer">Je sélectionne ce forfait</a>
+                <?php
+                }else{
+                    ?>
+                    <a href="<?php echo base_url("login");?>/?forfait=1" class="select_offer">Je sélectionne cette offre<br>et je m’inscris</a>
+                <?php
+                }
+
+            ?>
         </div>
         <div class="offer_type">
             <h3>Pour qui ?</h3>
@@ -75,27 +126,23 @@
             <p>Visuel<span>à partir de xx €</span></p>
             <br><br>
             <span class="fleche"></span>
-            <a href="<?php echo base_url("login");?>/?forfait=2" class="select_offer">Je sélectionne l’offre<br>et je m’inscris</a>
-        </div>
-        <div class="offer_type">
-            <h3>Pour qui ?</h3>
-            <p class="check">Prestataires expéditeurs</p>
-            <p class="check">Prestataires transporteurs</p>
-            <p class="check">Conseillers à la sécurité</p>
-            <h3>Annuaires</h3>
-            <p class="check">Annuaire en ligne</p>
-            <p class="uncheck">Annuaire papier</p>
-            <p class="check">Annuaire mobile</p>
-            <p class="uncheck">Sites partenaires</p>
-            <p class="uncheck">Sites partenaires</p>
-            <h3>Visibilité</h3>
-            <p class="uncheck">Première page garantie</p>
-            <p class="uncheck">à la une</p>
-            <br><br><br>
-            <p>Visuel<span>à partir de xx €</span></p>
-            <br><br>
-            <span class="fleche"></span>
-            <a href="<?php echo base_url("login");?>/?forfait=3" class="select_offer">Je sélectionne l’offre<br>et je m’inscris</a>
+            <?php
+
+                $id_user = $this->session->userdata(id_user);
+
+
+                if(!empty($id_user))
+                {
+                    ?>
+                    <a href="<?php echo base_url("espace_inscrits"); ?>/select_forfait/?id_user=<?php echo $id_user;?>&id_forfait=3" class="select_offer">Je sélectionne ce forfait</a>
+                <?php
+                }else{
+                    ?>
+                    <a href="<?php echo base_url("login");?>/?forfait=1" class="select_offer">Je sélectionne cette offre<br>et je m’inscris</a>
+                <?php
+                }
+
+            ?>
         </div>
     </div>
 </div>

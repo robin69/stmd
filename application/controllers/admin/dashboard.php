@@ -54,6 +54,10 @@ class Dashboard extends CI_Controller {
         $this->data["fiches_a_moderer"] = $f->get_fiche_to_moderate();
         $this->data["fiches_att_paiement"]  =   $f->get_fiche_unpaid();
 
+        $this->load->model("Forfait");
+        $forfait = new Forfait();
+        $this->data["demmande_changement_forfait"] = $forfait->get_demmandes_chg_forfait();
+
 		$this->layout->view("_header");
 		$this->layout->view("_menu", $this->data);
 		$this->layout->view('index', $this->data);

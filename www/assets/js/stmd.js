@@ -6,7 +6,8 @@
 *
 *************/
 
-$(function()
+
+$(document).ready(function()
 {
 
 	//On détecte la présence de la class
@@ -391,4 +392,30 @@ $(function(){
 			console.log("ok");
 		});
 	});
+
+
+    /***********
+     * Appel Ajax pour la demande d'un forfait
+     * L'url doit être comme suit
+     */
+    $(".forfait_select").click(function(){
+
+
+        var url_to_call = $(this).attr("href");
+        $.ajax({
+            type: "GET",
+            url: url_to_call,
+            data: {},
+            success: function(){
+                alert("Votre demande de changement de forfait a été prise en compte. Vous allez être contacté dans les meilleurs délais.");
+                location.reload(true);
+                return true;
+            },
+            error: function(){
+                console.log("erreur ajax");
+                return false;
+            }
+
+        });
+    });
 });

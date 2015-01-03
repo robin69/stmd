@@ -48,6 +48,31 @@
 
         }
 
+
+        /************************************
+         *
+         *	Fonction qui décrypt un token
+         *
+         *
+         *	Réceptionne une chaine,
+         *	puis désérialize la chaine pour récupérer
+         *	un tableau qu'elle peut retourner
+         *
+         *	ATTENTION : on ne fait pas de urldecode, ce n'est pas la peine.
+         *
+         *************************************/
+        public function tokenread()
+        {
+            $string = $this->encrypt->decode($this->string);	//On décode le cryptage
+            $data = unserialize($string);				//On désérialize pour récupérer notre tableau
+
+            return $data;
+            //var_dump($this->data);
+
+
+        }
+
+
         /************************************
          *
          *	Fonction qui génère un token
@@ -76,26 +101,32 @@
 
         }
 
-        /************************************
-         *
-         *	Fonction qui décrypt un token
-         *
-         *
-         *	Réceptionne une chaine,
-         *	puis désérialize la chaine pour récupérer
-         *	un tableau qu'elle peut retourner
-         *
-         *	ATTENTION : on ne fait pas de urldecode, ce n'est pas la peine.
-         *
-         *************************************/
-        public function tokenread()
+
+        public function execute()
         {
-            $string = $this->encrypt->decode($this->string);	//On décode le cryptage
-            $data = unserialize($string);				//On désérialize pour récupérer notre tableau
+            //on appelle la méthode en fonction du contenu du token
+            $method = "_tk_".$this->data["action"];
+            $return =  $this->{$method}();
+            try{
+                $return =  $this->{$method}();
+            }catch(Exception $e){
+                $return = $e->getMessage();
+            }
 
-            return $data;
-            //var_dump($this->data);
 
+            return $return;
+
+        }
+
+
+        public function __toString()
+        {
+            if($this->string)
+            {
+                return $this->string;
+            }else {
+                return "Il n'y a pas de Tojen";
+            }
 
         }
 
@@ -130,6 +161,7 @@
             $user_fiche->set_publication_status("unpublished");
             $user_fiche->set_date_creation();
             $user_fiche->set_payante("0");
+            $user_fiche->set_temp(0);
             $user_fiche->_save();
 
 
@@ -139,34 +171,6 @@
 
             //On redirige vers l'accueil de l'espace inscrit.
             return true;
-
-        }
-
-        public function execute()
-        {
-            //on appelle la méthode en fonction du contenu du token
-            $method = "_tk_".$this->data["action"];
-            $return =  $this->{$method}();
-            try{
-                $return =  $this->{$method}();
-            }catch(Exception $e){
-                $return = $e->getMessage();
-            }
-
-
-            return $return;
-
-        }
-
-
-        public function __toString()
-        {
-            if($this->string)
-            {
-                return $this->string;
-            }else {
-                return "Il n'y a pas de Tojen";
-            }
 
         }
 

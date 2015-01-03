@@ -135,9 +135,63 @@ class Espace_inscrits extends CI_Controller {
     }
 	
 
+    /****************************************
+     * Sélection d'un forfait par un utilisateur.
+     *
+     * On inserre dans la base la table user_has_forfaits un nouvel enregistrement de forfait
+     * sans date_debut ni date_fin (qui indicrait que ce forfait a été validé et payé par l'admin).
+     *
+     * ATTENTION : L'objet Forfait correspond au forfait utilisateur, et non à un forfait lambda (champs différents)
+     *
+     */
+    public function select_forfait()
+    {
+        //On récupère la demande de l'utilisateur
+        $id_user        = ($this->input->post("id_user")) ?     $this->input->post("id_user") : $this->input->get("id_user");
+        $id_forfait     = ($this->input->post("id_forfait")) ?  $this->input->post("id_forfait") : $this->input->get("id_forfait");
+
+        //On va chercher le forfait demandé dans la base
+        $this->load->model("Forfait");
+        $forfait = new Forfait;
+        $selected = $forfait->get_by_id($id_forfait);
+
+
+        //var_dump($selected);
+
+
+        //On récupère les informations pour affecter le nouveau forfait à l'utilisateur
+        $forfait->set_forfait_id($selected->id);
+        $forfait->set_user_id($id_user);
+        $forfait->set_tarif($selected->tarif);
+
+        //On insert dans la table user_has_forfait la nouvelle demande
+        $forfait->save();
+
+        //On informe l'utilisateur que la demande a été effectuée
+        //On récupère la liste des forfaits existants
+        $this->data["returned_message"] = "Votre demande a été prise en compte. Vous serez contacté dans les meilleurs délais.";
+        $this->user_forfait();
+
+
+
+
+
+
+
+    }
+
+
 	public function user_forfait()
 	{
-		$this->_layout("/esp_inscrit/form_user_forfait");
+
+        //On récupère les informations du forfait utilisateur
+        $this->load->model("Forfait");
+        $f = new Forfait();
+        $this->data["user_forfaits"]   = $f->get_user_forfaits($this->session->userdata("id_user"));
+
+        //On récupère la liste des forfaits existants
+        $this->data["all_forfaits"] =   $f->get_all_forfaits();
+        $this->_layout("/esp_inscrit/form_user_forfait", $this->data);
 	}
 	
 
@@ -289,4 +343,7 @@ class Espace_inscrits extends CI_Controller {
 
         $this->_layout("/esp_inscrit/form_fiche_res_sociaux");
 	}
+
+
+
 }
