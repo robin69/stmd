@@ -300,21 +300,16 @@ function initialize(adr, map_id) {
 *	le compte des vues d'une fiche
 *
 ***********************************/
-function fiche_count_up(id_fiche)
-{
+function fiche_count_up(id_fiche) {
 
-	
-	//console.log("Je met à jour les statistiques");
-	
-	$.ajax({
-		type: "POST",
-		url: "/annuaire/fiche_count_up/"+id_fiche
-	})
-	
-	//Je récup!re l'ID de la Fiche
-	
-	//J'envois ma requête Ajax
+
+
+    $.ajax({
+        type: "POST",
+        url: "/annuaire/fiche_count_up/" + id_fiche
+    })
 }
+
 
 /**********************************
 *
@@ -327,16 +322,12 @@ function fiche_eval(id_fiche, note)
 {
 
 	
-	//console.log("Je met à jour les statistiques");
-	
+
 	$.ajax({
 		type: "POST",
 		url: "/annuaire/fiche_eval/"+id_fiche+"/"+note
 	})
-	
-	//Je récup!re l'ID de la Fiche
-	
-	//J'envois ma requête Ajax
+
 }
 
 

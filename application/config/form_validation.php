@@ -354,16 +354,7 @@ $config = array(
                                             )
                     ),
                     "form_fiche_classement" => array(
-                                            array(
-                                                "field" =>  "types",
-                                                "label" =>  "Type d'activité",
-                                                "rules" =>  "required"
-                                            ),
-                                            array(
-                                                "field" =>  "categories",
-                                                "label" =>  "Catégorie",
-                                                "rules" =>  "required"
-                                            )
+
                     ),
                     "form_fiche_profile" => array(
                         array(

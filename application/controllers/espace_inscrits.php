@@ -313,6 +313,12 @@ class Espace_inscrits extends CI_Controller {
         $this->data["fiche"] = $f;
 
 
+        //Dans le cas d'un Conseiller on récupère les éléments de classifications
+        $ff = new Fiche_manager();
+        $this->data["zones"]    = $ff->get_all_zones();
+        $this->data["classes"]  = $ff->get_all_classes();
+        $this->data["mdtransp"] = $ff->get_all_mdtransp();
+
 
 
 

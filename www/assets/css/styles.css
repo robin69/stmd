@@ -1938,7 +1938,12 @@ a.close{
 /* 	border: solid 1px #ccc; */
 	border-radius: 5px;
 	padding: 2px;
-	box-shadow : 2px 2px 5px #ccc;
+	/*box-shadow : 2px 2px 5px #ccc;*/
+}
+.gravatar_profile img{
+    -moz-border-radius: 40px;
+    -webkit-border-radius: 40px;
+    border-radius: 40px;
 }
 #esp_insc .profile{
 	width: 70%;
@@ -2104,6 +2109,16 @@ progress[value^='1']:not([value^='1.']):not([value='100'])::-moz-progress-bar
     line-height: 12px;
     min-height: 18px;
     padding: 0 0 0 15px;
+}
+
+.classement_form h4{
+    text-align:center;
+    color : black;
+    margin:5px auto 5px auto;
+    border:solid 1px black;
+    border-radius: 3px;
+    width:50%;
+
 }
 
 .alert{

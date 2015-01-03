@@ -391,12 +391,32 @@ class Fiche_manager extends CI_Model
 			array_push($zones,$zone["zone_id"]);
 		}
 		$query->free_result();
-		
+
+        //On récupère les classes de la fiche
+        $query = $this->db->get_where($this->tbl_fiche_classes, array("fiche_id"=>$id_fiche));
+        $result_classes = $query->result_array();
+        $classes = array();
+        foreach($result_classes as $key=>$classe){
+            array_push($classes,$classe["classe"]);
+        }
+        $query->free_result();
+
+        //On récupère le mdtransp de la fiche
+        $query = $this->db->get_where($this->tbl_fiche_mdtransp, array("fiche_id"=>$id_fiche));
+        $result_mdtransp = $query->result_array();
+        $mdtransp = array();
+        foreach($result_mdtransp as $key=>$mode){
+            array_push($mdtransp,$mode["mdtransp"]);
+        }
+        $query->free_result();
+
 		$fiche = $infos;
 		$fiche["categories"] 	= $cats_list;
 		$fiche["types"]			= $types;
 		$fiche["zones"]			= $zones;
-		
+		$fiche["classes"]		= $classes;
+		$fiche["mdtransp"]		= $mdtransp;
+
 		
 		//On retourne le tableau complet pour qu'il puisse être instancié
 		return $fiche;
@@ -847,6 +867,40 @@ class Fiche_manager extends CI_Model
         }
 
         return false;
+    }
+
+
+    /**********************************
+     * Retourne la liste des zones d'intervention
+     * @return array tableau de zones
+     */
+    public function get_all_zones()
+    {
+        $q = $this->db->get('zones');
+        return $q->result();
+    }
+
+
+    /***************************************
+     *Retourne la liste des classes de conseillers
+     * @return array de classes
+     */
+    public function get_all_classes()
+    {
+        $q = $this->db->get("classes");
+        return $q->result();
+    }
+
+
+    /*************************************
+     * retourne la liste des modes de transport
+     * pour les conseillers
+     * @return array de mode de transport
+     */
+    public function get_all_mdtransp()
+    {
+
+        return array("route","fer","navigation");
     }
 
 

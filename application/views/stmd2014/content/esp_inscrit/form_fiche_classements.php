@@ -1,4 +1,4 @@
-><div class="main classement_form">
+<div class="main classement_form">
 	
 	<article class="main_blocks sect_princ">
 		<h1>FICHE : Classement</h1>
@@ -60,88 +60,191 @@
 
         $j = 0; // incrément pour définir les id des inputs
 
+
+           // var_dump($types);
+
 		foreach ($types as $type)
 		{
+
             $j++;
-			//On récupère les catégories
-			$c = new Category;
-			$cats = $c->get_cat_by_type($type->slug, FALSE);
-			
-			?>
-			<section id="cat_sel_<?php echo $type->slug; ?>" style="display: none;">
-				<h3>Sélectionnez les catégories de type <?php echo $type->public_name; ?></h3>
-				<ul>
 
-				<?php
-
-                    foreach($cats as $cat) :
-                       $j++;
-
-                        //On récupère les sous-catégorie si cette catégorie en a.
-                        $ss_cats = (array)$c->get_child($cat["id_category"]);
-
-
-
-
-
-                        if(count($ss_cats)>=1) {
-                            $hasSubCats = "has_sscats";
-                            $subClassId = "ss_cat_".$j;
-                        }else{
-                            $hasSubCats = "";
-                        }
-
-
-
-
-
-
-                        $f_cat = $fiche->categories();
-
-                        if(in_array($cat["id_category"], $f_cat))
-                        {
-                            $checked = " checked ";
-                        }else{
-                            $checked = "";
-                        }
-
-
-
+			if($type->slug != "conseiller_securite")
+            {
+                //On récupère les catégories
+                $c = new Category;
+                $cats = $c->get_cat_by_type($type->slug, FALSE);
                 ?>
 
-					<li><input  id="input_<?php echo $j; ?>" class="classement_cat cat_<?php echo $cat["id_category"]; ?> <?php echo $hasSubCats; ?>" type="checkbox" name="categories[]" value="<?php echo $cat["id_category"]; ?>" <?php echo $checked; ?>>
-                        <label for="input_<?php echo $j; ?>"><?php echo $cat["public_name"]; ?></label>
-						<?php	
+                <section id="cat_sel_<?php echo $type->slug; ?>" style="display: none;">
+				<h3>Sélectionnez les catégories de type <?php echo $type->public_name; ?></h3>
+                <ul>
 
-						if(count($ss_cats)>=1):
-							?>
-							<ul class="ss_cat ss_cat_<?php echo $j; ?>" style="display: none;">
-								<?php foreach($ss_cats as $key_sscat => $ss_cat ):
-                                    $j++;
+                    <?php
 
-                                    if(in_array($ss_cat->id_category, $f_cat))
-                                    {
-                                        $checked = " checked ";
-                                    }else{
-                                        $checked = "";
-                                    }
+                        foreach($cats as $cat) :
+                            $j++;
+
+                            //On récupère les sous-catégorie si cette catégorie en a.
+                            $ss_cats = (array)$c->get_child($cat["id_category"]);
 
 
 
 
 
-                                    ?>
-									<li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $ss_cat->id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $ss_cat->id_category; ?>" <?php echo $checked; ?>>
-                                        <label for="input_<?php echo $j; ?>" ><?php echo $ss_cat->public_name; ?></label></li>
-								<?php endforeach; ?>
-							</ul>
-						<?php endif; ?> 
-					</li>
-				<?php endforeach; ?>
-				</ul>
+                            if(count($ss_cats)>=1) {
+                                $hasSubCats = "has_sscats";
+                                $subClassId = "ss_cat_".$j;
+                            }else{
+                                $hasSubCats = "";
+                            }
 
-			</section>
-			<div class="clear"></div>
+
+
+
+
+
+                            $f_cat = $fiche->categories();
+
+                            if(in_array($cat["id_category"], $f_cat))
+                            {
+                                $checked = " checked ";
+                            }else{
+                                $checked = "";
+                            }
+
+
+
+                            ?>
+
+                            <li><input  id="input_<?php echo $j; ?>" class="classement_cat cat_<?php echo $cat["id_category"]; ?> <?php echo $hasSubCats; ?>" type="checkbox" name="categories[]" value="<?php echo $cat["id_category"]; ?>" <?php echo $checked; ?>>
+                                <label for="input_<?php echo $j; ?>"><?php echo $cat["public_name"]; ?></label>
+                                <?php
+
+                                    if(count($ss_cats)>=1):
+                                        ?>
+                                        <ul class="ss_cat ss_cat_<?php echo $j; ?>" style="display: none;">
+                                            <?php foreach($ss_cats as $key_sscat => $ss_cat ):
+                                                $j++;
+
+                                                if(in_array($ss_cat->id_category, $f_cat))
+                                                {
+                                                    $checked = " checked ";
+                                                }else{
+                                                    $checked = "";
+                                                }
+
+
+
+
+
+                                                ?>
+                                                <li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $ss_cat->id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $ss_cat->id_category; ?>" <?php echo $checked; ?>>
+                                                    <label for="input_<?php echo $j; ?>" ><?php echo $ss_cat->public_name; ?></label></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                </ul>
+
+                </section>
+                <div class="clear"></div>
+                <?php
+            }else{
+                //Le type est conseillé à la sécurité
+                ?>
+
+                <section id="cat_sel_<?php echo $type->slug; ?>" style="display: none;">
+                    <h3><?php echo $type->public_name; ?></h3>
+                    <h4>Précisez  les zones d'intervention</h4>
+                    <ul>
+                        <?php
+
+                            foreach($zones as $zone) :
+
+
+                                $f_zones    =   $fiche->zones();
+                                if(in_array($zone->id_zone,$f_zones))
+                                {
+                                    $checked =   " checked ";
+                                }else{
+                                    $checked =   " ";
+                                }
+
+
+
+
+                            ?>
+                        <li>
+                            <input id="input_<?php echo $j; ?>" class="zones_<?php echo $zone->id_zone; ?>" type="checkbox" name="zones[]" value="<?php echo $zone->id_zone; ?>" <?php echo $checked; ?>>
+                            <label for="input_<?php echo $j; ?>" ><?php echo $zone->public_name; ?></label>
+                        </li>
+                        <?php
+
+                            $j++;
+                            endforeach; ?>
+                    </ul>
+
+                    <h4>Précisez les classes de matières</h4>
+                    <ul>
+                        <?php
+
+                        foreach($classes as $classe) :
+
+
+
+
+
+                            $f_classes  =   $fiche->classes();
+                            if(in_array($classe->classe, $f_classes))
+                            {
+                                $checked =   " checked ";
+                            }else{
+                                $checked =   " ";
+                            }
+
+                            ?>
+
+                            <li>
+                                <input id="input_<?php echo $j; ?>" class="classes_<?php echo $classe->classe; ?>" type="checkbox" name="classes[]" value="<?php echo $classe->classe; ?>" <?php echo $checked; ?>>
+                                <label for="input_<?php echo $j; ?>" ><?php echo $classe->classe . " - ". ucfirst($classe->Description); ?></label>
+                            </li>
+                            <?php
+
+                            $j++;
+                        endforeach; ?>
+                    </ul>
+
+
+                    <h4>Précisez les modes de transport</h4>
+                    <ul>
+                        <?php
+
+                            foreach($mdtransp as $mode) :
+
+                                $f_mdtransp  =   $fiche->mdtransp();
+                                if(in_array($mode, $f_mdtransp))
+                                {
+                                    $checked =   " checked ";
+                                }else{
+                                    $checked =   " ";
+                                }
+                                ?>
+
+                                <li>
+                                    <input id="input_<?php echo $j; ?>" class="mdtransp_<?php echo $mode; ?>" type="checkbox" name="mdtransp[]" value="<?php echo $mode; ?>" <?php echo $checked; ?>>
+                                    <label for="input_<?php echo $j; ?>" ><?php echo ucfirst($mode); ?></label>
+                                </li>
+                                <?php
+
+                                $j++;
+                            endforeach; ?>
+                    </ul>
+                </section>
+                <?php
+            }
+			?>
+
 			<?php
 			
 		}
