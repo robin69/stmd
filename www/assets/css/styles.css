@@ -173,6 +173,12 @@ a.connexion:hover{
 	height: 96px;
 }
 
+.search input[type='search']
+{
+    -webkit-appearance: none;
+    height:40px;
+}
+
 input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="url"], select, textarea
 {
 	height: 38px;
@@ -1043,13 +1049,16 @@ a.conseiller_md span{
 	width:822px;
 	margin:30px auto 0;
 }
-.home_search input[type=search]{
+.home_search input[type=search], .home_search input#string{
+
 	width:730px;
-	height:38px;
+    -webkit-appearance: none;
+	height:40px;
 	padding-left:10px;
 	float:left;
 	border:1px solid #dbdbdb;
 	font-style:italic;
+    font-size: 14px;
 	color:#b1b2b2;
 }
 .home_search button{
