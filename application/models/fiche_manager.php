@@ -434,29 +434,6 @@ class Fiche_manager extends CI_Model
 	}
 
 
-    /**
-     * Permet de retrouver la ou les fiches qui appartiennent à un utilisateur donné.
-     *
-     * @param $user_id : ID de l'utilisateur
-     *
-     * @return array : La liste de résultats.
-     */
-    public function get_user_fiche($user_id)
-    {
-        $query = $this->db->get_where($this->tbl_fiche, array("user_id"=>$user_id));
-        $result = $query->result_array();
-
-        //Si il y a une fiche on alimente l'objet
-        if(count($result)>=1)
-        {
-
-            $this->hydrate($result[0]);
-            return true;
-        }
-
-        return false;
-    }
-	
 	public function search_fiche($string,$offset,$published=TRUE,$count=FALSE)
 	{
 
@@ -519,12 +496,12 @@ class Fiche_manager extends CI_Model
 
 		$results = $query->result_array();
 		$nbr_results = count($results);
-		
 
 
 
 
-		
+
+
 		if($count==FALSE)
 		{
 			if($nbr_results >=1)
@@ -535,16 +512,16 @@ class Fiche_manager extends CI_Model
 
 					$cats = $this->get_fiche_cats($fiche["id_fiche"]); //On récupère les infos de catégorie
 					$results[$key]["category"]=$cats;					//On les ajoute aux résultats.
-					
+
 				}
 			}
-			
+
 			return $results;
 		}else{
 			return $nbr_results;
 		}
 
-	
+
 	}
 	
 
@@ -566,7 +543,7 @@ class Fiche_manager extends CI_Model
 
 
 	}
-
+	
 
 	/**********************************
 	*
@@ -676,8 +653,8 @@ class Fiche_manager extends CI_Model
 
 
 	}
-	
-	
+
+
 	/******
 	*
 	*	met à jour l'enregistrement de l'objet
@@ -705,9 +682,9 @@ class Fiche_manager extends CI_Model
 				$this->db->set($field,$value);
 			}
 		}
-		$this->db->where("id_fiche",$fiche_array["id_fiche"]);		
-		$this->db->update($this->tbl_fiche);		
-		
+		$this->db->where("id_fiche",$fiche_array["id_fiche"]);
+		$this->db->update($this->tbl_fiche);
+
 
 		//On supprime les enregs présents dans les tables de liaison
 		$this->db->delete($this->tbl_fiche_cats, array("fiche_id" 	=> $fiche_array["id_fiche"]));
@@ -725,13 +702,13 @@ class Fiche_manager extends CI_Model
         $this->_add_classes($fiche_array);
 
 
-		
+
 		return;
 
-		
+
 	}
-
-
+	
+	
     /*********************************************
      * Permet de lister l'ensemble des fiches qui
      * nécessitent d'être modérée.
@@ -788,6 +765,91 @@ class Fiche_manager extends CI_Model
     }
 
 
+    /**********************************
+     * Calcul l'état de remplissage de la fiche
+     * Basés sur le nombre de champs obligatoires renseignés.
+     *
+     */
+    public function calul_progress_bar($id_user)
+    {
+        //Le pourcentage de progression est calculé sur le nombre de champs (obligatoires) renseignés dans la fiche
+        $required_fields = array(
+            "nom_contact",
+            "prenom_contact",
+            "tel_contact",
+            "email_contact",
+            "raison_sociale",
+            "adr1",
+            "cp",
+            "ville",
+            "email_societe",
+            "tel_societe",
+            "site",
+            "facebook",
+            "description",
+            "description",
+        );
+
+        //On récupère la fiche utilisateur
+        $f = new Fiche();
+        $f->get_user_fiche($id_user);
+
+
+
+        $score = 0;
+        foreach ($required_fields as $field)
+        {
+            if($f->$field() != "" AND $f->$field() != NULL)
+            {
+                $score ++;
+            }
+        }
+
+        //Les champs représentent 80%, le classement dans une catégorie, 10%;
+        $progress = $score / count($required_fields) * 80;
+
+        //La fiche a un type : +5
+        if(count($f->types()) >=1)
+        {
+            $progress += 5;
+        }
+
+        if(count($f->categories())>=1)
+        {
+            $progress += 15;
+        }else if(count($f->zones()) >=1 AND count($f->mdtransp())>=1 AND count($f->zones()>=1)){
+            $progress += 15;
+        }
+
+
+        return $progress;
+    }
+
+
+    /**
+     * Permet de retrouver la ou les fiches qui appartiennent à un utilisateur donné.
+     *
+     * @param $user_id : ID de l'utilisateur
+     *
+     * @return array : La liste de résultats.
+     */
+    public function get_user_fiche($user_id)
+    {
+        $query = $this->db->get_where($this->tbl_fiche, array("user_id"=>$user_id));
+        $result = $query->result_array();
+
+        //Si il y a une fiche on alimente l'objet
+        if(count($result)>=1)
+        {
+
+            $this->hydrate($result[0]);
+            return true;
+        }
+
+        return false;
+    }
+
+
     /***********************************
      * Seul l'admin peut appeller cette fonction
      *
@@ -795,19 +857,21 @@ class Fiche_manager extends CI_Model
      */
 	protected function _publishing($bool)
 	{
-		if($bool)
-		{
-			//on publie
-			$this->db->set("publication_status","published");
+        if($bool)
+        {
+            //on publie
+            $this->db->set("publication_status","published");
 
-		}else{
-			//on dépublie
-			$this->db->set("publication_status","unpublished");
+        }else{
+            //on dépublie
+            $this->db->set("publication_status","unpublished");
 
 		}
 		$this->db->where("id_fiche",$this->id_fiche);
 		$this->db->update($this->tbl_fiche);
 	}
+
+
 
 
 
