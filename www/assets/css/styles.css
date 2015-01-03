@@ -856,6 +856,9 @@ margin-bottom: 10px;
 	float:right;
 	width:450px;
 }
+button{
+    text-align: center;
+}
 .valider {
     background-color: #bed373;
     color: #fff;
@@ -867,9 +870,9 @@ margin-bottom: 10px;
     font-weight: 300;
     margin: 28px 28px 20px auto;
     padding: 4px 55px;
-    text-align: center;
+    text-align: center !important;
     text-decoration: none;
-    width: 63px;
+    min-width: 63px;
 }
 .valider:hover{
 	background-color:#a1c037;
