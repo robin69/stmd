@@ -50,9 +50,11 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
         $f = new Fiche_manager();
+
         //Menu Action
-        $this->data["fiches_a_moderer"] = $f->get_fiche_to_moderate();
+        $this->data["fiches_a_moderer"]     =   $f->get_fiche_to_moderate();
         $this->data["fiches_att_paiement"]  =   $f->get_fiche_unpaid();
+        $this->data["warning_periode"]      =   $f->get_fiche_in_warning_periode();
 
         $this->load->model("Forfait");
         $forfait = new Forfait();

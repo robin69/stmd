@@ -27,6 +27,8 @@ $config["site_name"]				=	"SolutionsTMD";
 /** THEME IN USED **/
 $config["theme"]                    =   "stmd2014";
 
+$config["warning_periode"]          =   30;//30jours
+
 
 /********************
  * Réseaux Sociaux

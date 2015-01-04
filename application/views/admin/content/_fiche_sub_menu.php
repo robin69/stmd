@@ -69,6 +69,21 @@ switch($status)
                                         <div class="rule"></div>
                                         <?php endif; ?>
 
+
+                                        <?php if($fiche->payante() == true AND $fiche->date_reglement() == 0): ?>
+										<h4>Règlement</h4>
+                                        <ul class="list">
+                                            <li>
+                                                <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" >Règlement reçu</a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo site_url("admin/inscrits")."/moderate/".$id_fiche."/true"; ?>" id="reglement" onclick="">Annuler (Passer en gratuit)</a>
+                                            </li>
+										</ul>
+
+                                        <div class="rule"></div>
+                                        <?php endif; ?>
+
 										<h4>Informations relatives</h4>
 										<div class="mark_blue bt-space20">
 											

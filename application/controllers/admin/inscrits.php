@@ -343,15 +343,16 @@ class Inscrits extends CI_Controller {
 	
 	public function edit_submit()
 	{
+        //On instancie une fiche
+        $fiche = new Fiche_model();
+
+        //on nourris l'objet avec les infos du post
+        $fiche->build($this->input->post());
 
 		//On vérifie les informations envoyées
 		if($this->form_validation->run("fiche_form_modif") == TRUE)
 		{
 
-			//On instancie une fiche
-			$fiche = new Fiche_model();
-			//on nourris l'objet avec les infos du post
-			$fiche->build($this->input->post());
 			if($fiche->update())
 			{
 				//On envois un message de confirmation au formulaire
@@ -784,7 +785,29 @@ class Inscrits extends CI_Controller {
 		$this->_layout("fiche_infos_form");
 	}
 
-	
+
+    public function recieved_payment($fiche_id, $status)
+    {
+        //Instanciation de la fiche
+        $f = new Fiche($fiche_id);
+
+        //On met à jour les éléments de la fiche
+        if(!empty($fiche_id) AND $status)
+        {
+            $f->set_date_reglement(time());
+            $f->_save();
+            //Si il y a règlement, il y a forfait. Il faut donc l'activer aussi.
+            $this->load->model("Forfait");
+            $uf = new Forfait();
+            $uf->activate($f->user_id());
+        }
+
+
+        $this->edit_fiche_infos($fiche_id);
+
+
+
+    }
 	
 	
 }

@@ -234,7 +234,10 @@ class Fiche extends fiche_manager
 	
 	public function set_date_creation()
 	{
-		$this->date_creation = time();	
+        if($this->date_creation ==null OR $this->date_creation =="" OR $this->date_creation ==0){
+            $this->date_creation = time();
+        }
+
 	}
 	
 	public function set_references($references)

@@ -612,6 +612,8 @@ class Fiche_manager extends CI_Model
 			switch($args["filter_name"])
 			{
 
+                case 'unpaid'       :   $query = $this->db->where(array("payante"=>1,"date_reglement"=>0)); break;
+
 				case 'category_id'	:	$query = $this->db->join($this->tbl_fiche_cats, "fiche_has_category.fiche_id = fiche.id_fiche","inner");
 										$query = $this->db->join($this->tbl_cats, "category_id = id_category","inner");
 
@@ -646,6 +648,7 @@ class Fiche_manager extends CI_Model
 		$query = $this->db->order_by("raison_sociale", "asc");
 		//on exécute la requête
 		$query = $this->db->get();
+
 
         //echo $this->db->last_query();
 		//On génère le résultat
@@ -901,6 +904,37 @@ class Fiche_manager extends CI_Model
     {
 
         return array("route","fer","navigation");
+    }
+
+
+    /********************************************************************
+     *
+     */
+    public function get_fiche_in_warning_periode()
+    {
+
+        //On récupère le délais de warning
+        $wp_config = $this->config->item("warning_periode");
+
+        //Date de début de warning = date actuelle -12 mois
+        list($year,$month,$day,$hour,$minute,$secondes) = explode("-",date("Y-m-d-h-i-s"));
+        $limite_haute = mktime($hour,$minute,$secondes,$month-12,$day,$year);
+        $limite_basse = mktime($hour,$minute,$secondes,$month-12,$day+$wp_config,$year);
+
+
+
+        $query  =   $this->db->order_by("date_reglement","ASC");
+        $query  =   $this->db->get_where("fiche", array("payante"=>1,"temp"=>0, "date_reglement <"=>$limite_basse));
+        $result =   $query->result();
+
+        return $result;
+
+
+        //On récupère toutes les fiches qui sont payantes et dont la date de règlement est soit expirée, soit dans la période de warning
+
+
+
+
     }
 
 

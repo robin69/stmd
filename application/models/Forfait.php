@@ -24,6 +24,7 @@ class Forfait extends CI_Model{
     protected $description;
     protected $duree;
     protected $actif;
+    private   $available_status  =   array("demande","forfait_en_attente_reglement","forfait_en_cours","old");
 
 
 
@@ -40,34 +41,50 @@ class Forfait extends CI_Model{
 
     }
 
-    public function hydrate($donnees)
-    {
 
-        foreach($donnees as $key => $value)
-        {
-            $method_name = "set_".$key;
-
-
-            if(method_exists($this,$method_name))
-            {
-                $this->$method_name($value);
-            }
-        }
-    }
+    public function id() { return $this->id; }
 
 
     //Liste des getters
-    public function id() { return $this->id; }
+
+
     public function forfait_id() { return $this->forfait_id; }
+
+
     public function user_id() { return $this->user_id; }
+
+
     public function tarif() { return $this->tarif; }
+
+
     public function date_debut() { return $this->date_debut; }
+
+
     public function date_fin() { return $this->date_fin; }
+
+
     public function renouvel_from() { return $this->renouvel_from; }
+
+
     public function libelle(){return $this->libelle; }
+
+
     public function description(){return $this->description; }
+
+
     public function duree(){return $this->duree; }
+
+
     public function actif(){return $this->actif; }
+
+
+    public function set_id($id)
+    {
+        if($id != "")
+        {
+            $this->id = $id;
+        }
+    }
 
 
     //Liste des setters
@@ -91,6 +108,7 @@ class Forfait extends CI_Model{
 
     }
 
+
     public function set_tarif($tarif)
     {
 
@@ -101,23 +119,7 @@ class Forfait extends CI_Model{
         }
     }
 
-    public function set_date_debut($date)
-    {
-        if($date != '')
-        {
-            $this->date_debut = $date;
-        }
 
-    }
-
-
-    public function set_date_fin($date)
-    {
-        if($date != '')
-        {
-            $this->date_fin = $date;
-        }
-    }
     public function set_renouvel_from($id)
     {
 
@@ -143,9 +145,11 @@ class Forfait extends CI_Model{
         $this->clean_demandes();
 
         $query  =   $this->db->join("forfaits", "forfaits.id = user_has_forfaits.forfait_id","inner");
+        $query  =   $this->db->order_by("date_demande", "DESC");
         $query  =   $this->db->get_where("user_has_forfaits", array("user_id"=>$id_user));
+
         $results = $query->result();
-        //echo $this->db->last_query();
+        echo $this->db->last_query();
 
         return $results;
     }
@@ -156,7 +160,7 @@ class Forfait extends CI_Model{
      * de forfait utilisateur pour ne garder que les dernières demandes
      * pour chaque.
      * Note : une demande est caractérisée par le fait qu'elle n'a ni
-     * date de début, ni date de fin.
+     * date de début, ni date de fin + qu'elle a le status "demande"
      *
      * @return (array) la liste des utilisateurs ayant une demande active.
      */
@@ -164,7 +168,7 @@ class Forfait extends CI_Model{
     {
         //On sélectionne toutes les fiches utilisateur classée par date décroissante
         $query  =   $this->db->order_by("date_demande","DESC");
-        $query  =   $this->db->get_where("user_has_forfaits", array("date_debut"=>NULL,"date_fin"=>NULL));
+        $query  =   $this->db->get_where("user_has_forfaits", array("date_debut"=>NULL,"date_fin"=>NULL, "status"=>"demande"));
         $demandes =   $query->result();
 
         //Pour chaque utilisateur on supprime tous les enregistrement sauf le plus récent
@@ -215,42 +219,6 @@ class Forfait extends CI_Model{
     }
 
 
-    /************************************
-     * Détermine s'il s'agit d'un nouvel
-     * enregistrement ou d'un ancien, et de fait
-     * effectue une mise à jour ou
-     * crée un nouvel enregistrement.
-     *
-     */
-    public function save()
-    {
-        $data = array();
-        $exception = array(
-            "libelle",
-            "description",
-            "duree",
-            "actif"
-        );
-
-        foreach ($this as $key => $value)
-        {
-            if(!in_array($key, $exception)){
-                $data[$key] = $value;
-            }
-
-        }
-
-
-        if(empty($this->id))
-        {
-            $this->db->insert("user_has_forfaits", $data);
-        }else{
-            $this->db->where("id",$this->id);
-            $this->db->update("user_has_forfaits", $data);
-        }
-    }
-
-
     /***********
      * Retourne la liste des demandes de chnagement de forfait
      * effectuées par les utilisateurs.
@@ -282,6 +250,176 @@ class Forfait extends CI_Model{
     }
 
 
+    /******************************************************
+     * Function qui permet d'activer un forfait. L'activation d'un forfait ne peut avoir lieu que si l'utilisateur
+     * a fait une demande. L'activation consiste à ajouter une date de début et de fin + changer le status d'une demande à
+     * forfait_en_cours.
+     *
+     * @param $user_id
+     *
+     * @return bool
+     */
+    public function activate($user_id)
+    {
+
+        //On récupère la dernière demande
+        $demande =   $this->get_user_latest_demande($user_id);
+
+        if(!empty($demande))
+        {
+            $this->hydrate($demande); //on alimente l'objet actuel avec la demande en vue de sa transformation en forfait actif
+
+            //On passe le forfait actuel en old s'il y en a un
+            $forfait_courant = $this->get_user_current_forfait($user_id);
+            if(!empty($forfait_courant))
+            {
+                $old_forfait = new Forfait();
+                $old_forfait->hydrate($forfait_courant);
+                $old_forfait->set_status("old");
+                $old_forfait->save();
+            }
+
+            //On prépare la demande pour qu'elle se transforme en forfait actif
+            list($year,$month,$day) = explode('-',date("Y-m-d"));
+            $this->set_date_debut(time());
+            $date_fin = mktime(23,59,59,$month,$day,($year + 1));
+            $this->set_date_fin($date_fin);
+            $this->set_status("forfait_en_cours");
+            $this->clean_demandes();//On nettoie les demandes pour ne garder que la dernière
+            $this->save();
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /******************************************
+     * Permet de récupérer la dernière demande effectuée par
+     * un utilisateur.
+     * + nettoyage des anciennes demandes au passage.
+     * @param $user_id
+     *
+     * @return mixed
+     */
+    public function get_user_latest_demande($user_id)
+    {
+        $query  =   $this->db->order_by("date_demande", "DESC");
+        $query  =   $this->db->get_where("user_has_forfaits", array("user_id"=>$user_id, "status"=>"demande"));
+        $result = $query->row();
+        return $result;
+    }
+
+
+    public function hydrate($donnees)
+    {
+
+        foreach($donnees as $key => $value)
+        {
+            $method_name = "set_".$key;
+
+
+            if(method_exists($this,$method_name))
+            {
+                $this->$method_name($value);
+            }
+        }
+    }
+
+
+    /**********************************************
+     * Récupère LE forfait en cours pour un utilisateur donné
+     *
+     * @param $user_id
+     *
+     * @return mixed
+     */
+    public function get_user_current_forfait($user_id)
+    {
+        $query  =   $this->db->get_where("user_has_forfaits", array("user_id"=>$user_id, "status"=>"forfait_en_cours"));
+        $result = $query->row();
+        return $result;
+    }
+
+
+    /**************************************
+     * Le status du forfait détermine s'il s'agit d'une demande
+     * de changement ou si la demande a été acceptée, etc.
+     * Les status disponibles sont renseignés dans la base dans le
+     * champ status en enum, et dans le code, dans cette classe,
+     * sous la forme d'un tableau privé.
+     * Avant d'attribuer un status, on vérifie donc que celui demandé correspond
+     * bien a un status existant.
+     *
+     * @param $status
+     */
+    public function set_status($status)
+    {
+        if(in_array($status,$this->available_status))
+        {
+            $this->status = $status;
+        }
+
+    }
+
+
+    /************************************
+     * Détermine s'il s'agit d'un nouvel
+     * enregistrement ou d'un ancien, et de fait
+     * effectue une mise à jour ou
+     * crée un nouvel enregistrement.
+     *
+     */
+    public function save()
+    {
+        $data = array();
+        $exception = array(
+            "libelle",
+            "description",
+            "duree",
+            "actif",
+            "available_status"
+        );
+
+        foreach ($this as $key => $value)
+        {
+            if(!in_array($key, $exception)){
+                $data[$key] = $value;
+            }
+
+        }
+
+
+
+        if(empty($this->id))
+        {
+            $this->db->insert("user_has_forfaits", $data);
+        }else{
+
+            $this->db->where("id",$this->id);
+            $this->db->update("user_has_forfaits", $data);
+        }
+    }
+
+
+    public function set_date_debut($date)
+    {
+        if($date != '')
+        {
+            $this->date_debut = $date;
+        }
+
+    }
+
+
+    public function set_date_fin($date)
+    {
+        if($date != '')
+        {
+            $this->date_fin = $date;
+        }
+    }
 
 
 } 

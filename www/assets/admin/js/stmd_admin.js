@@ -56,6 +56,20 @@ $(document).ready(function(){
     $("#transporteurs_md").trigger("change");
 
 
-    //Lorsqu'on décoche un type, il faut décocher toutes les catégories du type.
+    /********
+     * Dans les pages de détail des fiches (admin), l'administrateur
+     * peut déclarer une fiche comme réglée. Une confirmation lui
+     * ait demandée lorsqu'il clic sur Règlement Reçu.
+     */
+    $("#reglement").click(function(){
+
+        var response = confirm("Confirmez-vous avoir reçu le règlement ?");
+        if(response == false){
+            return false;
+        }else{
+            return true;
+        }
+        console.log(response);
+    });
 
 });

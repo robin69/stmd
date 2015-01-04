@@ -27,7 +27,7 @@
 									<li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/filter_name/publication_status/filter_value/published">Publiés</a></li>
 									<li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/filter_name/publication_status/filter_value/unpublished">Non publiés</a></li>
                                     <li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/filter_name/temp/filter_value/1">A modérer</a></li>
-                                    <li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/filter_name/temp/filter_value/1">En attente de règlement</a></li>
+                                    <li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/filter_name/unpaid">En attente de règlement</a></li>
 								</ul>
 								
 								<div class="rule"></div>
