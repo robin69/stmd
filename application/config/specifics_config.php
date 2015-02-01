@@ -30,6 +30,10 @@ $config["theme"]                    =   "stmd2014";
 $config["warning_periode"]          =   30;//30jours
 
 
+/** ID de l'utilisateur par défaut lorsqu'on crée une nouvelle Fiche **/
+$config["default_account_for_new_fiche"] = 1; //Correspond à l'utilisateur Guillaume Lecoz.
+
+
 /********************
  * Réseaux Sociaux
  ****************/

@@ -79,61 +79,36 @@ class Fiche extends fiche_manager
 				$this->$method_name($value);
 			}
 		}
+
+        /*****
+         * On s'occupe des valeurs obligatoires dans la base
+         */
+        //Si "payante" n'est pas définie on le met à FALSE
+        if(!in_array("payante",$donnees))
+        {
+            $this->set_payante(FALSE);
+        }
+
+        if(!in_array("temp",$donnees))
+        {
+            $this->set_temp();
+        }
+
+
+
 	}
-	
-	/********************
-	*
-	*	Les accesseurs de l'objet
-	*
-	*
-	*
-	*
-	*
-	***************************/
-	public function id_fiche(){ return $this->id_fiche; }
-	public function user_id(){ return $this->user_id; }
-	public function nom_contact(){ return $this->nom_contact; }
-	public function prenom_contact(){ return $this->prenom_contact; }
-	public function tel_contact(){ return $this->tel_contact; }
-	public function email_contact(){ return $this->email_contact; }
-	public function raison_sociale(){ return $this->raison_sociale; }
-	public function adr1(){ return $this->adr1; }
-	public function adr2(){ return $this->adr2; }
-	public function ville(){ return $this->ville; }
-	public function cp(){ return $this->cp; }
-	public function email_societe(){ return $this->email_societe; }
-	public function tel_societe(){ return $this->tel_societe; }
-	public function fax(){ return $this->fax; }
-	public function site(){ return $this->site; }
-	public function facebook(){ return $this->facebook; }
-	public function twitter(){ return $this->twitter; }
-	public function googleplus(){ return $this->googleplus; }
-	public function linkedin(){ return $this->linkedin; }
-	public function viadeo(){ return $this->viadeo; }
-	public function description(){ return $this->description; }
-	public function competences(){ return $this->competences; }
-	public function certifications(){ return $this->certifications; }
-	public function references(){ return $this->references; }
-	public function date_creation(){ return $this->date_creation; }
-	public function publication_status(){ return $this->publication_status; }
-	public function categories(){ return $this->categories; }
-	public function types(){ return $this->types; }
-	public function zones(){ return $this->zones; }
-    public function mdtransp(){ return $this->mdtransp;}
-    public function classes(){ return $this->classes;}
-	public function date_reglement(){ return $this->date_reglement; }
-	public function payante(){ return $this->payante; }
-	public function temp(){ return $this->temp;}
 
-	
 
-    public function set_classes($classes){
-        $this->classes =   $classes;
-    }
-	
-	public function set_mdtransp($mdtransp){
-        $this->mdtransp =   $mdtransp;
-    }
+	public function set_payante($is_payante = FALSE)
+	{
+		if($is_payante == TRUE)
+		{
+			$this->payante = 1;
+		}else{
+			$this->payante = 0;
+		}
+
+	}
 
 
     /***********************************
@@ -147,23 +122,132 @@ class Fiche extends fiche_manager
 	{
 		$this->temp = $bool;
 	}
+
+
+	/********************
+	*
+	*	Les accesseurs de l'objet
+	*
+	*
+	*
+	*
+	*
+	***************************/
+	public function id_fiche(){ return $this->id_fiche; }
+
+
+	public function user_id(){ return $this->user_id; }
+
+
+	public function nom_contact(){ return $this->nom_contact; }
+
+
+	public function prenom_contact(){ return $this->prenom_contact; }
+
+
+	public function tel_contact(){ return $this->tel_contact; }
+
+
+	public function email_contact(){ return $this->email_contact; }
+
+
+	public function raison_sociale(){ return $this->raison_sociale; }
+
+
+	public function adr1(){ return $this->adr1; }
+
+
+	public function adr2(){ return $this->adr2; }
+
+
+	public function ville(){ return $this->ville; }
+
+
+	public function cp(){ return $this->cp; }
+
+
+	public function email_societe(){ return $this->email_societe; }
+
+
+	public function tel_societe(){ return $this->tel_societe; }
+
+
+	public function fax(){ return $this->fax; }
+
+
+	public function site(){ return $this->site; }
+
+
+	public function facebook(){ return $this->facebook; }
+
+
+	public function twitter(){ return $this->twitter; }
+
+
+	public function googleplus(){ return $this->googleplus; }
+
+
+	public function linkedin(){ return $this->linkedin; }
+
+
+	public function viadeo(){ return $this->viadeo; }
+
+
+	public function description(){ return $this->description; }
+
+
+	public function competences(){ return $this->competences; }
+
+
+	public function certifications(){ return $this->certifications; }
+
+
+	public function references(){ return $this->references; }
+
+
+	public function date_creation(){ return $this->date_creation; }
+
+
+	public function publication_status(){ return $this->publication_status; }
+
+
+	public function categories(){ return $this->categories; }
+
+
+	public function types(){ return $this->types; }
+
+
+	public function zones(){ return $this->zones; }
+
+
+    public function mdtransp(){ return $this->mdtransp;}
+
+
+    public function classes(){ return $this->classes;}
+
+
+	public function date_reglement(){ return $this->date_reglement; }
+
+	
+	public function payante(){ return $this->payante; }
+	
+
+	public function temp(){ return $this->temp;}
+
+
+    public function set_classes($classes){
+        $this->classes =   $classes;
+    }
 	
 	
+	public function set_mdtransp($mdtransp){
+        $this->mdtransp =   $mdtransp;
+    }
 	
+
 	public function set_date_reglement($date)
 	{
 		$this->date_reglement = $date;
-	}
-	
-	public function set_payante($is_payante = FALSE)
-	{
-		if($is_payante == TRUE)
-		{
-			$this->payante = 1;
-		}else{
-			$this->payante = 0;
-		}
-		
 	}
 	
 	
@@ -496,6 +580,12 @@ class Fiche extends fiche_manager
 
 
 		}
+
+
+
+
+
+
 		//Si l'objet à un id, on fait un update.
 		if($this->id_fiche != "")
 		{

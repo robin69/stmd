@@ -317,6 +317,10 @@ class Inscrits extends CI_Controller {
 			if($this->form_validation->run("fiche_infos_add") == TRUE)
 			{
 				$fiche->hydrate($this->input->post());	//On alimente l'objet
+
+
+
+
 				$id_fiche = $fiche->_save();
 
 

@@ -68,17 +68,29 @@ class Fiche_manager extends CI_Model
 	public function add($fiche_array)
 	{
 		//comme c'est une création, on crée la date_creation
-		$fiche_array["date_creation"] = time();					//donnedate et heure courante pour la date de création
+		$fiche_array["date_creation"] = time();					//donne date et heure courante pour la date de création
 		if(!isset($fiche_array["publication_status"]) OR $fiche_array["publication_status"] == "")
 		{
 			$fiche_array["publication_status"]	= "unpublished";	//Le status de publication par défaut est à "unpublished"					
 		}
+
+
 
 		
 		$exception_field = array("categories","types","zones","mdtransp","classes");
 		//On met à jour les informations principales
 		foreach($fiche_array as $field=>$value)
 		{
+
+            /*******************
+             * Dans le cas d'une création de fiche depuis l'admin,
+             * la fiche n'a pas de user_id. Il faut en attribué
+             * un parce que celui-ci est obligatoire : unne fiche
+             * ne peut appartenir à aucun compte utilisateur.
+             */
+            if($field == "user_id" && $value ==NULL){
+                $value = $this->config->item("default_account_for_new_fiche");
+            }
 
 			if(!in_array($field,$exception_field))
 			{
