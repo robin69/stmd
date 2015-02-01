@@ -602,6 +602,8 @@ class Fiche_manager extends CI_Model
 					"type"			=> "", //Type transporteurs_md, experiteurs_md, etc...
 					"alaune"		=> "", //Une fiche est à la une si elle est payante.
 					"offset"		=> "",
+		            "order_by_field => "",
+		            "order_by_order => "",
 					"limit"			=> ""
 				);
 		*/
@@ -656,8 +658,17 @@ class Fiche_manager extends CI_Model
             $this->db->where(array("publication_status"=>"published","temp"=>0));
         }
 
-		$query = $this->db->order_by("payante", "desc");
-		$query = $this->db->order_by("raison_sociale", "asc");
+
+        if(!isset($args["order_by_field"]) OR empty($args["order_by_field"])){
+            $query = $this->db->order_by("payante", "desc");
+            $query = $this->db->order_by("raison_sociale", "asc");
+        }else{
+            $query = $this->db->order_by($args["order_by_field"],$args["order_by_order"]);
+        }
+
+
+        //Classement par défaut (en admin)date de création la plus récente
+        $query - $this->db->order_by("date_creation", "desc");
 		//on exécute la requête
 		$query = $this->db->get();
 

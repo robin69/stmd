@@ -31,6 +31,16 @@
 								</ul>
 								
 								<div class="rule"></div>
+
+                                <h3>Classer la liste.</h3>
+                                <h4>Ordre de classement</h4>
+                                <ul class="list">
+                                    <li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/" >Tous</a></li>
+                                    <li><a href="<?php echo site_url("admin/inscrits"); ?>/liste/order_by_field/date_creation/order_by_order/desc">Les plus récente d'abord</a></li>
+
+                                </ul>
+
+                                <div class="rule"></div>
 								
 								<?php
 									if(isset($categories_principales)){
