@@ -109,7 +109,7 @@
                             </li>
                             <li class=""><label for="class_6_2">Classe 6.2 : les matières infectieuses</label>
                                 <input type="checkbox" name="classe[]" id="class_6_2" value="6.2" />
-                            </li>
+         git c                   </li>
                             <li class=""><label for="class_7">Classe 7 : les matières radioactives</label>
                                 <input type="checkbox" name="classe[]" id="class_7" value="7" />
                             </li>
