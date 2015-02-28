@@ -8,7 +8,7 @@
 	    <div class="container_left">
 
 	        <span class="region"></span>
-	        <h2>Région d’intervention</h2>
+	        <h2>Régions d’intervention</h2>
 	        <p>Choisissez la région dans laquelle<br>
 	          le conseiller à la sécurité devra intervenir.<br>
 	          Un conseiller à la sécurité peut intervenir<br>
@@ -19,7 +19,7 @@
 	    <div class="container_middle center">
 
 	        <span class="classe"></span>
-	        <h2>Classe de marchandises</h2>
+	        <h2>Classes de marchandises</h2>
 	        <p>La classe de marchandises dangereuses<br>
 	          correspond au domaine de spécialisation<br>
 	          du conseiller à la sécurité.<br>
@@ -30,7 +30,7 @@
 	    <div class="container_right center">
 
 	        <span class="mode"></span>
-	        <h2>Mode de transport</h2>
+	        <h2>Modes de transport</h2>
 	        <p>Par la route, le train ou le bateau.<br>
 	          Choisissez le mode que vous souhaitez<br>
 	          emprunter pour le transport<br>
@@ -45,7 +45,7 @@
 			  <div class="counsel">
 			    
 			    <div id="region_selector">
-					  <h3 id="region_intervention">1- Région d’intervention</h3>
+					  <h3 id="region_intervention">1- Régions d’intervention</h3>
 					  <div>
 					  <br />
 					  		<ul>
@@ -66,11 +66,12 @@
 					  		</ul>	
 					  		<p><img src="<?php echo base_url("assets/img"); ?>/map.png" alt=""/></p>
 					  </div>
-					   <span class="arrow-big"></span>
-					  <h3 id="classe_marchandises">2- Classe de marchandises</h3>
+					   <!--<span class="arrow-big"></span>-->
+
 
 			    </div>
 				<div id="counsel_class_selection">
+                    <h3 id="classe_marchandises">2- Classes de marchandises</h3>
                     <div class="counsel_block">
                         <ul>
                             <!-- 				    <li class="check_list">Classe 1 : les explosifs</li> -->
@@ -121,12 +122,13 @@
                         </ul>
 
                     </div>
+                    <!--<span class="arrow-big"></span>-->
 				</div>
 
 			    
 			    <div class="clear"></div>
-			    <span class="arrow-big"></span>
-                  <h3 id="mode_transport">3- Mode de transport</h3>
+
+                  <h3 id="mode_transport">3- Modes de transport</h3>
 
 				<div class="block_1-3">
                         <div class="left">
@@ -152,7 +154,7 @@
 
                   </div>
 			    <div class="clear"></div>
-			    <span class="arrow-big"></span>
+			    <!--<span class="arrow-big"></span>-->
 
 				    <h1 id="search_result_nbr">Sélectionnez vos critères de recherche ci-dessus</h1>
 				    <a class="new_search" href="rch-conseiller.html#">Effectuer une nouvelle recherche</a>
@@ -166,9 +168,9 @@
                 <h4>VOTRE RECHERCHE</h4>
             </div>
             <div class="">
-                <a href="#region_intervention" onclick="scrollDownTo('region_intervention');"><span class="region"></span>Région d'intervention</a>
-                <a href="#classe_marchandises" onclick="scrollDownTo('classe_marchandises');"><span class="classe"></span>Classe des marchandises</a>
-                <a href="#mode_transport" onclick="scrollDownTo('mode_transport');"><span class="mode"></span>Mode de transport</a>
+                <a href="#region_intervention" onclick="scrollDownTo('region_intervention');"><span class="region"></span>Régions d'intervention</a>
+                <a href="#classe_marchandises" onclick="scrollDownTo('classe_marchandises');"><span class="classe"></span>Classes des marchandises</a>
+                <a href="#mode_transport" onclick="scrollDownTo('mode_transport');"><span class="mode"></span>Modes de transport</a>
 
             </div>
 

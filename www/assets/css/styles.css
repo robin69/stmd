@@ -29,10 +29,14 @@ body {
 	overflow-x:hidden;
 }
 body#home{
-	background:url("../img/bg.jpg") repeat-x scroll 0 -40px;
+	/*background:url("../img/bg.jpg") repeat-x scroll 0 -40px;*/
+    background: -moz-linear-gradient(top, white 70%, #F8F8F8);
+    background: -webkit-gradient(top, white 70%, #F8F8F8);
+    background: linear-gradient(to bottom, white 70%, #F8F8F8);
 }
 body#conseiller{
 	background:url("../img/bg_conseiller.jpg") repeat-x;
+    /*background: linear-gradient(0deg, white, #F8F8F8);*/
 }
 .clear {
 	clear: both
@@ -617,6 +621,8 @@ a.select_offer:hover{
 	margin-top:85px;
 }
 .arrow-big{
+    position:relative;
+    bottom:80px;
 	width:77px;
 	height:32px;
 	margin:100px auto;
@@ -1781,6 +1787,12 @@ a.close{
 }
 
 /** FORMATAGE DU FORMULAIRE DE RECHERCHE D'UN CAS **/
+#region_selector {
+    height: 570px;
+}
+#counsel_class_selection{
+    height:620px;
+}
 #region_selector p{
 	display: inline-block;
 	width: 45%;
@@ -1815,7 +1827,7 @@ a.close{
 
 	width: 45%;
 	vertical-align: top;
-	height: 100%;
+	/*height: 100%;*/
     margin:0;
     padding:0;
 }
