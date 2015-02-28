@@ -54,7 +54,7 @@
     /****
      * TRANSPORTEURS MD
      */
-$route['annuaire/transporteurs-md-adr/cat-(.*)/(.*)'] 				= 	"annuaire/show_results_cat/transporteurs_md/$1/$2";
+    $route['annuaire/transporteurs-md-adr/cat-(.*)/(.*)'] 			= 	"annuaire/show_results_cat/transporteurs_md/$1/$2";
     $route['annuaire/transporteurs-md-adr/cat-(.*)'] 				= 	"annuaire/show_results_cat/transporteurs_md/$1";
     //$route['annuaire/transporteurs_md/cat-(.*)'] 				    = 	"annuaire/show_results_cat/transporteurs_md/$1";
     $route['annuaire/transporteurs-md-adr']							=	"annuaire/cat_prestas_tmd";

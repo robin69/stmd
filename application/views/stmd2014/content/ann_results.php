@@ -152,7 +152,7 @@ if(isset($alaune) AND count($alaune)>=1) :
 									{
 										if($i>=1){ echo "<span> - "; }else{ echo "<span>";}
 										?>
-											<a href="<?php echo base_url("annuaire/".$domaine)."/cat-".$cat["slug"]; ?>"><?php echo $cat["public_name"]; ?></a></span> 
+											<a href="<?php echo base_url("annuaire/".$type_guid)."/cat-".$cat["slug"]; ?>"><?php echo $cat["public_name"]; ?></a></span>
 										<?php
 										
 									}

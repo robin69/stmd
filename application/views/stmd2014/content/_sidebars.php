@@ -19,7 +19,7 @@
 											foreach($menu_categories as $key=>$cat):
 											$i++;
 									?>
-										<li class="item<?php echo $i; ?>" id="one"><a href="<?php echo base_url("annuaire/".$domaine); ?>/cat-<?php echo $cat["slug"]; ?>"><?php echo $cat["public_name"]; ?> (<?php echo $cat["nbr_fiche"]; ?>)</a>
+										<li class="item<?php echo $i; ?>" id="one"><a href="<?php echo base_url("annuaire/".$type_guid); ?>/cat-<?php echo $cat["slug"]; ?>"><?php echo $cat["public_name"]; ?> (<?php echo $cat["nbr_fiche"]; ?>)</a>
 										<?php
 										if(count($cat["sous_cats"])>=1)
 										{

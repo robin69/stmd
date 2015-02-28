@@ -179,6 +179,10 @@ Les rubriques présentées ci-dessous vous aideront à trouver le prestataire qu
 		//Si il y a un numéro de page on le récupère via le troisième argument facultatif
 
 
+        //On récupère l'url SEO en fonction du domaine demandé
+        $g = new Guid_model();
+        $this->data["type_guid"]    =   $g->get_guid("types",$domaine);   //On récupère le guid du type
+
 		$args = array(
 			"filter_name"	=> 	"category_id",
 			"filter_value"	=>	$cat["id_category"],
