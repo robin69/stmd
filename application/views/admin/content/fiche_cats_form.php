@@ -86,7 +86,15 @@
                            // var_dump($t);
                             //On récupère les catégories du type
                             $c = new Category;
-                            $cats = $c->get_cat_by_type($t->slug, TRUE);
+                           // $cats = $c->admin_get_cats_sscats_by_type($t->slug);
+                            $cats = $c->admin_get_cats_sscats_by_type2($t->slug);
+
+
+                            //var_dump($cats);
+
+
+
+
 
 
                             //Affichage des box de classement pour les prestas
@@ -105,17 +113,31 @@
                                             <ul>
                                             <?php
 
+
+
+                                                $cat_set    =array();
+                                                $sscat_set  =array();
                                                     foreach($cats as $cat) :
                                                         $j++;
+                                                        /*$is_cat     = false;
+                                                        $is_sscat   =   false;
 
-                                                        //On récupère les sous-catégorie si cette catégorie en a.
-                                                        $ss_cats = (array)$c->get_child($cat["id_category"]);
+                                                        //Il s'agit d'un domaine
+                                                        if(!in_array($cat["id_cat"],$cat_set)){
+                                                            array_push($cat_set,$cat["id_cat"]);
+                                                            $is_cat =   true;
+
+                                                        }elseif(!in_array($cat["id_sscat"],$sscat_set)){
+                                                            //Il s'agit d'une sous-categorie
+                                                            array_push($sscat_set,$cat["id_sscat"]);
+                                                            $is_sscat =   true;
+                                                        }else{
+                                                            die("Erreur:: une catégorie n'est ni une catégorie ni une sous catégorie");
+                                                        }*/
 
 
 
-
-
-                                                        if(count($ss_cats)>=1) {
+                                                        if(count($cat->sscats)>=1) {
                                                             $hasSubCats = "has_sscats";
                                                             $subClassId = "ss_cat_".$j;
                                                         }else{
@@ -123,34 +145,50 @@
                                                         }
 
 
+                                                      // var_dump($cat);
 
 
 
 
+
+
+
+                                                        //On récupère les catégories de la fiche
                                                         $f_cat = $fiche->categories();
 
-                                                        if(in_array($cat["id_category"], $f_cat))
-                                                        {
-                                                            $checked = " checked ";
-                                                        }else{
-                                                            $checked = "";
+                                                        //Si la fiche a des catégories affectées, on les compare avec la catégorie courante
+                                                        if(is_array($f_cat)){
+                                                            if(in_array($cat->id_category, $f_cat))
+                                                            {
+                                                                $checked = " checked ";
+                                                            }else{
+                                                                $checked = "";
+                                                            }
                                                         }
 
 
+                                                       // var_dump($cat);
 
+
+
+
+                                                        //Si il s'agit d'une
                                                         ?>
 
-                                                        <li><input  id="input_<?php echo $j; ?>" class="classement_cat cat_<?php echo $cat["id_category"]; ?> <?php echo $hasSubCats; ?>" type="checkbox" name="categories[]" value="<?php echo $cat["id_category"]; ?>" <?php echo $checked; ?>>
-                                                            <label for="input_<?php echo $j; ?>"><?php echo $cat["public_name"]; ?></label>
+                                                        <li><input  id="input_<?php echo $j; ?>" class="classement_cat cat_<?php echo $cat->id_category; ?> <?php echo $hasSubCats; ?>" type="checkbox" name="categories[]" value="<?php echo $cat->id_category; ?>" <?php echo $checked; ?>>
+                                                            <label for="input_<?php echo $j; ?>"><?php echo $cat->public_name; ?></label>
                                                             <?php
 
-                                                                if(count($ss_cats)>=1):
+                                                                /***
+                                                                 * Si la catégorie a une sous-catégorie
+                                                                 */
+                                                                if(count($cat->sscats)>=1):
                                                                     ?>
                                                                     <ul class="ss_cat ss_cat_<?php echo $j; ?>" style="display: ;">
-                                                                        <?php foreach($ss_cats as $key_sscat => $ss_cat ):
+                                                                        <?php foreach($cat->sscats as $key => $sscat):
                                                                             $j++;
 
-                                                                            if(in_array($ss_cat->id_category, $f_cat))
+                                                                            if(in_array($sscat->id_category, $f_cat))
                                                                             {
                                                                                 $checked = " checked ";
                                                                             }else{
@@ -158,8 +196,8 @@
                                                                             }
 
                                                                             ?>
-                                                                            <li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $ss_cat->id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $ss_cat->id_category; ?>" <?php echo $checked; ?>>
-                                                                                <label for="input_<?php echo $j; ?>" ><?php echo $ss_cat->public_name; ?></label></li>
+                                                                            <li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $sscat->id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $sscat->id_category; ?>" <?php echo $checked; ?>>
+                                                                                <label for="input_<?php echo $j; ?>" ><?php echo $sscat->public_name; ?></label></li>
                                                                         <?php endforeach; ?>
                                                                     </ul>
                                                                 <?php endif; ?>
@@ -189,7 +227,7 @@
                                         <ul>
                                         <?php
 
-                                            //var_dump($zones);
+
 
 
                                         //On liste les zones

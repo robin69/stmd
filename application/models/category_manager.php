@@ -260,9 +260,171 @@ class Category_manager extends CI_Model
 		}
 		/* echo $this->db->last_query(); */
 
+
+        //var_dump($cats);
+
+
+
 		return $cats;
 
 	}
+
+
+    /***********************************************
+     * Retourne l'intégralité des catégories paramétrées
+     * pour le site avec leur sous catégories.
+     *
+     * @param $type
+     * @return $return
+     */
+    public function admin_get_cats_sscats_by_type($type)
+    {
+
+        //$type="expediteurs_md";
+
+        $sql = "SELECT
+          cat.id_category id_cat,
+          cat.public_name cat_name,
+          cat.slug cat_slug,
+          cat.description cat_desc,
+          cat.parent_cat parent_cat,
+          sscat.id_category id_sscat,
+          sscat.public_name sscat_name,
+          sscat.slug sscat_slug,
+          sscat.description sscat_desc,
+          cat_has_type.type_slug type
+        FROM category as cat
+          JOIN `cat_has_type` ON cat.`id_category` = `cat_has_type`.`category_id`
+          LEFT JOIN category as sscat ON sscat.parent_cat = cat.id_category
+          LEFT JOIN cat_has_type sscat_type ON sscat.id_category = sscat_type.category_id
+
+        WHERE cat_has_type.type_slug = '". $type ."'
+        ORDER BY cat.parent_cat asc, cat_name ASC, sscat_name";
+
+        $query = $this->db->query($sql);
+
+        $results = $query->result_array();
+
+        /**********
+         * La requête ci-dessus fait le job, mais retourne
+         * aussi chaque sscat qui a une cat mère dans un
+         * type différent. Ca n'est pas sensé arriver,
+         * mais ce qui suit permet de s'en assurer.
+         */
+
+        /*****
+         * La function array_column n'existe qu'en 5.5
+         * On est en 5.3 sur le serveur de test...
+         */
+        if(function_exists("array_column"))
+        {
+            //Si la catégorie parent n'a pas d'entrée dans le tableau (id_cat)
+            $column_array = array_column($results,"id_cat");
+
+        }else{
+            $column_array = array_map(
+                function($element){
+                    return $element["id_cat"];
+                }, $results);
+        }
+
+        //var_dump($column_array);
+        //On parcours les résultats
+        $cat_list = array();
+
+        $catArrayToReturn = array();
+        foreach($results as $key=> $cat){
+
+
+            //On supprime toutes les catégories enfant dont le parent n'est pas dans le tableau (type différent)
+            //.... et dont l'id_parent est différent de 0 (Domaine principal)
+
+            if( !in_array($cat["parent_cat"], $column_array) && $cat["parent_cat"] !="0")
+            {
+                //echo "<br / >Est supprimé : ".$cat["parent_cat"];
+                //On supprime ces sous-catégories.
+                unset($results[$key]);
+            }
+
+            //Si l'id n'est pas encore listé, c'est une catégorie, on l'ajoute.
+            if(!in_array($cat["id_cat"],$cat_list)){
+                array_push($cat_list,$cat["id_cat"]);
+            }else{
+                //Si l'id est déjà présent dans la liste, c'est une sous catégorie.On le supprime du tableau principal, on l'ajoute au tableau précédent
+
+
+
+            }
+        }
+
+
+
+
+
+        return $results;
+    }
+
+
+    /*****************************
+     * Cette version 2 de la fonction get cats_sscats_by_type
+     * retourne un tableau multidimension des catégories
+     * qui matérialise correctement l'arborescence de catégorie
+     * @param $type
+     */
+    public function admin_get_cats_sscats_by_type2($type)
+    {
+
+        //$type="expediteurs_md";
+        //On sélectionne toutes les catégories publiées du type
+        $sql = "SELECT
+          cat.id_category,
+          cat.public_name,
+          cat.slug,
+          cat.description,
+          cht.type_slug
+        FROM category as cat
+        INNER JOIN cat_has_type as cht ON id_category = category_id AND type_slug = '".$type."'
+        WHERE parent_cat =0";
+        $query = $this->db->query($sql);
+        $cats = $query->result();
+
+
+        //Pour chaque catégorie, on va vérifier si elle a des sous-catégories
+        foreach($cats as $key=>$cat)
+        {
+            $sql ="SELECT
+              sscat.id_category as sscat_id_category,
+              sscat.public_name,
+              sscat.slug,
+              sscat.description,
+              cht.type_slug
+            FROM category as sscat
+              INNER JOIN cat_has_type as cht ON id_category = category_id AND type_slug = '".$type."'
+            WHERE parent_cat = ".$cat->id_category;
+            $query2 = $this->db->query($sql);
+            $sscats = $query2->result();
+
+
+
+
+
+            //Si oui, on ajoute le tableau de sscats à la catéforie
+            if(count($sscats)>0 )
+            {
+
+            $cats[$key]->sscats = $sscats;
+
+            }
+
+
+        }
+
+
+
+
+        return $cats;
+
+    }
 	
 
 	protected function add($cat_array)

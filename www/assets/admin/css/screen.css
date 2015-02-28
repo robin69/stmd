@@ -652,3 +652,9 @@ table.mceLayout { width: 100% !important; }
 .add-category .title			{ width: 234px; }
 .add-category .cat-descr		{ width: 234px; }
 .add-category .cat-parent		{ width: 100%; }
+
+
+/* Prise en compte des sous-catégories dans l'admin */
+li ul.ss_cat{
+    margin-left:18px;
+}
