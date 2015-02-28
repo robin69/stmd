@@ -1515,28 +1515,29 @@ a.rating_up, .ratings a:hover{
 	position:inherit;
 	margin-top:15px;
 }
-.paginacion ul li{
+.pagination ul li{
 	float:left;
 	list-style:none;
 }
-.paginacion{
+.pagination {
 	float:right;
 	margin-top:20px;
 }
-.paginacion ul li a{
+.pagination ul li a{
 	width:16px;
 	height:16px;
-	background:url("../img/paginacion_bg.png") no-repeat;
+    font-size: 24px;
+	/*background:url("../img/paginacion_bg.png") no-repeat;*/
 	padding:1px 5px;
 	color:#ecf2d7;
 	text-decoration:none;
 	font-size:10px;
 	display:block;
 }
-.paginacion ul li a:hover, .paginacion ul li a.selected{
+.pagination ul li a:hover, .pagination ul li a.selected{
 	color:#a5a6a7;
 }
-.paginacion_top{
+.pagination_top {
 	position:absolute;
 	right:0;
 	top:10px;

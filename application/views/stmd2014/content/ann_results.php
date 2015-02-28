@@ -109,7 +109,7 @@ if(isset($alaune) AND count($alaune)>=1) :
 		<div class="clear"></div>
 		<div class="search_result">
 			<div class="search_container">
-				<div class="paginacion paginacion_top">
+				<div class="pagination pagination_top">
 					<?php echo $this->pagination->create_links(); ?> 
 				</div>
 				
@@ -274,7 +274,7 @@ if(isset($alaune) AND count($alaune)>=1) :
 				
 					<div class="clear"></div>
 					<hr>
-					<div class="paginacion">
+					<div class="pagination">
 						<?php echo $this->pagination->create_links(); ?> 
 					</div>
 

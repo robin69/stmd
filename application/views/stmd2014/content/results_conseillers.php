@@ -103,7 +103,7 @@ Site internet : www.brun-invest.net</p>
 <div class="clear"></div>
 <div class="search_result">
 <div class="search_container">
-<div class="paginacion paginacion_top">
+<div class="pagination pagination_top">
 <ul>
 <li><a class="selected"  href="resultats-annuaire-conseiller.html#">1</a></li>
 <li><a href="resultats-annuaire-conseiller.html#">2</a></li>
@@ -264,7 +264,7 @@ Site internet : www.brun-invest.net</p>
 
 <div class="clear"></div>
 <hr>
-<div class="paginacion">
+<div class="pagination">
 <ul>
 <li><a class="selected"  href="resultats-annuaire-conseiller.html#">1</a></li>
 <li><a href="resultats-annuaire-conseiller.html#">2</a></li>
