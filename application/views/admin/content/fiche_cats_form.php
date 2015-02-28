@@ -183,12 +183,16 @@
                                                                  * Si la catégorie a une sous-catégorie
                                                                  */
                                                                 if(count($cat->sscats)>=1):
+
+                                                                  //  var_dump($cat->sscats);
+
+
                                                                     ?>
                                                                     <ul class="ss_cat ss_cat_<?php echo $j; ?>" style="display: ;">
                                                                         <?php foreach($cat->sscats as $key => $sscat):
                                                                             $j++;
 
-                                                                            if(in_array($sscat->id_category, $f_cat))
+                                                                            if(in_array($sscat->sscat_id_category, $f_cat))
                                                                             {
                                                                                 $checked = " checked ";
                                                                             }else{
@@ -196,7 +200,7 @@
                                                                             }
 
                                                                             ?>
-                                                                            <li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $sscat->id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $sscat->id_category; ?>" <?php echo $checked; ?>>
+                                                                            <li><input id="input_<?php echo $j; ?>" class="sscat_<?php echo $sscat->sscat_id_category; ?>" type="checkbox" name="categories[]" value="<?php echo $sscat->sscat_id_category; ?>" <?php echo $checked; ?>>
                                                                                 <label for="input_<?php echo $j; ?>" ><?php echo $sscat->public_name; ?></label></li>
                                                                         <?php endforeach; ?>
                                                                     </ul>
