@@ -30,7 +30,14 @@
 		<div class="menu">
 			<ul class="clear">
 				<li <?php if($activ_menu == "dashboard"){ echo 'class="active" '; }?>  ><a href="<?php echo site_url("admin/dashboard"); ?>">Tableau de bord</a></li>
-				<li <?php if($activ_menu == "fiches"){ echo 'class="active" '; } ?>  ><a href="<?php echo site_url("admin/inscrits"); ?>/liste">Les fiches</a>
+				<<li <?php if($activ_menu == "moderation"){ echo 'class="active" '; } ?>  ><a href="<?php echo site_url("admin/moderation"); ?>/mod_forfait">Modération</a>
+                    <ul>
+                        <li><a href="<?php echo site_url("admin/moderation"); ?>/mod_infos">Changement d'infos dans la fiche</a></li>
+                        <li><a href="<?php echo site_url("admin/moderation"); ?>/mod_reglement">En attente de règlement</a></li>
+                        <li><a href="<?php echo site_url("admin/moderation"); ?>/mod_forfait">Demande de changement de forfait</a></li>
+                    </ul>
+                </li>
+                <li <?php if($activ_menu == "fiches"){ echo 'class="active" '; } ?>  ><a href="<?php echo site_url("admin/inscrits"); ?>/liste">Les fiches</a>
 					<ul>
 						<li><a href="<?php echo site_url("admin/inscrits"); ?>/liste">Toutes les fiches</a></li>
 						<li><a href="<?php echo site_url("admin/inscrits"); ?>/add">Ajouter une fiche</a></li>

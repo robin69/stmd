@@ -122,7 +122,8 @@ $autoload['model'] = array(
 	"content",
 	"guid_model",
 	"mails",
-    "token"
+    "token",
+    "forfait"
 	);
 
 
