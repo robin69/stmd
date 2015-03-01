@@ -6,11 +6,12 @@
 	<meta charset="utf-8">
 
 
+    <link href="https://code.jquery.com/ui/1.11.3/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
     <!-- JS Slider -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css"/>
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick-theme.css"/>
-	<link href="<?php echo base_url("assets"); ?>/css/style_carousel.css" rel="stylesheet" />
     <link href="<?php echo base_url("assets"); ?>/css/styles.css" rel="stylesheet" />
 
 	

@@ -85,7 +85,6 @@
                                 <h3><a href="<?php echo $article["link"]; ?>" target="_blank" ><?php echo $article["title"]; ?></a></h3>
                                 <?php
                                     //On supprime les liens de la chaine description
-                                   // $article["description"] = preg_replace('#<a href=(.*)>(.*)</a>#siU','',$article["description"]);
                                     $article["description"] = preg_replace('#<p>The post (.*)</p>#siU','',$article["description"]);
                                     echo $article["description"] ; ?>
                                 <p><a href="<?php echo $article["link"]; ?>" class="" >Lire la suite >></a> </p>
@@ -94,37 +93,6 @@
                         </div>
 
                 <?php  $i++; endforeach; ?>
-
-<!--
-                <div class="ca-item ca-item-2">
-                    <div class="ca-item-main">
-                        <h3>Mouvements transfrontièresdes déchets</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore utate velit esse molestie cons <strong>...</strong>
-                        </p>
-
-                    </div>
-                </div>
-
-                <div class="ca-item ca-item-3">
-                    <div class="ca-item-main">
-                        <h3>Arrêté TMD, refonte du rapport annuel d’actitvité</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore utate velit esse molestie cons <strong>...</strong>
-                        </p>
-
-                    </div>
-                </div>
-
-                <div class="ca-item ca-item-4">
-                    <div class="ca-item-main">
-                        <h3>Arrêté TMD, refonte du rapport annuel d’actitvité</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore utate velit esse molestie cons <strong>...</strong>
-                        </p>
-
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>

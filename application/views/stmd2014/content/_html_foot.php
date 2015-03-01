@@ -7,7 +7,6 @@
 				 <li><a href="<?php echo base_url("annuaire"); ?>/expediteurs-md-adr-iata-imdg/">Prestataires pour expéditeurs MD</a></li>
 				 <li><a href="<?php echo base_url("pourquoi-s-inscrire"); ?>">Inscrire votre entreprise</a></li>
 				 <li><a href="http://lists.gmjphoenix.com/?p=subscribe&id=1" class="fancybox fancybox.iframe">S’inscrire à la newsletter</a></li>
-                 <a href="http://lists.gmjphoenix.com/?p=subscribe&id=1" class="fancybox fancybox.iframe"> Newsletter<br />
 				 <li><a class="nosep" href="http://www.gmjphoenix.com" target="_blank">GMJ Phoenix</a></li>
 			 </ul>
 			 <ul class="footer_nav_bot">
@@ -20,26 +19,17 @@
 		</div>
 	</footer>
 
-	<?php 
-	
-	?>
-	<!-- NE SERT QUE SUR LES PAGES DE RÉSULTATS montrant les inscrits à la une. Il faut optimiser ça au 
-	chargement des autres pages -->
-	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.min.js"></script>
-    <link href="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.theme.css" rel="stylesheet" />
-  	<!-- <script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-1.6.2.min.js"></script> -->
-	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.slides.min.js"></script>
-	<!-- the jScrollPane script -->
-	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.mousewheel.js"></script>
 
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+	<!--<script type="text/javascript" src="<?php /*echo base_url("assets"); */?>/js/jquery-1.11.1.min.js"></script>-->
+	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery-ui-1.11.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/jquery.easing.1.3.js"></script>
     <!-- jQuery Slick Slide -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
 
     <!-- FANCYBOX -->
     <script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets"); ?>/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
 
 
 
@@ -91,45 +81,6 @@
             });
 
 
-            <?php /*
-             *	POUR AFFICHER LE SLIDER D'IMAGE
-             *	Il faut envoyer à la vue la variable
-             *	$this->data["view_has_slider"] = TRUE;
-             *
-             *	Dans le cas contraire le script ci-dessous
-             *	Génère une erreur js
-             *
-             ******/
-            if(isset($view_has_slider ) AND $view_has_slider == TRUE ) : ?>
-
-
-            $('#slides').slidesjs({
-                width: 940,
-                height: 528,
-                navigation: false
-            });
-
-            /*
-             To have multiple slideshows on the same page
-             they just need to have separate IDs
-             */
-            $('#slides2').slidesjs({
-                width: 940,
-                height: 528,
-                navigation: false,
-                start: 3,
-                play: {
-                    auto: true
-                }
-            });
-
-            $('#slides3').slidesjs({
-                width: 940,
-                height: 528,
-                navigation: false
-            });
-
-            <?php endif; ?>
         });
 
 

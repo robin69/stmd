@@ -2281,3 +2281,228 @@ ul.ep_menu li a:hover{
 .msg{
     display: block;
 }
+
+/********** SLICK SLIDE CARROUSEL ******************/
+/* Circular Content Carousel Style */
+.ca-container{
+    height: 351px;
+    position: relative;
+}
+.ca-wrapper{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+.ca-item{
+    position:relative;
+    float:left;
+    width:400px;
+    height:351px;
+}
+.alaune .ca-item{
+    position:relative;
+    float:left;
+    width:600px;
+    height:352px;
+}
+.actualites .ca-item{
+    position:relative;
+    float:left;
+    width:250px;
+    height:225px;
+}
+.ca-more{
+    position: absolute;
+    bottom: 10px;
+    right:0px;
+    padding:4px 15px;
+    font-weight:bold;
+    background: #ccbda2;
+    text-align:center;
+    color: white;
+    font-family: "Georgia","Times New Roman",serif;
+    font-style:italic;
+    text-shadow:1px 1px 1px #897c63;
+}
+.ca-close{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:#fff url("../img/cross.png") no-repeat center center;
+    width:27px;
+    height:27px;
+    text-indent:-9000px;
+    outline:none;
+    -moz-box-shadow:1px 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow:1px 1px 2px rgba(0,0,0,0.2);
+    box-shadow:1px 1px 2px rgba(0,0,0,0.2);
+    opacity:0.7;
+}
+.ca-close:hover{
+    opacity:1.0;
+}
+.ca-item-main{
+    padding:20px;
+    position:absolute;
+    top:5px;
+    left:5px;
+    right:5px;
+    bottom:5px;
+    overflow:hidden;
+}
+.ca-item-main p a{
+    text-decoration: none;
+    color:#a2c037;
+}
+.ca-icon{
+    width:233px;
+    height:189px;
+    position:relative;
+    margin:0 auto;
+    background:transparent url(../img/animal1.png) no-repeat center center;
+}
+.ca-item-2 .ca-icon{
+    background-image:url(../img/animal2.png);
+}
+.ca-item-3 .ca-icon{
+    background-image:url(../img/animal3.png);
+}
+.ca-item-4 .ca-icon{
+    background-image:url(../img/animal4.png);
+}
+.ca-item-5 .ca-icon{
+    background-image:url(../img/animal5.png);
+}
+.ca-item-6 .ca-icon{
+    background-image:url(../img/animal6.png);
+}
+.ca-item-7 .ca-icon{
+    background-image:url(../img/animal7.png);
+}
+.ca-item-8 .ca-icon{
+    background-image:url(../img/animal8.png);
+}
+.ca-item h3, .ca-item h3 a{
+    font-family: 'Lato', sans-serif;
+    text-transform:uppercase;
+    font-size:22px;
+    color:#000;
+    margin-bottom:20px;
+    color:#a2c037;
+    text-decoration: none;
+}
+
+.ca-content-wrapper{
+    background:#b0ccc6;
+    position:absolute;
+    width:0px; /* expands to width of the wrapper minus 1 element */
+    height:440px;
+    top:5px;
+    text-align:left;
+    z-index:10000;
+    overflow:hidden;
+}
+.ca-content{
+    width:660px;
+    overflow:hidden;
+}
+.ca-content-text{
+    font-size: 14px;
+    font-style: italic;
+    font-family: "Georgia","Times New Roman",serif;
+    margin:10px 20px;
+    padding:10px 20px;
+    line-height:24px;
+}
+.ca-content-text p{
+    padding-bottom:5px;
+}
+.ca-content h6{
+    margin:25px 20px 0px 35px;
+    font-size:32px;
+    padding-bottom:5px;
+    color:#000;
+    font-family: 'Coustard', sans-serif;
+    color:#60817a;
+    border-bottom:2px solid #99bcb4;
+    text-shadow: 1px 1px 1px #99BCB4;
+}
+.ca-content ul{
+    margin:20px 35px;
+    height:30px;
+}
+.ca-content ul li{
+    float:left;
+    margin:0px 2px;
+}
+.ca-content ul li a{
+    color:#fff;
+    background:#000;
+    padding:3px 6px;
+    font-size:14px;
+    font-family: "Georgia","Times New Roman",serif;
+    font-style:italic;
+}
+.ca-content ul li a:hover{
+    background:#fff;
+    color:#000;
+    text-shadow:none;
+}
+.ca-nav span{
+    width:47px;
+    height:48px;
+    background: url(../img/arrows.png) no-repeat top left;
+    position:absolute;
+    top:50%;
+    margin-top:-19px;
+    left:-40px;
+    text-indent:-9000px;
+    cursor:pointer;
+    z-index:100;
+}
+.ca-nav span.ca-nav-next{
+    background-position:top right;
+    left:auto;
+    right:-40px;
+}
+.ca-nav span.ca-nav-next:hover{
+    background-position:right -48px;
+}
+.ca-nav span:hover{
+    background:url("../img/arrows.png") no-repeat scroll left -48px transparent;
+}
+
+
+.alaune .ca-nav{
+    background-color: #f4f6f9;
+    padding: 5px;
+    position: absolute;
+    bottom: -22px;
+    width: 35px;
+    height: 16px;
+    right: 0;
+}
+
+.alaune .ca-nav span{
+    width: 15px;
+    height: 15px;
+    background: url("../img/carousel_arows_result.jpg") no-repeat 0 0;
+    position: absolute;
+    top: 107%;
+    margin-top: -19px;
+    left: 8px;
+    text-indent: -9000px;
+    cursor: pointer;
+    z-index: 100;
+}
+.alaune .ca-nav span.ca-nav-next{
+    background-position:top right;
+    left:auto;
+    right:4px;
+}
+.alaune .ca-nav span.ca-nav-next:hover{
+    background-position:-18px 0;
+}
+.alaune .ca-nav span:hover{
+    background:url("../img/carousel_arows_result.jpg") no-repeat scroll 0 0;
+}
