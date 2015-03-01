@@ -75,25 +75,23 @@
 <div class="home_carousel">
     <div class="home_carousel_cont">
         <div id="ca-container" class="ca-container">
-            <div class="ca-wrapper">
+            <div class="ca-wrapper"data-slick='{"slidesToShow": 3, "slidesToScroll": 1}'>
                 <?php
                     $i=1;
-                    foreach($rss as $article):
+                    foreach($rss as $article):?>
 
-                    ?>
+                        <div class="ca-item ca-item-<?php echo $i;?>">
+                            <div class="ca-item-main">
+                                <h3><a href="<?php echo $article["link"]; ?>" target="_blank" ><?php echo $article["title"]; ?></a></h3>
+                                <?php
+                                    //On supprime les liens de la chaine description
+                                   // $article["description"] = preg_replace('#<a href=(.*)>(.*)</a>#siU','',$article["description"]);
+                                    $article["description"] = preg_replace('#<p>The post (.*)</p>#siU','',$article["description"]);
+                                    echo $article["description"] ; ?>
+                                <p><a href="<?php echo $article["link"]; ?>" class="" >Lire la suite >></a> </p>
 
-                <div class="ca-item ca-item-<?php echo $i;?>">
-                    <div class="ca-item-main">
-                        <h3><a href="<?php echo $article["link"]; ?>" target="_blank" ><?php echo $article["title"]; ?></a></h3>
-                        <?php
-                            //On supprime les liens de la chaine description
-                           // $article["description"] = preg_replace('#<a href=(.*)>(.*)</a>#siU','',$article["description"]);
-                            $article["description"] = preg_replace('#<p>The post (.*)</p>#siU','',$article["description"]);
-                            echo $article["description"] ; ?>
-                        <p><a href="<?php echo $article["link"]; ?>" class="" >Lire la suite >></a> </p>
-
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
                 <?php  $i++; endforeach; ?>
 
@@ -127,7 +125,6 @@
 
                     </div>
                 </div>-->
-
             </div>
         </div>
     </div>

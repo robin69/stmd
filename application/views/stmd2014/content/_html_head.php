@@ -6,6 +6,10 @@
 	<meta charset="utf-8">
 
 
+    <!-- JS Slider -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css"/>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick-theme.css"/>
 	<link href="<?php echo base_url("assets"); ?>/css/style_carousel.css" rel="stylesheet" />
     <link href="<?php echo base_url("assets"); ?>/css/styles.css" rel="stylesheet" />
 

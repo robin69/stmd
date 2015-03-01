@@ -30,13 +30,26 @@ class Accueil extends CI_Controller {
 	}
 
 
+	private function _layout($layout)
+	{
+        $this->data["view_has_slider"] = TRUE;
+        $this->get_gmjnews();
+		$this->data["no_google_map"] = TRUE;
+		$this->data["body_id"] = "landing_page";
+		$this->layout->view("_html_head", 	$this->data);
 
+		$this->layout->view($layout, $this->data);
+		$this->layout->view("_html_foot");
+
+	}
+	
+	
     public function get_gmjnews()
     {
-    
+
     	$this->load->library('rssparser');
         try{
-            
+
             $this->rssparser->set_feed_url("http://www.gmjphoenix.com/reglementation-matieres-dangereuses/feed/");
             $this->data["rss"] = $this->rssparser->set_feed_url('http://www.gmjphoenix.com/reglementation-matieres-dangereuses/feed/')->set_cache_life(30)->getFeed(6);
         }catch(Exception $e){
@@ -48,22 +61,6 @@ class Accueil extends CI_Controller {
         //var_dump($this->data["rss"]);
 
     }
-	
-	
-	
-	
-	
-	private function _layout($layout)
-	{
-        $this->get_gmjnews();
-		$this->data["no_google_map"] = TRUE;
-		$this->data["body_id"] = "landing_page";
-		$this->layout->view("_html_head", 	$this->data);
-		
-		$this->layout->view($layout, $this->data);
-		$this->layout->view("_html_foot");
-		
-	}
 	
 }
 
