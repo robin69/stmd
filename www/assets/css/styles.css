@@ -232,7 +232,7 @@ form input{
 	float: left;
 	padding-left: 5px;
 	margin-top: 28px;
-	color: #b1b2b2;
+	color: #7b7b7c;
 	font-style: italic;
 	font-size: 14px;
 }
@@ -1083,7 +1083,7 @@ a.conseiller_md span{
 	border:1px solid #dbdbdb;
 	font-style:italic;
     font-size: 14px;
-	color:#b1b2b2;
+	color:#7b7b7c;
 }
 .home_search button{
 	background: url("../img/search-icon.png") no-repeat scroll center center #a1c037;
