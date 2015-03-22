@@ -32,34 +32,41 @@
             $query = $this->db->insert_string('captcha' , $data);
             $this->db->query($query);
 
-            //Controle du captcha
-            $expiration = time() - 3600; // Two hour limit
-            $this->db->query("DELETE FROM captcha WHERE captcha_time < " . $expiration);
+            //Si il y a eu un post
+            if(!empty($_POST))
+            {
+                //Controle du captcha
+                $expiration = time() - 3600; // Two hour limit
+                $this->db->query("DELETE FROM captcha WHERE captcha_time < " . $expiration);
 
-            // Then see if a captcha exists:
-            $sql = "SELECT COUNT(*) AS count FROM captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?";
-            $binds = array($_POST['captcha'] , $this->input->ip_address() , $expiration);
-            $query = $this->db->query($sql , $binds);
-            $row = $query->row();
+                // Then see if a captcha exists:
+                $sql = "SELECT COUNT(*) AS count FROM captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?";
+                $binds = array($_POST['captcha'] , $this->input->ip_address() , $expiration);
+                $query = $this->db->query($sql , $binds);
+                $row = $query->row();
 
-            if($row->count == 0){
-                $captcha_answer = FALSE;
-            } else{
-                $captcha_answer = TRUE;
-                $email = $this->input->post("email");
-            }
-
-
-            if($email != "" && $captcha_answer){
-                if(!$this->send_contact_mail()){
-                    $this->data["send_mail_status"] = "Il y a eu une erreur lors de l'envois de votre message. Veuillez recommencer plus tard ou non contacter par téléphone. Merci.";
+                if($row->count == 0){
+                    $captcha_answer = FALSE;
                 } else{
-                    $this->data["send_mail_status"] = "Votre message a été envoyé nous prendrons contact avec vous dans les meilleurs délais.";
+                    $captcha_answer = TRUE;
+                    $email = $this->input->post("email");
                 }
 
-            }elseif(!$captcha_answer){
-                $this->data["send_mail_status"] = "Le code de vérification saisie (captcha) n'est pas correcte ou n'est plus valable. Merci de le saisir de nouveau.";
+                if($email != "" && $captcha_answer){
+                    if(!$this->send_contact_mail()){
+                        $this->data["send_mail_status"] = "Il y a eu une erreur lors de l'envois de votre message. Veuillez recommencer plus tard ou non contacter par téléphone. Merci.";
+                    } else{
+                        $this->data["send_mail_status"] = "Votre message a été envoyé nous prendrons contact avec vous dans les meilleurs délais.";
+                    }
+
+                }elseif(!$captcha_answer){
+                    $this->data["send_mail_status"] = "Le code de vérification saisie (captcha) n'est pas correcte ou n'est plus valable. Merci de le saisir de nouveau.";
+                }
             }
+
+
+
+            //Dans tous les cas on revient sur le formulaire
             $this->_layout("contact");
         }
 
