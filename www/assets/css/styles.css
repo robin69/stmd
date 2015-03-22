@@ -2506,3 +2506,9 @@ ul.ep_menu li a:hover{
 .alaune .ca-nav span:hover{
     background:url("../img/carousel_arows_result.jpg") no-repeat scroll 0 0;
 }
+
+aside.error{
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}

@@ -16,27 +16,57 @@
             parent::__construct();
         }
 
-        public function index(){
+        public function index()
+        {
+
 
             //chargement du captcha
             $this->load->helper("captcha");
+            //Génération du captcha
+            $vals = array('img_path' => IMG_PATH , 'font_path' => './assets/css/fonts/Lato-Bold.ttf' , 'img_url' => base_url("assets/img/captcha") . "/");
 
-            $email = $this->input->post("email");
-            if($email !=""){
-                if(!$this->send_contact_mail()){
-                    $this->data["send_mail_status"] =   "Il y a eu une erreur lors de l'envois de votre message. Veuillez recommencer plus tard ou non contacter par téléphone. Merci.";
-                }else{
-                    $this->data["send_mail_status"] =   "Cotre message a été envoyé nous prendrons contact avec vous dans les meilleurs délais.";
-                }
-                $this->_layout("contact");
-            }else{
-                $this->_layout("contact");
+            $this->data["captcha"] = create_captcha($vals);
+
+            $data = array('captcha_time' => $this->data["captcha"]['time'] , 'ip_address' => $this->input->ip_address() , 'word' => $this->data["captcha"]['word']);
+
+            $query = $this->db->insert_string('captcha' , $data);
+            $this->db->query($query);
+
+            //Controle du captcha
+            $expiration = time() - 3600; // Two hour limit
+            $this->db->query("DELETE FROM captcha WHERE captcha_time < " . $expiration);
+
+            // Then see if a captcha exists:
+            $sql = "SELECT COUNT(*) AS count FROM captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?";
+            $binds = array($_POST['captcha'] , $this->input->ip_address() , $expiration);
+            $query = $this->db->query($sql , $binds);
+            $row = $query->row();
+
+            if($row->count == 0){
+                $captcha_answer = FALSE;
+            } else{
+                $captcha_answer = TRUE;
+                $email = $this->input->post("email");
             }
 
+
+            if($email != "" && $captcha_answer){
+                if(!$this->send_contact_mail()){
+                    $this->data["send_mail_status"] = "Il y a eu une erreur lors de l'envois de votre message. Veuillez recommencer plus tard ou non contacter par téléphone. Merci.";
+                } else{
+                    $this->data["send_mail_status"] = "Votre message a été envoyé nous prendrons contact avec vous dans les meilleurs délais.";
+                }
+
+            }elseif(!$captcha_answer){
+                $this->data["send_mail_status"] = "Le code de vérification saisie (captcha) n'est pas correcte ou n'est plus valable. Merci de le saisir de nouveau.";
+            }
+            $this->_layout("contact");
         }
 
         public function send_contact_mail()
         {
+
+
             $this->email->clear();
 
             $this->email->from($this->input->post("email"), $this->input->post("prenom") . " ". $this->input->post("nom"));

@@ -90,18 +90,21 @@
             );
             echo form_textarea($msg,$js)."<p>".form_error('msg')."</p>";
 
-            //Génération du captcha
-                $vals = array(
-                    'word' => '',
-                    'img_path' => './img/captcha/',
-                    'img_height' => 30,
-                    'expiration' => 7200
-                );
-            $captcha = create_captcha($vals);
-                echo $captcha;
 
 
 
+
+            echo form_label("Recopiez le code ci-dessous", "captcha");
+
+            $captcha_text = array(
+                "name"  =>  "captcha",
+                "id"    =>  "captcha",
+                "type"  =>  "text",
+                "rows"  =>  "10",
+                "placeholder"   =>"",
+                "onClick"   =>  ""
+            );
+                echo form_input($captcha_text)."<p>".form_error('captcha')."</p>";echo $captcha["image"];
 ?>
             <div class="clear"></div><?php
 

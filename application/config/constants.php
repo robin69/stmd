@@ -48,3 +48,4 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | These modes are used when working with fopen()/popen()
 |
 */
+define('IMG_PATH',  './assets/img/captcha/');
