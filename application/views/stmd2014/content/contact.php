@@ -90,6 +90,15 @@
             );
             echo form_textarea($msg,$js)."<p>".form_error('msg')."</p>";
 
+            //Génération du captcha
+                $vals = array(
+                    'word' => '',
+                    'img_path' => './img/captcha/',
+                    'img_height' => 30,
+                    'expiration' => 7200
+                );
+            $captcha = create_captcha($vals);
+                echo $captcha;
 
 
 
