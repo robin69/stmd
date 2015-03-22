@@ -7,8 +7,46 @@
 *************/
 
 
+
 $(document).ready(function()
 {
+
+    //On détecte le navigateur
+    var sBrowser, sUsrAg = navigator.userAgent;
+
+    if(sUsrAg.indexOf("Chrome") > -1) {
+        sBrowser = "chrome";
+    } else if (sUsrAg.indexOf("Safari") > -1) {
+        sBrowser = "safari";
+    } else if (sUsrAg.indexOf("Opera") > -1) {
+        sBrowser = "opera";
+    } else if (sUsrAg.indexOf("Firefox") > -1) {
+        sBrowser = "firefox";
+    } else if (sUsrAg.indexOf("MSIE") > -1) {
+        sBrowser = "ie";
+    }
+
+    $('.BookmarkMe').click(function (e) {
+        var bTitle = document.title, bUrl = window.location.href;
+        if (sBrowser == "firefox" || sBrowser == "opera") { // Mozilla Firefox or Opera
+            if (window.sidebar.addPanel) {
+                e.preventDefault();
+                window.sidebar.addPanel(bTitle, bUrl, "");
+            }
+            else {
+                $('.BookmarkMe').attr("href", bUrl);
+                $('.BookmarkMe').attr("title", bTitle);
+                $('.BookmarkMe').attr("rel", "sidebar");
+            }
+        } else if (sBrowser =="ie") { // IE Favorite
+            e.preventDefault();
+            window.external.AddFavorite(bUrl, bTitle);
+        } else { // webkit - safari/chrome
+            e.preventDefault();
+            alert('Appuyez sur ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Cmd' : 'CTRL') + ' + D pour ajouter ce site aux favoris.');
+        }
+    });
+
 
 	//On détecte la présence de la class
 	if($(".scroll-down-to").length)

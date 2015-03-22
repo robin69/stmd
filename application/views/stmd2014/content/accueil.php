@@ -16,7 +16,7 @@
             <a href="<?php echo $this->config->item("viadeo"); ?>" class="viadeo" target="_blank"></a>
             <a href="<?php echo base_url("login"); ?>" class="connexion">connexion</a>
             <a href="#" class="copy"></a>
-            <a href="#" class="favoris bookmark"></a> </div>
+            <a href="#" class="favoris bookmark BookmarkMe" ></a> </div>
     </div>
 </header>
 
