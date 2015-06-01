@@ -202,7 +202,7 @@ class Category_manager extends CI_Model
 	*	@return : multidimentionnal array
 	*
 	*************************************/
-	public function get_cat_by_type($type, $all_status=FALSE)
+	public function get_cat_by_type($type, $all_status=FALSE, $with_count = true)
 	{
 
         if($all_status === TRUE){
@@ -225,16 +225,11 @@ class Category_manager extends CI_Model
 				FROM (`category`)
 				JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id`
 				WHERE `parent_cat` = '0' AND `type_slug` = '".$type."'
-				HAVING (nbr_fiche) > 1
 				ORDER BY `category`.`public_name` ASC;";
 
 
 		$query2 = $this->db->query($manual_query2);
 		$cats = $query2->result_array();
-
-/* 		echo $manual_query; */
-
-/* 		echo $this->db->last_query(); */
 
 		//Pour chaque domaine, je récupère les catégories
 		foreach($cats as $key=>$domaine)
@@ -252,18 +247,56 @@ class Category_manager extends CI_Model
 				FROM (`category`)
 				JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id`
 				WHERE `parent_cat` = '".$domaine["id_category"]."' AND `type_slug` = '".$type."'
-				HAVING (nbr_fiche) > 1
 				ORDER BY `category`.`public_name` ASC;";
 			$query3 = $this->db->query($manual_query3);
 /* 			$query2 = $this->db->get_where($this->tbl_category,array("parent_cat"=>$domaine["id_category"])); */
 			$cats[$key]["sous_cats"] = $query3->result_array();
 		}
-		/* echo $this->db->last_query(); */
 
 
-        //var_dump($cats);
+		return $cats;
+
+	}
+
+	/************************************
+	 *
+	 *	Retourne un tableau multi-dimensionnel
+	 *	des catégories et de leurs sous-catégories
+	 *	pour un type donné (transporteurs_md, expediteurs_md)
+	 *
+	 *	Cette fonction n'est utilisée que dans l'espace perso en front
+	 * pour afficher la liste des catécories présentes sur le site.
+	 *
+	 *	@type : valeur du type transporteur_md, expediteurs_md ou conseiller_securite
+	 *  @all_status : Permet de récupérer seulement les catégories qui contiennent des fiches publiées (TRUE) ou toutes les catégories (FALSE)
+	 *	@return : multidimentionnal array
+	 *
+	 *************************************/
+	public function get_cats_list($type)
+	{
+
+		//On sélectionne les catégories qui ont effectivement une fiche et on compte le nombre de fiche.
+		$manual_query2 = "SELECT * FROM (category) JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id`
+		WHERE `parent_cat` = '0' AND  `type_slug` = '".$type."' ORDER BY `category`.`public_name` ASC;";
 
 
+		$query2 = $this->db->query($manual_query2);
+		$cats = $query2->result_array();
+
+		//Pour chaque domaine, je récupère les catégories
+		foreach($cats as $key=>$domaine)
+		{
+			$manual_query3 = "
+			SELECT
+				*
+				FROM (`category`)
+				JOIN `cat_has_type` ON `category`.`id_category` = `cat_has_type`.`category_id`
+				WHERE `parent_cat` = '".$domaine["id_category"]."' AND `type_slug` = '".$type."'
+				ORDER BY `category`.`public_name` ASC;";
+			$query3 = $this->db->query($manual_query3);
+			/* 			$query2 = $this->db->get_where($this->tbl_category,array("parent_cat"=>$domaine["id_category"])); */
+			$cats[$key]["sous_cats"] = $query3->result_array();
+		}
 
 		return $cats;
 
@@ -273,6 +306,7 @@ class Category_manager extends CI_Model
     /***********************************************
      * Retourne l'intégralité des catégories paramétrées
      * pour le site avec leur sous catégories.
+     *
      *
      * @param $type
      * @return $return

@@ -72,7 +72,7 @@
             {
                 //On récupère les catégories
                 $c = new Category;
-                $cats = $c->get_cat_by_type($type->slug, FALSE);
+                $cats = $c->get_cats_list($type->slug, TRUE);
                 ?>
 
                 <section id="cat_sel_<?php echo $type->slug; ?>" style="display: none;">

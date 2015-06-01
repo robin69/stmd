@@ -110,4 +110,12 @@
             }
             return $hash;
         }
+
+
+
+
+        function sendToAFriend()
+        {
+
+        }
     }
