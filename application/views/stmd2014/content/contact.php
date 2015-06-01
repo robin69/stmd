@@ -71,9 +71,10 @@
                 echo $lab_tel = form_label("Sujet :", "sujet");
                 $options = array(
                     'sujet1'  => 'Choisissez ...',
-                    'sujet2'  => 'sujet 2',
-                    'sujet3'  => 'sujet 3',
-                    'sujet4'  => 'sujet 4'
+                    'sujet2'  => 'Demande de contact',
+                    'sujet3'  => 'Demande d\'informations',
+                    'sujet4'  => 'Demande de référencement',
+                    'sujet5'  => 'Recherche de prestataires'
                 );
                 echo form_dropdown('sujet', $options, 'sujet1')."<p>".form_error('sujet')."</p>";
 
