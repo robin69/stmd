@@ -111,9 +111,6 @@
                             }else{
                                 $checked = "";
                             }
-
-
-
                             ?>
 
                             <li><input  id="input_<?php echo $j; ?>" class="classement_cat cat_<?php echo $cat["id_category"]; ?> <?php echo $hasSubCats; ?>" type="checkbox" name="categories[]" value="<?php echo $cat["id_category"]; ?>" <?php echo $checked; ?>>

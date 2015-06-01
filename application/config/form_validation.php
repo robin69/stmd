@@ -354,7 +354,11 @@ $config = array(
                                             )
                     ),
                     "form_fiche_classement" => array(
-
+	                    array(
+		                    "field"=>"categories[]",
+		                    "label" =>  "Catégorie",
+		                    "rules" =>  "trim|required"
+	                    )
                     ),
                     "form_fiche_profile" => array(
                         array(
