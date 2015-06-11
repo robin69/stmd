@@ -809,9 +809,30 @@ class Inscrits extends CI_Controller {
 
         $this->edit_fiche_infos($fiche_id);
 
-
-
     }
+
+
+	/************************
+	 * Fonction qui permet de passer une fiche à Payante
+	 * dans l'admin
+	 *
+	 * @param      $fiche_id
+	 * @param bool $payante
+	 */
+	public function set_payante_status($fiche_id, $payante=0 )
+	{
+		//Instanciation de la fiche
+		$f = new Fiche($fiche_id);
+
+		//On met à jour les éléments de la fiche
+        if(!empty($fiche_id))
+        {
+	        $f->set_payante($payante);
+	        $f->_save();
+        }
+
+		$this->edit_fiche_infos($fiche_id);
+	}
 	
 	
 }

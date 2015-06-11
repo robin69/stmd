@@ -70,19 +70,25 @@ switch($status)
                                         <?php endif; ?>
 
 
-                                        <?php if($fiche->payante() == true AND $fiche->date_reglement() == 0): ?>
+
 										<h4>Règlement</h4>
                                         <ul class="list">
+	                                        <?php if($fiche->payante() == 1): ?>
                                             <li>
                                                 <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" >Règlement reçu</a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo site_url("admin/inscrits")."/moderate/".$id_fiche."/true"; ?>" id="reglement" onclick="">Annuler (Passer en gratuit)</a>
+                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/false"; ?>" id="" onclick="">Passer en GRATUIRE</a>
                                             </li>
+	                                        <?php elseif($fiche->payante() == false):; ?>
+		                                        <li>
+			                                        <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/true"; ?>" id="activ_payante" onclick="">Passer à PAYANT</a>
+		                                        </li>
+	                                        <?php endif; ?>
 										</ul>
 
                                         <div class="rule"></div>
-                                        <?php endif; ?>
+
 
 										<h4>Informations relatives</h4>
 										<div class="mark_blue bt-space20">
@@ -114,7 +120,16 @@ switch($status)
 										<div class="mark_blue bt-space20">
 											<ul class="standard clean-padding bt-space20">
 												<li class="bt-space5"><strong>Cpt utilisateur : </strong>
-												<?php $owner = new User($fiche->user_id()); ?><a href="<?php echo site_url("admin/utilisateurs"); ?>/edit/<?php echo $owner->id_user(); ?>"><?php echo $owner->prenom(); ?> <?php echo $owner->nom(); ?></a></li> 
+												<?php $owner = new User($fiche->user_id()); ?>
+													<a href="<?php echo site_url("admin/utilisateurs"); ?>/edit/<?php echo $owner->id_user(); ?>"><?php echo $owner->prenom(); ?> <?php echo $owner->nom(); ?></a>
+												</li>
+												<li class="bt-space5"><strong>Fiche : </strong><?php
+														if($fiche->payante() == 0){
+															echo "Gratuite";
+
+														}else{
+															echo "Payante";
+														} ;?> </li>
 												<li class="bt-space5"><strong>Clics total : </strong></li>
 												<li class="bt-space5"><strong>Clics 30j : </strong></li>
 												<li class="bt-space5"><strong>Eval : </strong></li>
