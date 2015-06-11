@@ -84,7 +84,7 @@ class Fiche extends fiche_manager
          * On s'occupe des valeurs obligatoires dans la base
          */
         //Si "payante" n'est pas définie on le met à FALSE
-        if(!in_array("payante",$donnees))
+        if(!array_key_exists("payante",$donnees))
         {
             $this->set_payante(FALSE);
         }
@@ -101,7 +101,7 @@ class Fiche extends fiche_manager
 
 	public function set_payante($is_payante = FALSE)
 	{
-		if($is_payante == TRUE)
+		if($is_payante == TRUE OR $is_payante == 1)
 		{
 			$this->payante = 1;
 		}else{
