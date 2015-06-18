@@ -78,11 +78,11 @@ switch($status)
                                                 <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" >Règlement reçu</a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/false"; ?>" id="" onclick="">Passer en GRATUIRE</a>
+                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/FALSE"; ?>" id="" onclick="">Passer en GRATUIRE</a>
                                             </li>
 	                                        <?php elseif($fiche->payante() == false):; ?>
 		                                        <li>
-			                                        <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/true"; ?>" id="activ_payante" onclick="">Passer à PAYANT</a>
+			                                        <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/TRUE"; ?>" id="activ_payante" onclick="">Passer à PAYANT</a>
 		                                        </li>
 	                                        <?php endif; ?>
 										</ul>
