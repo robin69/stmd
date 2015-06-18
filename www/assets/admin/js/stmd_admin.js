@@ -56,20 +56,56 @@ $(document).ready(function(){
     $("#transporteurs_md").trigger("change");
 
 
-    /********
-     * Dans les pages de détail des fiches (admin), l'administrateur
-     * peut déclarer une fiche comme réglée. Une confirmation lui
-     * ait demandée lorsqu'il clic sur Règlement Reçu.
-     */
-    $("#reglement").click(function(){
 
-        var response = confirm("Confirmez-vous avoir reçu le règlement ?");
-        if(response == false){
-            return false;
-        }else{
-            return true;
+    /*************************************************************************
+     * POPIN DATE DE RÈGLEMENT D'UNE FICHE
+     *
+     * Lorsqu'on clic sur règlement on affiche une popin qui
+     * avant tout va vérifier si une date de règlement existe déjà
+     * pour cette fiche.
+     * Si oui, on propose de la modifier.
+     * Si non, on propose de la saisir.
+     * La date saisie peut être présente, passée ou future. Pas de contrainte.
+    ********************************************************************************/
+    var popin_dt_reglement,dt_reglement_new,
+        id_fiche = $("#reglement").data("id_fiche"),
+        dt_reglement_originale = $("#reglement").data("dt_reglement");
+
+    popin_dt_reglement = $("#dt_reglement_form").dialog({
+        autoOpen: false,
+        height:150,
+        width:350,
+        modal: true,
+        buttons:{
+            "Modifier la date de règlement" : update_dt_regl,
+            "Annuler": function(){
+                popin_dt_reglement.dialog("close");
+            }
         }
-        console.log(response);
     });
+
+    form = popin_dt_reglement.find("form").on("submit", function(event){
+        event.preventDefault();
+        update_dt_regl();
+    });
+
+    function update_dt_regl()
+    {
+        //Mise à jour en ajax de la base.
+        dt_reglement_new = $("#dt_reglement_field").val();
+        $.post("/admin/inscrits/set_date_reglement/",{id_fiche:id_fiche,dt_reglement:dt_reglement_new}).done(function(data) {
+            if (data.ok) {
+                location.reload();
+            }
+        })
+
+    };
+
+
+    $( "#reglement" ).button().on( "click", function(event) {
+        event.preventDefault();
+        popin_dt_reglement.dialog( "open" );
+    });
+
 
 });

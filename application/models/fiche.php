@@ -103,9 +103,9 @@ class Fiche extends fiche_manager
 	{
 		if($is_payante == "TRUE" OR $is_payante == "1" )
 		{
-			$this->payante = 1;
+			$this->payante = "1";
 		}else{
-			$this->payante = 0;
+			$this->payante = "0";
 		}
 
 	}

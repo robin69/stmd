@@ -75,7 +75,7 @@ switch($status)
                                         <ul class="list">
 	                                        <?php if($fiche->payante() == 1): ?>
                                             <li>
-                                                <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" >Règlement reçu</a>
+                                                <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" data-id_fiche="<?php echo $fiche->id_fiche(); ?>" data-dt_reglement=<?php echo ($fiche->date_reglement() !="0")? date("Y-m-d",$fiche->date_reglement()) : "0"; ?> >Règlement reçu</a>
                                             </li>
                                             <li>
                                                 <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/FALSE"; ?>" id="" onclick="">Passer en GRATUITE</a>
@@ -86,6 +86,7 @@ switch($status)
 		                                        </li>
 	                                        <?php endif; ?>
 										</ul>
+										<?php $this->load->view("admin/tpl/update_dt_reglement_form");?>
 
                                         <div class="rule"></div>
 
@@ -130,6 +131,9 @@ switch($status)
 														}else{
 															echo "Payante";
 														} ;?> </li>
+												<?php if ($fiche->payante() == 1): ?>
+													<li class="bt-space5"><strong>Date de règlement : </strong><?php echo ($fiche->date_reglement()!="0")? date("d/m/Y", $fiche->date_reglement()) : ""; ?></li>
+												<?php endif; ?>
 												<li class="bt-space5"><strong>Clics total : </strong></li>
 												<li class="bt-space5"><strong>Clics 30j : </strong></li>
 												<li class="bt-space5"><strong>Eval : </strong></li>

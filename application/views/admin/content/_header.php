@@ -13,8 +13,8 @@
 <link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/reset.css" type="text/css"/>
 <link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/screen.css" type="text/css"/>
 <link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/fancybox.css" type="text/css"/>
-<link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/jquery.wysiwyg.css" type="text/css"/>
-<link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/jquery.ui.css" type="text/css"/>
+<!--<link rel="stylesheet" href="<?php /*echo base_url("assets/admin"); */?>/css/jquery.wysiwyg.css" type="text/css"/>-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/visualize.css" type="text/css"/>
 <link rel="stylesheet" href="<?php echo base_url("assets/admin"); ?>/css/visualize-light.css" type="text/css"/>
 <!--[if IE 7]>
