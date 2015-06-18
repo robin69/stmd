@@ -78,11 +78,11 @@ switch($status)
                                                 <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" data-id_fiche="<?php echo $fiche->id_fiche(); ?>" data-dt_reglement=<?php echo ($fiche->date_reglement() !="0")? date("Y-m-d",$fiche->date_reglement()) : "0"; ?> >Règlement reçu</a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/false"; ?>" id="" onclick="">Passer en GRATUIRE</a>
+                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/FALSE"; ?>" id="" onclick="">Passer en GRATUITE</a>
                                             </li>
 	                                        <?php elseif($fiche->payante() == false):; ?>
 		                                        <li>
-			                                        <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/true"; ?>" id="activ_payante" onclick="">Passer à PAYANT</a>
+			                                        <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/TRUE"; ?>" id="activ_payante" onclick="">Passer à PAYANT</a>
 		                                        </li>
 	                                        <?php endif; ?>
 										</ul>

@@ -101,7 +101,7 @@ class Fiche extends fiche_manager
 
 	public function set_payante($is_payante = FALSE)
 	{
-		if($is_payante === TRUE OR $is_payante === 1)
+		if($is_payante == "TRUE" OR $is_payante == "1" )
 		{
 			$this->payante = "1";
 		}else{

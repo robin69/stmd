@@ -819,7 +819,7 @@ class Inscrits extends CI_Controller {
 	 * @param      $fiche_id
 	 * @param bool $payante
 	 */
-	public function set_payante_status($fiche_id, $payante=0 )
+	public function set_payante_status($fiche_id, $payante=FALSE )
 	{
 		//Instanciation de la fiche
 		$f = new Fiche($fiche_id);
