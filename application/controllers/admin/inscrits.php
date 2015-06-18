@@ -239,6 +239,41 @@ class Inscrits extends CI_Controller {
 
 		$this->_layout("fiche_ressoc_form");
 	}
+
+
+	public function edit_fiche_user($id_fiche)
+	{
+
+		//On traite le formulaire s'il est envoyé
+		if($this->input->post()) {
+			$fiche = $this->_update_object_field();
+
+		}else{
+			$manager    = new Fiche_manager;
+			$fiche = new Fiche;
+			$infos = $manager->get($id_fiche);
+			$fiche->hydrate($infos);
+		}
+
+
+		$this->data["form"]                 = "modif";
+		$this->data["submit_button_label"]	=	"Mettre à jour l'utilisateur";
+		$this->data["title"]				=	"FICHE : ".$fiche->raison_sociale();
+		$this->data["fiche"] 				=	$fiche;
+		$users_table = User_manager::get_all_users_by_name();
+		$allusers = array();
+		foreach($users_table as $user)
+		{
+
+
+			$allusers[$user->id_user] = $user->nom . " " .$user->prenom;
+
+ 		}
+		$this->data["allusers"]             = $allusers;
+
+		$this->_layout("fiche_user_form");
+
+	}
 	
 	
 	/***************************************
