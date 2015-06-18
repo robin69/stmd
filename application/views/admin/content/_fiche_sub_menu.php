@@ -78,7 +78,7 @@ switch($status)
                                                 <a href="<?php echo site_url("admin/inscrits")."/recieved_payment/".$id_fiche."/true"; ?>" id="reglement" >Règlement reçu</a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/FALSE"; ?>" id="" onclick="">Passer en GRATUIRE</a>
+                                                <a href="<?php echo site_url("admin/inscrits")."/set_payante_status/".$id_fiche."/FALSE"; ?>" id="" onclick="">Passer en GRATUITE</a>
                                             </li>
 	                                        <?php elseif($fiche->payante() == false):; ?>
 		                                        <li>
