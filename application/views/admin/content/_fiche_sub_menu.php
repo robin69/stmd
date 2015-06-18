@@ -108,7 +108,7 @@ switch($status)
 													<a href="<?php echo site_url("admin/inscrits"); ?>/edit_fiche_cat/<?php echo $id_fiche; ?>">Type / domaine / catégorie</a>
 												</li>
 												<li>
-													<a href="<?php echo site_url("admin/inscrits"); ?>/edit_fiche_ressoc/<?php echo $id_fiche; ?>">Propriétaire / utilisateur</a>
+													<a href="<?php echo site_url("admin/inscrits"); ?>/edit_fiche_user/<?php echo $id_fiche; ?>">Propriétaire / utilisateur</a>
 												</li>
 												
 												

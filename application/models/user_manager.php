@@ -25,7 +25,18 @@ class User_manager extends CI_Model{
 		
 	}
 
+	static function get_all_users_by_name()
+	{
+		$CI =& get_instance();
 
+		$CI->db->select("id_user,nom,prenom");
+		$CI->db->order_by("nom", "ASC");
+		return $results = $CI->db->get("user")->result();
+
+
+
+	}
+	
 	public function delete($id_user)
 	{
 		if($id_user !="")
@@ -38,7 +49,6 @@ class User_manager extends CI_Model{
 		$this->db->delete($this->tbl_user, array("id_user" => $id));
 
 	}
-	
 
 	public function get_list($args)
 	{
@@ -72,7 +82,6 @@ class User_manager extends CI_Model{
 
 
 	}
-	
 
 	public function count_list($args)
 	{
