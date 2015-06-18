@@ -833,6 +833,26 @@ class Inscrits extends CI_Controller {
 
 		$this->edit_fiche_infos($fiche_id);
 	}
+
+
+	public function set_date_reglement()
+	{
+		$datas = $this->input->post();
+
+		$f = new Fiche ($datas["id_fiche"]);
+		list($d,$m,$y) = explode("/",$datas["dt_reglement"]);
+		$date = mktime(0,0,0,$m,$d,$y);
+
+		$f->set_date_reglement($date);
+		$f->_save();
+
+		$return = array();
+		header('Content-Type: application/json');
+		$return["ok"] = true;
+		echo json_encode($return);
+		die();
+
+	}
 	
 	
 }
