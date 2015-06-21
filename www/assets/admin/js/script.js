@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     InitMisc ();
     
-    InitCufon ();	
+    InitCufon ();
 
     InitEvents ();
 
@@ -18,9 +18,9 @@ $(document).ready(function () {
 	
 	InitFancybox ();
 	
-	InitWYSIWYG ();
+	/*InitWYSIWYG ();*/
         
-   	InitQuickEdit ();
+   	/*InitQuickEdit ();*/
     
 	InitMenuEffects ();
     
@@ -284,7 +284,7 @@ function InitFancybox () {
 /* *********************************************************************
  * WYSIWYG
  * *********************************************************************/
-function InitWYSIWYG () {
+/*function InitWYSIWYG () {
 	$('.jwysiwyg').wysiwyg({
 		controls: {
 			strikeThrough : { visible : true },
@@ -361,7 +361,7 @@ function InitWYSIWYG () {
 			staffid : "991234"
 		}
 	});
-}
+}*/
 
 /* *********************************************************************
  * Quick Edit
