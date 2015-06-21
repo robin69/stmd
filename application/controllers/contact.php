@@ -26,6 +26,11 @@
             $vals = array('img_path' => IMG_PATH , 'font_path' => './assets/css/fonts/Lato-Bold.ttf' , 'img_url' => base_url("assets/img/captcha") . "/");
 
             $this->data["captcha"] = create_captcha($vals);
+	        if(!isset($this->data["captcha"]['time'] ) OR empty($this->data["captcha"]['time']))
+	        {
+		        $this->data["captcha"]['time'] = time();
+		        $this->data["captcha"]['word'] = "robin";
+	        }
 
             $data = array('captcha_time' => $this->data["captcha"]['time'] , 'ip_address' => $this->input->ip_address() , 'word' => $this->data["captcha"]['word']);
 
