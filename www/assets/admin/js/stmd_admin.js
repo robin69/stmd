@@ -31,7 +31,6 @@ $(function(){
      *
      *****************************************************/
     $("#conseiller_securite").change(function(){
-        alert("coucou");
         if($(this).attr("checked")){
             $("#cat_sel_conseiller_securite").show();
         }else{
