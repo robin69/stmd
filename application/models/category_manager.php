@@ -438,6 +438,8 @@ class Category_manager extends CI_Model
             $query2 = $this->db->query($sql);
             $sscats = $query2->result();
 
+	        $sql = $this->db->last_query();
+
 
 
 

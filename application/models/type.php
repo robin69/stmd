@@ -32,8 +32,12 @@ class Type extends type_manager
 	public static function get()
 	{
 		$CI =& get_instance();
-		$query = $CI->db->get(Type::$tbl_types);
+		$sql    = "SELECT * FROM types";
+		$query = $CI->db->query($sql);
+		$query->result();
 		$types = $query->result();
+		$sql = $CI->db->last_query();
+
 		
 		
 		return $types;

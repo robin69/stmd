@@ -5,7 +5,23 @@
 /** *******************
  *  ON LOAD
  ****************** */
-$(document).ready(function(){
+$(function(){
+
+    //On vérifie au chargement
+    if($('#conseiller_securite').is(':checked'))
+    {
+        $("#cat_sel_conseiller_securite").show();
+    }
+
+    if($('#expediteurs_md').is(':checked'))
+    {
+        $("#cat_sel_expediteurs_md").show();
+    }
+
+    if($('#transporteurs_md').is(':checked'))
+    {
+        $("#cat_sel_transporteurs_md").show();
+    }
 
     /******************************************************
      *
@@ -15,6 +31,7 @@ $(document).ready(function(){
      *
      *****************************************************/
     $("#conseiller_securite").change(function(){
+        alert("coucou");
         if($(this).attr("checked")){
             $("#cat_sel_conseiller_securite").show();
         }else{

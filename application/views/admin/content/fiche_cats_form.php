@@ -102,14 +102,14 @@
                             {
 
                                 ?>
-                                <div class="content-box" id="cat_sel_<?php echo $t->slug; ?>" style="display: none;">
+                                <div class="content-box" id="cat_sel_<?php echo $t->slug; ?>" style="">
                                     <div class="box-body">
                                         <div class="box-header box-slide-head clear">
                                             <span class="slide-but">open/close</span>
 
                                             <h2>Catégories de <?php echo $t->public_name; ?></h2>
                                         </div>
-                                        <div class="box-wrap box-slide-body hidden">
+                                        <div class="box-wrap box-slide-body">
                                             <ul>
                                             <?php
 
@@ -225,7 +225,7 @@
 
                                         <h2>Classement <?php echo $t->public_name; ?></h2>
                                     </div>
-                                    <div class="box-wrap box-slide-body hidden">
+                                    <div class="box-wrap box-slide-body">
                                         <h3>Les zones d'intervention</h3>
                                         <hr />
                                         <ul>
