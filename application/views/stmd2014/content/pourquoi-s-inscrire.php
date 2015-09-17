@@ -25,7 +25,7 @@
         <br>
         <p align="left">
             L’inscription est réservée aux spécialistes de ces réglementations : ADR, IATA, IMDG, CLP, Code l’environnement, ... .<br /><br />Pour garder un haut niveau de pertinence, chaque demande d’inscription est évaluée par un comité. Chaque entreprise référencée ajoute une compétence, un outil pour nos internautes.<br /><br />S’inscrire dans Solutions TMD signifie que vous souhaitez être contacté par des clients ayant besoin de vos compétences en relation avec les produits dangereux.<br><br>
-            <a href="<?php echo base_url("choisir-sa-griffe"); ?>">Passez à l’inscription</a>
+            <a class="btn btn-default" href="<?php echo base_url("choisir-sa-griffe"); ?>">Passez à l’inscription</a>
         </p>
     </div>
 

@@ -268,13 +268,16 @@ form input{
 	text-align: center;
 	text-decoration: none;
 }
-.menu ul li a span {
+.menu ul li a span , .newsletter a span{
 	font-size: 15px;
-	color: #b1b2b2
+	color: #3c3c3c;
 }
-.menu ul li:hover, .menu ul li.selected, .menu ul li:hover a, .menu ul li.selected a, .menu ul li:hover span, .menu ul li.selected span {
-	background-color: #dbe6b2;
+.menu ul li:hover, .menu ul li.selected, .menu ul li.selected a{
+	background-color: #A1C037;
 	color: #444444;
+}
+.menu ul li.selected span, .menu ul li:hover a, .menu ul li:hover a span, .newsletter:hover a{
+    color:white;
 }
 .newsletter {
 	border-right: 2px solid #fff;
@@ -294,10 +297,6 @@ form input{
 .newsletter:hover a {
 	background: url("../img/newsletter_icons.png") no-repeat scroll 6px -49px;
 	color: #444444;
-}
-.newsletter a span {
-	color: #b1b2b2;
-	font-size: 15px;
 }
 .newsletter:hover span {
 	color: #444444;
@@ -512,6 +511,7 @@ a.contact:hover {
     font-size: 15px;
     line-height: 30px;
     margin-bottom: 30px;
+    transition: all .25s ease-in-out;
 }
 
 .cat p{
@@ -523,6 +523,16 @@ a.contact:hover {
 .cat a{
     width: 100%;
     height: 100%;
+
+}
+
+.cat:hover{
+    -moz-box-shadow: 0px 0px 15px 3px #F7A22F;
+    -webkit-box-shadow: 0px 0px 15px 3px #F7A22F;
+    -o-box-shadow: 0px 0px 15px 3px #F7A22F;
+    box-shadow: 0px 0px 15px 1px #F7A22F;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#F7A22F, Direction=NaN, Strength=15);
+
 }
 #home .container p {
     color: #7b7b7c;
@@ -1134,12 +1144,13 @@ a.conseiller_md span{
 }
 .fil_ariane p{
 	font-size:12px;
-	color:#b1b2b2;
+	color:#A1C037;
 }
 .fil_ariane p a{
 	text-decoration:none;
-	color:#b1b2b2;
-	margin-left:10px;
+	color:#A1C037;
+	margin-left:0px;
+    font-size: 01.2em;
 }
 .fil_ariane p a:hover{
 	text-decoration:underline;
@@ -1405,7 +1416,7 @@ a.rating_up, .ratings a:hover{
 }
 .result_text h4, .result_text h4 a{
 	color:#a2c037;
-	font-size:18px;
+	font-size:1.6em;
 	text-decoration: none;
 }
 .result_text h4 a:hover{
@@ -1413,15 +1424,15 @@ a.rating_up, .ratings a:hover{
 }
 .result_text span{
 	display:inline-block;
-	font-size:13px;
-	color:#b1b2b2;
-	padding:0 10px 0 10px;
-	margin:10px 0;
+	font-size:1.25em;
+	color:#2C4592;
+	padding:0 10px 0 0px;
+	margin:0px 0;
 
 	
 }
 .result_text span a, .result_text span a:visited{
-	color: #b1b2b2;
+	color: #7B7B7C;
 	text-decoration: none;
 
 }
