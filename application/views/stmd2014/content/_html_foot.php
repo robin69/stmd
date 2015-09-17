@@ -52,10 +52,7 @@
 
 
             $(".fancybox").fancybox();
-
-
-
-
+            $(".sendToFriend").fancybox({});
 
         });
 
